@@ -1,3 +1,4 @@
+// Type an image packaged with the app.
 import { Image, type BundledImageSource } from 'kuito';
 import cover from './assets/cover.png';
 

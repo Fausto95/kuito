@@ -1,3 +1,4 @@
+// Group related screen tests.
 import { Text, Toggle, VStack, signal } from 'kuito';
 import { assert, describe, press, render, screen, test } from 'kuito/tests';
 

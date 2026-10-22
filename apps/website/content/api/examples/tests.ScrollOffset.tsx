@@ -1,3 +1,4 @@
+// Set a test scroll position.
 import { Scroll, Text, signal } from 'kuito';
 import { assert, render, scroll, screen, test, type ScrollOffset } from 'kuito/tests';
 

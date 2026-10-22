@@ -1,3 +1,4 @@
+// Observe system display settings.
 import { appearance } from 'kuito';
 import { render, test } from 'kuito/tests';
 

@@ -1,3 +1,4 @@
+// Expand a small gesture target.
 import { Symbol, tap, type HitArea } from 'kuito';
 
 // A 24-point icon that takes touches over 44 points, as the platforms advise.

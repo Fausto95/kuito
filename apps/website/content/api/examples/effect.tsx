@@ -1,3 +1,4 @@
+// React to changes and clean up work.
 import { Text, effect, signal } from 'kuito';
 
 const query = signal('');

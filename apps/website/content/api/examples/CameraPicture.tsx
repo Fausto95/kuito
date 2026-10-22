@@ -1,3 +1,4 @@
+// Display a captured picture.
 import { Button, Camera, Image, cameraRef, signal, type CameraPicture } from 'kuito';
 
 function Snap() {

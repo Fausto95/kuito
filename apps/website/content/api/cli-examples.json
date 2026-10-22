@@ -1,0 +1,50 @@
+{
+  "dev": {
+    "code": "kuito dev ios --env staging",
+    "useCase": "Run the staging app and apply edits as you save."
+  },
+  "run": {
+    "code": "kuito run android",
+    "useCase": "Use the alias for dev to launch Android."
+  },
+  "build": {
+    "code": "kuito build android --profile release",
+    "useCase": "Create the signed Android store bundle."
+  },
+  "test": {
+    "code": "kuito test android tests/sign-in.test.tsx",
+    "useCase": "Test one screen with Android compilation."
+  },
+  "create": {
+    "code": "kuito create MyApp",
+    "useCase": "Create a starter app linked to this framework checkout."
+  },
+  "module": {
+    "code": "kuito module create Battery",
+    "useCase": "Scaffold a TypeScript spec and platform implementations."
+  },
+  "update": {
+    "code": "kuito update build ios --out .kuito/publish",
+    "useCase": "Build a signed bytecode update for the configured host."
+  },
+  "symbolicate": {
+    "code": "kuito symbolicate report.json",
+    "useCase": "Resolve a release crash with its matching local source maps."
+  },
+  "devices": {
+    "code": "kuito devices --json",
+    "useCase": "List available targets in a machine-readable format."
+  },
+  "doctor": {
+    "code": "kuito doctor --json",
+    "useCase": "Check local build prerequisites in a setup script."
+  },
+  "logs": {
+    "code": "kuito logs android",
+    "useCase": "Inspect platform logs while reproducing a problem."
+  },
+  "help": {
+    "code": "kuito help",
+    "useCase": "List commands and supported flags."
+  }
+}

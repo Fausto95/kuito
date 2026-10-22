@@ -1,8 +1,8 @@
-# keepAwake
+# Keep a foreground screen awake
 
-Keeps the screen on while the component that calls it is mounted. Each call
-holds the screen on its own, and the screen may sleep again only when every
-hold is released.
+Prevent automatic display sleep for an active reader, navigation session or presentation.
+
+## Keep a presentation visible
 
 ```tsx
 import { Video, keepAwake, app } from 'kuito';
@@ -17,12 +17,10 @@ const release = keepAwake({ scope: app });
 release();
 ```
 
-`keepAwake()` is a scope effect (see [native modules](native-modules.md#scope-effects)):
-called while a component sets up, it holds the screen from mount until the
-component unmounts. Anywhere else it needs `{ scope: app }`, and a call
-without it throws. Either way it returns the function that lets the screen
-sleep sooner; calling it twice is harmless.
+## Behavior and limits
 
-iOS turns off `UIApplication.isIdleTimerDisabled`; Android adds
-`FLAG_KEEP_SCREEN_ON` to the activity's window, which only applies while the
-app is in front. A reload releases every hold.
+The override belongs to the scope that creates it and is released with that scope. Outside a component use an explicit scope and dispose it when finished. Keeping the screen on does not grant background execution or prevent the app from being suspended.
+
+## Continue
+
+Read [Lifecycle events](lifecycle-events.md) for the related workflow. The API reference lists every method, option, event and return type.

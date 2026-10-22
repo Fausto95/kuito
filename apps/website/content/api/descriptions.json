@@ -55,7 +55,7 @@
   "HStack": "A container that lays its children out horizontally.",
   "HStackProps": "Props of `HStack`: layout, decoration and gesture props of a horizontal container.",
   "HitArea": "Grows or shrinks the area that takes a gesture's touches beyond the view's bounds, so a small target stays easy to hit.",
-  "Image": "React Native's Image, with memory and disk caching, request deduplication, a placeholder color and a fade-in transition.",
+  "Image": "Displays bundled or remote images with caching, placeholders and load/error events.",
   "ImageErrorEvent": "A `KuitoEvent` of type `error`, with the error payload, that `Image` passes to `onError`.",
   "ImpactStyle": "How heavy a collision `haptics.impact()` makes the device feel.",
   "InterpolateOptions": "Says what `interpolate()` does with input past its last stop: hold the end value, or keep going.",

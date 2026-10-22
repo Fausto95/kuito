@@ -1,3 +1,4 @@
+// Apply a pinch's change in scale.
 import { Text, pinch, signal, type PinchChangeEvent } from 'kuito';
 
 const fontSize = signal(17);

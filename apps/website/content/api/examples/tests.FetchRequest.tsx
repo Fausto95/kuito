@@ -1,3 +1,4 @@
+// Assert the request a screen sends.
 import { Button } from 'kuito';
 import { assert, press, render, screen, test, type FetchRequest } from 'kuito/tests';
 

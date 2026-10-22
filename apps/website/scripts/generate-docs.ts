@@ -19,13 +19,15 @@
  */
 import { marked, type Tokens } from 'marked';
 import { copyFile, mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { highlight } from '../src/lib/highlight.ts';
 import { locales, messages, type Locale } from '../src/i18n/messages.ts';
 import docsMap from '../src/content/docs-map.json' with { type: 'json' };
 import websiteDescriptions from '../content/api/descriptions.json' with { type: 'json' };
+import translationSources from '../i18n/source-hashes.json' with { type: 'json' };
 
 const describe = (id: string, jsdoc: string): string =>
   jsdoc || (websiteDescriptions as Record<string, string>)[id] || '';
@@ -46,8 +48,6 @@ type MapEntry = {
   file?: string;
   diagrams?: string[];
   exclude?: boolean;
-  /** Rendered and searchable, but not in the sidebar: the in-depth page behind a concise one. */
-  hidden?: boolean;
 };
 
 /** The repository path of a page's English source. */
@@ -168,33 +168,6 @@ let current: {
   images: Set<string>;
 };
 
-/** The heading ids of a mapped document's English source, as the renderer assigns them. */
-const anchorCache = new Map<string, Set<string>>();
-
-function anchorsOf(slug: string): Set<string> {
-  let ids = anchorCache.get(slug);
-
-  if (!ids) {
-    ids = new Set();
-
-    const source = resolve(repo, sourceOf(slug));
-
-    if (existsSync(source))
-      for (const token of marked.lexer(readFileSync(source, 'utf8'))) {
-        if (token.type !== 'heading' || token.depth === 1) continue;
-
-        let id = slugify(plain((token as Tokens.Heading).tokens));
-
-        while (ids.has(id)) id += '-';
-        ids.add(id);
-      }
-
-    anchorCache.set(slug, ids);
-  }
-
-  return ids;
-}
-
 function resolveHref(href: string): { href: string; external: boolean } {
   if (href.startsWith('#')) return { href, external: false };
 
@@ -206,21 +179,7 @@ function resolveHref(href: string): { href: string; external: boolean } {
   const [path, hash = ''] = href.split('#');
   const absolute = resolve(current.sourceDir, path);
   const fromRepo = relative(repo, absolute).split('\\').join('/');
-  let slug = Object.keys(map).find((key) => sourceOf(key) === fromRepo) ?? null;
-
-  // From a concise page, a repository document links to its concise counterpart when one
-  // exists and has the heading linked to, except the page's own full document (its "In depth" link).
-  if (slug && map[slug].hidden && !map[current.slug].hidden) {
-    const concise = slug.replace(/-in-depth$/, '');
-
-    if (
-      concise !== current.slug &&
-      map[concise] &&
-      !map[concise].hidden &&
-      (!hash || anchorsOf(concise).has(hash))
-    )
-      slug = concise;
-  }
+  const slug = Object.keys(map).find((key) => sourceOf(key) === fromRepo) ?? null;
 
   if (slug && !map[slug].exclude) {
     return {
@@ -300,8 +259,6 @@ async function renderDocument(
     slug,
     locale,
     base: locale === 'en' ? '' : '/' + locale,
-    // A translation keeps the English page's link targets verbatim, so they
-    // resolve from where the English page lives, not from i18n/<locale>/.
     sourceDir: dirname(english),
     headingIds,
     headings: [],
@@ -382,14 +339,23 @@ async function main() {
 
       const english = resolve(repo, sourceOf(slug));
       const localized = translationOf(locale, slug);
-      const ids = locale === 'en' ? null : (englishHeadings.get(slug) ?? null);
-      let translated = locale === 'en' || existsSync(localized);
+      const sourceHash = createHash('sha256')
+        .update(await readFile(english))
+        .digest('hex');
+      const expectedHash = (translationSources as Record<string, Record<string, string>>)[locale]?.[
+        sourceOf(slug)
+      ];
+      let translated = locale === 'en' || (existsSync(localized) && expectedHash === sourceHash);
       let source = translated ? (locale === 'en' ? english : localized) : english;
+      const ids = locale === 'en' ? null : (englishHeadings.get(slug) ?? null);
       let page = await renderDocument(source, english, locale, slug, ids);
 
-      // Anchors are English ids by position: a translation with other headings
-      // than its English page is out of date, and is shown in English instead.
-      if (locale !== 'en' && translated && ids && page.headings.length !== ids.length) {
+      if (locale === 'en')
+        englishHeadings.set(
+          slug,
+          page.headings.map((h) => h.id),
+        );
+      else if (translated && ids && page.headings.length !== ids.length) {
         console.warn(
           `! ${locale}/${slug}.md has ${page.headings.length} headings, English has ${ids.length}: out of date, shown in English`,
         );
@@ -398,12 +364,6 @@ async function main() {
         source = english;
         page = await renderDocument(source, english, locale, slug, ids);
       }
-
-      if (locale === 'en')
-        englishHeadings.set(
-          slug,
-          page.headings.map((h) => h.id),
-        );
 
       const sourcePath = relative(repo, source).split('\\').join('/');
 

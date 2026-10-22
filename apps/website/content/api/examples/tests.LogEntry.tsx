@@ -1,3 +1,4 @@
+// Inspect messages logged by a component.
 import { onMount } from 'kuito';
 import { assert, render, test, type LogEntry } from 'kuito/tests';
 

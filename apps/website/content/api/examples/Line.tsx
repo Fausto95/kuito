@@ -1,3 +1,4 @@
+// Draw a separator in a canvas.
 import { Drawing, Line } from 'kuito';
 
 <Drawing label="Divider" viewBox={[0, 0, 100, 2]} width={200} height={4}>

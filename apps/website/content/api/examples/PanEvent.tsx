@@ -1,3 +1,4 @@
+// Dismiss a view with a pan.
 import { Box, motion, pan, spring, type PanEvent } from 'kuito';
 
 function Dismissible(props: { onDismiss: () => void }) {

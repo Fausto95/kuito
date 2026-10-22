@@ -1,3 +1,4 @@
+// Limit the work an interaction performs.
 import { Button, Text, VStack, signal } from 'kuito';
 import { costOf, press, render, screen, test, type CostBudget } from 'kuito/tests';
 

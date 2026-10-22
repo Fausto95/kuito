@@ -1,3 +1,4 @@
+// Configure a directional flick.
 import { Box, fling, haptics, type FlingOptions } from 'kuito';
 
 function swipeTo(direction: 'left' | 'right', action: () => void): FlingOptions {

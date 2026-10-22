@@ -1,3 +1,4 @@
+// Switch the splash appearance.
 import { splash } from 'kuito';
 
 splash.variant.value; // the variant this launch showed, null for the default

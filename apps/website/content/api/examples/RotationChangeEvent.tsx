@@ -1,3 +1,4 @@
+// React to incremental rotation.
 import { Box, haptics, rotate, signal, type RotationChangeEvent } from 'kuito';
 
 const turned = signal(0);

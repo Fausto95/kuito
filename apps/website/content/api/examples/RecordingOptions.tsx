@@ -1,3 +1,4 @@
+// Configure video capture.
 import { Button, Camera, cameraRef, type RecordingOptions } from 'kuito';
 
 // A clip stops on its own after 15 seconds.

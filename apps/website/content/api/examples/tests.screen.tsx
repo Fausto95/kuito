@@ -1,3 +1,4 @@
+// Query the rendered screen.
 import { Button, Text, VStack } from 'kuito';
 import { assert, render, screen, test } from 'kuito/tests';
 

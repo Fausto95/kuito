@@ -1,3 +1,4 @@
+// Handle requests in a screen test.
 import { Text, resource } from 'kuito';
 import { assert, render, screen, test, type FetchHandler } from 'kuito/tests';
 

@@ -1,3 +1,4 @@
+// Find text with a string or pattern.
 import { Text } from 'kuito';
 import { assert, render, screen, test, type TextMatch } from 'kuito/tests';
 

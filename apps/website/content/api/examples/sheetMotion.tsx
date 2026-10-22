@@ -1,3 +1,4 @@
+// Follow a sheet's position.
 import { Box, Sheet, Text, interpolate, sheetMotion, signal } from 'kuito';
 
 function Player() {

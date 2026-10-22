@@ -1,3 +1,4 @@
+// Move the test clock forward.
 import { Text, onMount, signal } from 'kuito';
 import { advance, assert, render, screen, test } from 'kuito/tests';
 

@@ -1,3 +1,4 @@
+// Configure a thumbnail prefetch.
 import { image } from 'kuito';
 
 // A one-off picture: keep it on disk for the next launch, not in memory now.

@@ -1,3 +1,4 @@
+// Draw an ellipse.
 import { Drawing, Ellipse } from 'kuito';
 
 <Drawing label="Shadow" viewBox={[0, 0, 40, 20]} width={80} height={40}>

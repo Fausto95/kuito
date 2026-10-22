@@ -1,3 +1,4 @@
+// Choose capture quality and output.
 import { Button, Camera, cameraRef, fileSystem, type PictureOptions } from 'kuito';
 
 // Smaller files for an upload, with the bytes in memory so nothing reads the file again.

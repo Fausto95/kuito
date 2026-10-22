@@ -1,3 +1,4 @@
+// Supply a font face to a layout test.
 import { HStack, Text } from 'kuito';
 import { assert, render, screen, test, type FontFace } from 'kuito/tests';
 

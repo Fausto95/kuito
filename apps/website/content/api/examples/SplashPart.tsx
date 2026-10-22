@@ -1,3 +1,4 @@
+// Animate a part of the splash screen.
 import { Box, SplashPart, timing } from 'kuito';
 
 <Box position="absolute" left={0} top={0} right={0} bottom={0}>

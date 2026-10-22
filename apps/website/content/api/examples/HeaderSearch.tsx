@@ -1,3 +1,4 @@
+// Connect header search to a query.
 import { signal, type HeaderSearch, type RouteOptions } from 'kuito';
 
 const query = signal('');

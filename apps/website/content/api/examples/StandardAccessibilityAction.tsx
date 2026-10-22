@@ -1,3 +1,4 @@
+// Offer actions to a screen reader.
 import { HStack, Text, signal, type StandardAccessibilityAction } from 'kuito';
 
 const quantity = signal(1);

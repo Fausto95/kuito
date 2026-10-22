@@ -1,3 +1,4 @@
+// Read the current color scheme.
 import { appearance, watch } from 'kuito';
 
 appearance.colorScheme.value; // 'light' | 'dark' | null

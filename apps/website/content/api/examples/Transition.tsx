@@ -1,3 +1,4 @@
+// Choose transitions per property.
 import { Box, signal, spring, timing, type Transition } from 'kuito';
 
 // One feel for every card in the app: quick fades, springy moves.

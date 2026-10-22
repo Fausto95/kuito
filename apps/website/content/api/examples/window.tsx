@@ -1,3 +1,4 @@
+// Read the current window dimensions.
 import { Text, window } from 'kuito';
 
 <Text>{`${window.size.value.width} x ${window.size.value.height}`}</Text>;

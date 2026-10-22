@@ -1,3 +1,4 @@
+// Switch layout at a window width class.
 import { Show, Text, VStack, window, type WidthClass } from 'kuito';
 
 const twoPanes = (width: WidthClass) => width !== 'compact';

@@ -1,115 +1,67 @@
-<p align="center">
-  <img src="apps/website/public/kuito-mark.svg" alt="Kuito caracal" width="100" />
-</p>
+<p align="center"><img src="apps/website/public/kuito-mark.svg" alt="Kuito caracal" width="100" /></p>
 
-<h1 align="center">Kuito</h1>
+# Kuito
 
-<p align="center">
-  <strong>Native apps. Web simplicity.</strong><br />
-  A TypeScript-first framework for building real iOS and Android interfaces without React's reconciler.
-</p>
+Build native iOS and Android interfaces with TypeScript, TSX, signals and CSS. Kuito compiles reactive bindings to native view updates; app logic runs in Hermes, and motion and gestures can run on the UI thread.
 
-<p align="center">
-  <a href="docs/">Documentation</a> ·
-  <a href="demo/">Examples</a> ·
-  <a href="CONTRIBUTING.md">Contributing</a>
-</p>
+Kuito is experimental and not production-ready. Use a checkout to try the current development version.
 
-> [!WARNING]
-> **Kuito is an experimental proof of concept, not production-ready.** It does
-> not claim to be faster than React Native yet.
+## Run your first app
 
-## Why Kuito?
+Install Node.js 22.18 or newer. For iOS, use macOS with Xcode and XcodeGen. For Android, install JDK 21, the Android SDK/NDK and Gradle 8.
 
-- **Real native views.** TSX components drive UIKit and Android Views through a C++ mutation queue.
-- **Actual CSS files.** CSS classes, tokens, variants, transitions and native units compile at build time; no CSS parser runs on the device.
-- **Familiar Web APIs.** Platform-backed `fetch`, WebSocket, AbortController, timers and the other documented standard APIs.
-- **Fine-grained signals.** A change updates the native properties that read it, without rerunning the component.
-- **Native motion.** Gestures and animations declared in TSX run on the UI thread.
+```sh
+git clone https://github.com/Fausto95/kuito.git
+cd kuito
+npm ci
+node scripts/kuito.ts doctor
+node scripts/kuito.ts create MyApp
+cd MyApp
+npx kuito dev ios
+```
 
-## A component
+Use `npx kuito dev android` for Android. The generated app depends on the checkout, so keep it available. [Create your first app](docs/apps.md) explains the files, app configuration and device setup.
+
+## Write a screen
 
 ```tsx
-import { signal, VStack, Text, Button } from 'kuito';
+import { Button, SafeArea, Text, signal } from 'kuito';
 
 export default function Counter() {
   const count = signal(0);
-
   return (
-    <VStack gap={16}>
-      <Text>Count: {count.value}</Text>
-      <Button onPress={() => count.value++}>Increment</Button>
-    </VStack>
+    <SafeArea padding={24} gap={16}>
+      <Text fontSize={28}>Count: {count.value}</Text>
+      <Button onPress={() => count.value++}>Add one</Button>
+    </SafeArea>
   );
 }
 ```
 
-## Get started
+A signal write updates the properties that read it. Component functions establish the screen and its resources; they do not rerun on every state change. Saving a compatible edit patches the running app while retaining state.
 
-It needs Node.js 22.18+, and Xcode with XcodeGen for iOS or JDK 21, the
-Android SDK/NDK and Gradle 8 for Android. `kuito doctor` checks them.
+## Find the documentation
 
-```sh
-npx kuito create MyApp
-cd MyApp
-npx kuito dev ios        # or: npx kuito dev android
-```
+| Task                            | Start here                                                                                                           |
+| ------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Build and style a screen        | [Components](docs/primitives.md), [styles](docs/styles.md)                                                           |
+| Manage state, load or save data | [Signals](docs/reactivity.md), [async work](docs/async.md), [storage](docs/storage.md), [database](docs/database.md) |
+| Navigate and animate            | [Navigation](docs/navigation.md), [motion](docs/motion.md)                                                           |
+| Use platform features           | [Permissions](docs/permissions.md), [native modules](docs/native-modules.md)                                         |
+| Test, debug and ship            | [Testing](docs/testing.md), [DevTools](docs/devtools.md), [release builds](docs/release-builds.md)                   |
+| Browse everything               | [Documentation index](docs/README.md), [website](https://kuito.dev/docs)                                             |
 
-The starter has native tabs, a pushed screen per topic and a sheet, from
-file-based routes. See [`kuito create`](docs/cli.md#create-an-app) and the
-[CLI guide](docs/cli.md).
+The website renders these same guides alongside generated signatures, component props, CSS properties and CLI flags. Every public export has a checked example. Task examples live with their topic; the demo source remains available in [demo/](demo/).
 
-## Try the demo
-
-[Reel](demo/app) is a streaming catalog over the public TVMaze API: live
-`fetch`, cached posters in horizontal rails, debounced search, paged lists with
-pull-to-refresh, a details sheet, animations, haptics and the LogBox.
-
-From a clone of this repository:
+## Work on the framework
 
 ```sh
-npm install
-npm run demo:ios        # iOS Simulator; macOS only
-npm run demo:android    # Android emulator
+npm test
+npm run lint
+npm run generate
 ```
 
-See [the demo walkthrough](docs/showcase.md) for its screens and files.
-
-## Stack
-
-| Layer                    | Technology                                 |
-| ------------------------ | ------------------------------------------ |
-| App authoring            | TypeScript, TSX, supported CSS             |
-| Compiler and bundler     | Oxc, Rolldown                              |
-| JavaScript runtime       | Hermes V1, bytecode compiled at build time |
-| Native host and renderer | C++, Swift (iOS), Kotlin (Android)         |
-| UI platforms             | UIKit and Android Views                    |
-| Native layout            | C++ port of Taffy's flexbox                |
-| Website and docs         | TanStack Start, Cloudflare Workers         |
-
-App logic runs on a dedicated Hermes thread; native mutations are committed on
-the UI thread, and motion runs next to the views. See
-[architecture](docs/architecture.md) and [capabilities](docs/capabilities.md).
-
-## Tests
-
-Vite+ (`vp`) runs tests (Vitest), lint (Oxlint) and formatting (Oxfmt).
-
-```sh
-npm test        # runtime, components, CLI, headless host
-npm run lint    # Oxlint with type-aware rules; warnings fail
-npm run fmt     # Oxfmt
-```
-
-Apps test their screens headlessly with `kuito/tests` ([testing](docs/testing.md)).
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for development, testing and PR guidance.
-
-## License
-
-[MIT](LICENSE). Ported and bundled third-party code keeps its own license, listed below.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development checks and [apps/website/README.md](apps/website/README.md) for the documentation pipeline. [Architecture](docs/architecture.md) maps the compiler, runtimes and platform code.
 
 ## Credits
 
@@ -132,3 +84,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for development, testing and PR guidance.
   [Rolldown](https://rolldown.rs/): JavaScript execution, compiler and bundler.
 - [react-native-bootsplash](https://github.com/zoontek/react-native-bootsplash):
   the native splash-screen generation approach.
+
+## License
+
+[MIT](LICENSE). Ported and bundled third-party code retains its own license; see the credits above and the notices shipped beside that code.

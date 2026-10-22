@@ -1,3 +1,4 @@
+// Limit a flick to one direction.
 import { Box, fling, signal, type FlingDirection } from 'kuito';
 
 const page = signal(0);

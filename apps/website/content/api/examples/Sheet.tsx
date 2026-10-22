@@ -1,3 +1,4 @@
+// Open and dismiss a sheet with a signal.
 import { Sheet, Text, signal } from 'kuito';
 
 const queueOpen = signal(false);

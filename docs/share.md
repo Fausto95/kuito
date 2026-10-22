@@ -1,7 +1,8 @@
-# share
+# Share content with another app
 
-The system share sheet: `UIActivityViewController` on iOS, the Android
-Sharesheet (`Intent.createChooser`) on Android.
+Open the platform share sheet for text, URLs or a file. Use it when the user chooses where content should go.
+
+## Share a message or file
 
 ```tsx
 import { share } from 'kuito';
@@ -14,26 +15,10 @@ const result = await share(
 if (result.action === 'shared') console.log('shared with', result.activityType);
 ```
 
-`share(content, options?)` rejects with a `TypeError` when `content` has
-neither `message` nor `url`. Otherwise it resolves once the sheet closes:
+## Behavior and limits
 
-- `{ action: 'shared', activityType }` when the user shared: `activityType`
-  is the activity on iOS (`com.apple.UIKit.activity.Mail`), and the chosen
-  component on Android (`com.google.android.gm/.ComposeActivityGmailExternal`).
-- `{ action: 'dismissed' }` when the user closed it.
+Await the result and treat dismissal as normal. Share local media by its supported file URI and keep the file available until the share action completes. Available destinations and activity results differ by platform; do not assume the receiver actually consumed the content.
 
-| Field                           | iOS                                  | Android                  |
-| ------------------------------- | ------------------------------------ | ------------------------ |
-| `content.message`               | shared as text                       | `EXTRA_TEXT`             |
-| `content.url`                   | shared as a URL                      | appended to `EXTRA_TEXT` |
-| `content.title`                 | —                                    | `EXTRA_SUBJECT`          |
-| `options.dialogTitle`           | —                                    | the chooser's title      |
-| `options.subject`               | the subject activities like Mail use | —                        |
-| `options.excludedActivityTypes` | activity types to leave out          | —                        |
+## Continue
 
-Android reports a dismissed sheet too: the Sharesheet
-names the app the user picks through an `IntentSender`, and the activity
-resuming without one means the sheet closed. Its own actions, like Copy and
-Nearby Share, are not apps and also report `dismissed`. A tint color and an
-anchor are not supported; on iPad the sheet is a popover centered on the
-screen.
+Read [File system](file-system.md) for the related workflow. The API reference lists every method, option, event and return type.

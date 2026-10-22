@@ -1,3 +1,4 @@
+// Read an image's dimensions before layout.
 import { Image, image, signal, type ImageSize } from 'kuito';
 
 const natural = signal<ImageSize | null>(null);

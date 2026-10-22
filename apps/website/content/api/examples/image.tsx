@@ -1,3 +1,4 @@
+// Inspect and cache an image.
 import { image } from 'kuito';
 
 const { width, height } = await image.prefetch('https://example.com/cover.jpg');

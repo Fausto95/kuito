@@ -1,3 +1,4 @@
+// Declare a custom native slider view.
 import { defineModule, view } from 'kuito';
 
 type SliderProps = {

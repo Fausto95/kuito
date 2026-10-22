@@ -1,3 +1,4 @@
+// Create a typed destination.
 import { Link, navigate, present, routes, type RouteTo } from 'kuito';
 
 declare module 'kuito' {

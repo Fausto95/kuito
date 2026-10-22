@@ -1,3 +1,4 @@
+// Read where a flick started.
 import { Box, fling, signal, type FlingEvent } from 'kuito';
 
 const dismissed = signal<'top' | 'bottom' | null>(null);

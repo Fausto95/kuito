@@ -1,3 +1,4 @@
+// Scope queries to part of a screen.
 import { Text, VStack } from 'kuito';
 import { assert, render, screen, test, within, type Queries } from 'kuito/tests';
 

@@ -1,3 +1,4 @@
+// Read a touch in local and screen coordinates.
 import { Pressable, Text, signal, type TouchLocation } from 'kuito';
 
 const lastTouch = signal<TouchLocation | null>(null);

@@ -1,3 +1,4 @@
+// Type content rendered for a present value.
 import { Show, Text, signal, type Truthy } from 'kuito';
 
 type User = { name: string } | null;

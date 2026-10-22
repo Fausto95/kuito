@@ -1,3 +1,4 @@
+// Scroll a list in a test.
 import { List, Text } from 'kuito';
 import { assert, render, screen, scroll, test } from 'kuito/tests';
 

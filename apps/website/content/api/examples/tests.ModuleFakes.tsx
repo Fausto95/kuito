@@ -1,3 +1,4 @@
+// Provide several native capabilities in a test.
 import { Text, appearance, network } from 'kuito';
 import { assert, render, screen, test, type ModuleFakes } from 'kuito/tests';
 

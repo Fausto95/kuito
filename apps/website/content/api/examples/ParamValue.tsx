@@ -1,3 +1,4 @@
+// Type values passed between routes.
 import type { ParamValue, RouteParams } from 'kuito';
 
 // Builds the query part of a share link from a route's params.

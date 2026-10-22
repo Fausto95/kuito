@@ -1,3 +1,4 @@
+// Zoom content with a pinch.
 import { Image, motion, pinch, spring, type PinchEvent } from 'kuito';
 
 function Zoomable() {

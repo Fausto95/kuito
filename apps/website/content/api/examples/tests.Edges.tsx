@@ -1,3 +1,4 @@
+// Assert a view's bounds.
 import { SafeArea, Text } from 'kuito';
 import { assert, render, screen, test, type Edges } from 'kuito/tests';
 

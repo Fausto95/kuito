@@ -1,3 +1,4 @@
+// Save the result of recording a video.
 import { Button, Camera, cameraRef, fileSystem, type CameraRecording } from 'kuito';
 
 async function keep(video: CameraRecording) {

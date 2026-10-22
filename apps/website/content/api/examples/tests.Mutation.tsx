@@ -1,3 +1,4 @@
+// Inspect committed view mutations.
 import { Button, Show, Text, VStack, signal } from 'kuito';
 import { assert, press, render, screen, test, type Mutation } from 'kuito/tests';
 

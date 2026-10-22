@@ -1,3 +1,4 @@
+// Choose the input style for a prompt.
 import { prompt, type PromptType } from 'kuito';
 
 async function ask(title: string, type: PromptType) {

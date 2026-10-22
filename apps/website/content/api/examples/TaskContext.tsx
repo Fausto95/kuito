@@ -1,3 +1,4 @@
+// Cancel a request with its task.
 import { Button, Text, task, type TaskContext } from 'kuito';
 
 // The signal aborts the request when the task is cancelled or replaced.

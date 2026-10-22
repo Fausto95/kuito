@@ -1,3 +1,4 @@
+// Schedule a local reminder.
 import { notifications, permissions } from 'kuito';
 
 const { status } = await permissions.request('notifications');

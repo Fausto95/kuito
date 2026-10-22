@@ -1,3 +1,4 @@
+// Prefetch an authenticated image.
 import { image, type PrefetchOptions } from 'kuito';
 
 const memoryOnly: PrefetchOptions = { cache: 'memory' };

@@ -1,3 +1,4 @@
+// Build a view wrapper that accepts layout props.
 import { Box, type KuitoNode, type LayoutProps } from 'kuito';
 
 // Only layout passes through: the frame keeps its own look.

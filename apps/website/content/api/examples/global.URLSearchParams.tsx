@@ -1,3 +1,4 @@
+// Encode query or form parameters.
 const params = new URLSearchParams({ q: 'kuito', page: '2' });
 
 params.append('tag', 'native');

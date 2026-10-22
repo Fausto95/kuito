@@ -1,3 +1,4 @@
+// Draw a rectangle.
 import { Drawing, Rectangle } from 'kuito';
 
 <Drawing label="Card" viewBox={[0, 0, 40, 24]} width={80} height={48}>

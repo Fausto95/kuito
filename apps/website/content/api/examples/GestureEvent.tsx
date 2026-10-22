@@ -1,3 +1,4 @@
+// Type a shared gesture callback.
 import { Box, pan, tap, type GestureEvent } from 'kuito';
 
 // Any gesture's event carries how many fingers it involves.

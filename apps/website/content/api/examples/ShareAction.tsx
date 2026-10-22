@@ -1,3 +1,4 @@
+// Handle the outcome of a share sheet.
 import { share, type ShareAction } from 'kuito';
 
 const outcomes: Record<ShareAction, string> = { shared: 'Thanks for sharing', dismissed: '' };

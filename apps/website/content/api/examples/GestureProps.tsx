@@ -1,3 +1,4 @@
+// Add a gesture to a reusable view.
 import { Box, tap, type GestureProps, type KuitoNode } from 'kuito';
 
 // A card that takes the caller's gestures beside its own.

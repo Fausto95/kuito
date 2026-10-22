@@ -1,3 +1,4 @@
+// Set a value from a rotation gesture.
 import { Box, motion, rotate, spring, type RotationEvent } from 'kuito';
 
 function Dial(props: { onSet: (degrees: number) => void }) {
