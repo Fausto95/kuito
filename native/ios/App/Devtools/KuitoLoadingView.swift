@@ -5,24 +5,17 @@ import UIKit
 @MainActor
 final class KuitoLoadingView: UIView {
     private let status = UILabel()
-    private let mark = UIView()
-    private let glyph = UILabel()
+    private let mark = KuitoBrandMark()
     private let ring = CAShapeLayer()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = KuitoDevTheme.ink
 
-        mark.backgroundColor = KuitoDevTheme.accent
-        mark.layer.cornerRadius = 22
         mark.layer.shadowColor = KuitoDevTheme.accent.cgColor
         mark.layer.shadowOpacity = 0.6
         mark.layer.shadowRadius = 24
         mark.layer.shadowOffset = .zero
-        glyph.text = "◆"
-        glyph.textColor = .white
-        glyph.font = KuitoDevTheme.font(34, .bold)
-        glyph.textAlignment = .center
 
         let title = UILabel()
 
@@ -44,7 +37,7 @@ final class KuitoLoadingView: UIView {
 
         indicator.layer.addSublayer(ring)
 
-        for view in [mark, glyph, title, status, indicator] {
+        for view in [mark, title, status, indicator] {
             view.translatesAutoresizingMaskIntoConstraints = false
             addSubview(view)
         }
@@ -52,10 +45,8 @@ final class KuitoLoadingView: UIView {
         NSLayoutConstraint.activate([
             mark.centerXAnchor.constraint(equalTo: centerXAnchor),
             mark.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -60),
-            mark.widthAnchor.constraint(equalToConstant: 76),
-            mark.heightAnchor.constraint(equalToConstant: 76),
-            glyph.centerXAnchor.constraint(equalTo: mark.centerXAnchor),
-            glyph.centerYAnchor.constraint(equalTo: mark.centerYAnchor),
+            mark.widthAnchor.constraint(equalToConstant: 96),
+            mark.heightAnchor.constraint(equalToConstant: 96),
             title.topAnchor.constraint(equalTo: mark.bottomAnchor, constant: 24),
             title.centerXAnchor.constraint(equalTo: centerXAnchor),
             indicator.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 28),

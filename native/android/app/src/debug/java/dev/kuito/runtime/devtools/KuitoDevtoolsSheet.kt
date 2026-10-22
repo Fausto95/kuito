@@ -68,12 +68,7 @@ class KuitoDevtoolsSheet(context: Context, private val devtools: KuitoDevtools) 
     private fun header() = LinearLayout(context).apply {
         gravity = Gravity.CENTER_VERTICAL
 
-        val mark = label("◆", 18f, Color.WHITE, bold = true).apply {
-            gravity = Gravity.CENTER
-            background = KuitoDevTheme.rounded(context, KuitoDevTheme.accent, 10f, null)
-        }
-
-        addView(mark, LinearLayout.LayoutParams(dp(36f), dp(36f)))
+        addView(KuitoBrandMark(context), LinearLayout.LayoutParams(dp(36f), dp(36f)))
         addView(column(2f).apply {
             addView(label("Kuito Devtools", 20f, KuitoDevTheme.text, bold = true))
             addView(label("Hermes on device", 13f, KuitoDevTheme.muted))
