@@ -153,7 +153,7 @@ export default function App() {
   attendre (après un rechargement, ou sans écran de démarrage dans la config, où
   il ne dessine rien).
 - Aucun thread n'est nommé : le compilateur et le noyau exécutent l'animation sur
-  le thread UI ([valeurs de mouvement](motion.md#you-never-pick-a-thread)).
+  le thread UI ([valeurs de mouvement](placement.md)).
 
 Les parties sont des vues `SplashPart`, une vue native du module `Splash`
 ([vues natives](native-modules.md#views)) qui dessine les images du catalogue

@@ -51,7 +51,7 @@ disparaît quand son composant se démonte.
   `interpolate` projette morceau par morceau entre des nombres ou des couleurs
   hexadécimales, en conservant ses valeurs extrêmes sauf avec
   `{ extrapolate: 'extend' }`. `map` prend une fonction que le compilateur a
-  compilée pour le thread UI (voir [Vous ne choisissez jamais de thread](#you-never-pick-a-thread)).
+  compilée pour le thread UI (voir [Vous ne choisissez jamais de thread](placement.md)).
 - `x.value = animation` l'anime ; `x.value = 5` le déplace immédiatement.
 
 ## Gestes

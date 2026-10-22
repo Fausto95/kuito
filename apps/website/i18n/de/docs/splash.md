@@ -150,7 +150,7 @@ export default function App() {
   wenn es nichts abzuwarten gibt (nach einem Reload, oder ohne Splash in der
   Config, wo es nichts zeichnet).
 - Kein Thread wird benannt: der Compiler und der Kernel führen die Animation auf
-  dem UI-Thread aus ([Motion-Werte](motion.md#you-never-pick-a-thread)).
+  dem UI-Thread aus ([Motion-Werte](placement.md)).
 
 Die Teile sind `SplashPart`-Views, eine native View des `Splash`-Moduls
 ([native Views](native-modules.md#views)), die die Asset-Catalog-Bilder und die

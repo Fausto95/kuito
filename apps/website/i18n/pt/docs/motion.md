@@ -33,7 +33,7 @@ Isto é um elemento arrastável completo que regressa a casa com uma mola, com a
 `motion(initial)` funciona como `signal()`: chame-o enquanto um componente se configura, leia e escreva `.value` em qualquer lado. Use `signal()` para valores a que os componentes reagem, e `motion()` para valores com que o ecrã se move. Um valor de movimento desaparece quando o seu componente é desmontado.
 
 - `x.follows(source)` move `x` com `source` na thread de UI: o campo de um gesto (`drag.x`), outro valor de movimento, ou um derivado. `null` interrompe-o.
-- `x.map(fn)`, `interpolate(x, input, output)` e `clamp(x, min, max)` criam valores derivados: calculados na thread de UI sempre que `x` se move, e dados a uma prop ou seguidos como um valor de movimento. `interpolate` mapeia troço a troço entre números ou cores hexadecimais, mantendo os seus valores extremos salvo com `{ extrapolate: 'extend' }`. `map` recebe uma função que o compilador compilou para a thread de UI (ver [Nunca escolhe uma thread](#you-never-pick-a-thread)).
+- `x.map(fn)`, `interpolate(x, input, output)` e `clamp(x, min, max)` criam valores derivados: calculados na thread de UI sempre que `x` se move, e dados a uma prop ou seguidos como um valor de movimento. `interpolate` mapeia troço a troço entre números ou cores hexadecimais, mantendo os seus valores extremos salvo com `{ extrapolate: 'extend' }`. `map` recebe uma função que o compilador compilou para a thread de UI (ver [Nunca escolhe uma thread](placement.md)).
 - `x.value = animation` anima-o; `x.value = 5` move-o agora.
 
 ## Gestos

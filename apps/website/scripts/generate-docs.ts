@@ -4,7 +4,7 @@
  * - English comes from `docs/*.md` (plus CONTRIBUTING.md and the website's own
  *   pages under `apps/website/content`); other
  *   locales from `i18n/<locale>/docs/<slug>.md`, falling back to English when a
- *   translation is missing (the page then carries `translated: false`).
+ *   translation is missing or out of date (the page then carries `translated: false`).
  * - `src/content/docs-map.json` decides the section and category of every file
  *   and fails the build on a file it does not list.
  * - Heading anchors are the English ones in every locale, by position, so a link
@@ -382,21 +382,28 @@ async function main() {
 
       const english = resolve(repo, sourceOf(slug));
       const localized = translationOf(locale, slug);
-      const translated = locale === 'en' || existsSync(localized);
-      const source = translated ? (locale === 'en' ? english : localized) : english;
       const ids = locale === 'en' ? null : (englishHeadings.get(slug) ?? null);
-      const page = await renderDocument(source, english, locale, slug, ids);
+      let translated = locale === 'en' || existsSync(localized);
+      let source = translated ? (locale === 'en' ? english : localized) : english;
+      let page = await renderDocument(source, english, locale, slug, ids);
+
+      // Anchors are English ids by position: a translation with other headings
+      // than its English page is out of date, and is shown in English instead.
+      if (locale !== 'en' && translated && ids && page.headings.length !== ids.length) {
+        console.warn(
+          `! ${locale}/${slug}.md has ${page.headings.length} headings, English has ${ids.length}: out of date, shown in English`,
+        );
+
+        translated = false;
+        source = english;
+        page = await renderDocument(source, english, locale, slug, ids);
+      }
 
       if (locale === 'en')
         englishHeadings.set(
           slug,
           page.headings.map((h) => h.id),
         );
-      else if (translated && ids && page.headings.length !== ids.length) {
-        console.warn(
-          `! ${locale}/${slug}.md has ${page.headings.length} headings, English has ${ids.length}: anchors fall back to local ids`,
-        );
-      }
 
       const sourcePath = relative(repo, source).split('\\').join('/');
 
