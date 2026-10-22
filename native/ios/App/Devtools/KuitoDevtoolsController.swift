@@ -85,15 +85,7 @@ final class KuitoDevtoolsController: UIViewController {
     }
 
     private func header() -> UIView {
-        let mark = UILabel()
-
-        mark.text = "◆"
-        mark.textAlignment = .center
-        mark.textColor = .white
-        mark.font = KuitoDevTheme.font(18, .bold)
-        mark.backgroundColor = KuitoDevTheme.accent
-        mark.layer.cornerRadius = 10
-        mark.layer.masksToBounds = true
+        let mark = KuitoBrandMark()
 
         let title = label("Kuito Devtools", KuitoDevTheme.font(20, .bold), KuitoDevTheme.text)
         let subtitle = label("Hermes on device", KuitoDevTheme.font(13), KuitoDevTheme.muted)
