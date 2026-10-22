@@ -28,7 +28,11 @@ export default defineConfig({
   lint: {
     // research/experiments holds raw Hermes probe inputs (global scripts, `print`).
     // The site's API examples are snippets; check-snippets.ts compiles them with the site's settings.
-    ignorePatterns: [...generated, 'research/experiments/**', 'apps/website/content/api/examples/**'],
+    ignorePatterns: [
+      ...generated,
+      'research/experiments/**',
+      'apps/website/content/api/examples/**',
+    ],
     options: { typeAware: true, typeCheck: true },
     jsPlugins: ['./lint/kuito-plugin.ts'],
     rules: {

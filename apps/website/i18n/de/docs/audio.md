@@ -241,7 +241,7 @@ AVFoundation, das mit dem System ausgeliefert wird.
 | Code                | Bedeutung                                                                                                                          |
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | `ERR_NOT_FOUND`     | Nichts an einer `file://`- oder `asset:///`-Quelle, oder der Player wurde freigegeben.                                             |
-| `ERR_PERMISSION`    | Die Mikrofonberechtigung wurde verweigert oder ist nicht in `kuito.config.ts` deklariert.                                         |
+| `ERR_PERMISSION`    | Die Mikrofonberechtigung wurde verweigert oder ist nicht in `kuito.config.ts` deklariert.                                          |
 | `ERR_AUDIO_MODE`    | iOS: Aufnahme ohne `allowsRecording`, oder Hintergrund ohne den Modus. Android: Abspielen im Hintergrundmodus aus dem Hintergrund. |
 | `ERR_RECORDING`     | Der Recorder konnte nicht starten oder wurde gestoppt, bevor er Audio geschrieben hat.                                             |
 | `ERR_NOT_RECORDING` | `stop` ohne Aufnahme seit dem letzten `stop`.                                                                                      |

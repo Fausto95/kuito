@@ -22,7 +22,7 @@ Teil nicht tut. Was hier nicht aufgeführt ist, ist nicht vorhanden.
 | `crypto.getRandomValues()`, `randomUUID()`    | Der CSPRNG der Plattform; kein `crypto.subtle`                               |
 | `structuredClone`                             | Tiefe Kopie mit Zyklen; kein `transfer`                                      |
 | `Intl`                                        | Hermes' eigenes: `Collator`, `DateTimeFormat`, `NumberFormat`                |
-| `console`                                     | Erreicht die LogBox und `kuito dev` ([LogBox](logbox.md))                   |
+| `console`                                     | Erreicht die LogBox und `kuito dev` ([LogBox](logbox.md))                    |
 
 `demo/web-apis.tsx` führt jeden Eintrag auf einem Gerät aus (`kuito dev ios --entry
 web-apis.tsx` in `demo/`) und gibt für jeden `ok` oder `FAILED` aus.

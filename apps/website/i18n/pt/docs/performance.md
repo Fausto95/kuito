@@ -82,8 +82,8 @@ Por cenário, a mediana ao longo das execuções de:
 
 A shell e o renderizador marcam o seu trabalho para que um trace o atribua:
 
-| Secção                 | Thread | O quê                                                       |
-| ---------------------- | ------ | ----------------------------------------------------------- |
+| Secção                | Thread | O quê                                                       |
+| --------------------- | ------ | ----------------------------------------------------------- |
 | `Kuito commit <rows>` | main   | Aplicar um lote de mutações vindo do Hermes                 |
 | `Kuito layout`        | main   | Uma passagem do motor de flexbox sobre a raiz               |
 | `Kuito measureLeaf`   | main   | O motor a pedir ao Android que meça um texto ou um controlo |

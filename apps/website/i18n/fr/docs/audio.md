@@ -239,7 +239,7 @@ iOS utilise AVFoundation, livré avec le système.
 | Code                | Signification                                                                                                                                   |
 | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | `ERR_NOT_FOUND`     | Rien à une source `file://` ou `asset:///`, ou le lecteur a été libéré.                                                                         |
-| `ERR_PERMISSION`    | La permission du microphone est refusée, ou non déclarée dans `kuito.config.ts`.                                                               |
+| `ERR_PERMISSION`    | La permission du microphone est refusée, ou non déclarée dans `kuito.config.ts`.                                                                |
 | `ERR_AUDIO_MODE`    | iOS : enregistrement sans `allowsRecording`, ou arrière-plan sans le mode. Android : lecture dans le mode d'arrière-plan depuis l'arrière-plan. |
 | `ERR_RECORDING`     | L'enregistreur n'a pas pu démarrer, ou s'est arrêté avant d'écrire le moindre audio.                                                            |
 | `ERR_NOT_RECORDING` | `stop` sans rien d'enregistré depuis le dernier `stop`.                                                                                         |

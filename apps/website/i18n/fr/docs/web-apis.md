@@ -22,7 +22,7 @@ chaque partie ne fait pas. Tout ce qui n'y figure pas n'existe pas.
 | `crypto.getRandomValues()`, `randomUUID()`    | Le CSPRNG de la plateforme ; pas de `crypto.subtle`            |
 | `structuredClone`                             | Copie profonde avec cycles ; pas de `transfer`                 |
 | `Intl`                                        | Celui de Hermes : `Collator`, `DateTimeFormat`, `NumberFormat` |
-| `console`                                     | Arrive dans la LogBox et `kuito dev` ([logbox](logbox.md))    |
+| `console`                                     | Arrive dans la LogBox et `kuito dev` ([logbox](logbox.md))     |
 
 `demo/web-apis.tsx` exécute chaque entrée sur un appareil (`kuito dev ios --entry web-apis.tsx`
 dans `demo/`) et affiche `ok` ou `FAILED` pour chacune.

@@ -10,7 +10,7 @@ pas votre app : il n'y a pas de bouton flottant.
 | Simulateur iOS       | ⌘D                                                |
 | Émulateur Android    | ⌘M / Ctrl+M, ou la touche menu                    |
 | Un appareil physique | Le secouer                                        |
-| La CLI `kuito dev`  | Appuyer sur `m` (fonctionne pour chaque appareil) |
+| La CLI `kuito dev`   | Appuyer sur `m` (fonctionne pour chaque appareil) |
 
 Ils s'ouvrent sous forme de feuille native avec :
 
@@ -74,7 +74,7 @@ Chrome DevTools Protocol, de la manière dont React Native DevTools débogue Her
 
 | Cible     | Ce qui y tourne                                                                   |
 | --------- | --------------------------------------------------------------------------------- |
-| Thread JS | Votre app et le noyau Kuito (`src/runtime`)                                      |
+| Thread JS | Votre app et le noyau Kuito (`src/runtime`)                                       |
 | Thread UI | Les valeurs de motion, les gestes et les callbacks du thread UI (`src/ui-thread`) |
 
 Appuyez sur `j` dans `kuito dev` pour ouvrir DevTools sur le thread JS de l'appareil qui

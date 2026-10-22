@@ -1,14 +1,7 @@
 import { report } from './errors';
 import { host } from './host';
 import { encodeForJs, sendToJs } from './wire';
-import {
-  bindings,
-  motions,
-  pending,
-  tracking,
-  watched,
-  type Binding,
-} from './state';
+import { bindings, motions, pending, tracking, watched, type Binding } from './state';
 
 /**
  * A flush runs one round per link of a chain of motion values following each

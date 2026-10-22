@@ -236,7 +236,7 @@ paga nada. O iOS usa o AVFoundation, que vem com o sistema.
 | Código              | Significado                                                                                                                        |
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | `ERR_NOT_FOUND`     | Nada numa fonte `file://` ou `asset:///`, ou o leitor foi libertado.                                                               |
-| `ERR_PERMISSION`    | A permissão do microfone foi recusada, ou não está declarada em `kuito.config.ts`.                                                |
+| `ERR_PERMISSION`    | A permissão do microfone foi recusada, ou não está declarada em `kuito.config.ts`.                                                 |
 | `ERR_AUDIO_MODE`    | iOS: gravar sem `allowsRecording`, ou segundo plano sem o modo. Android: tocar no modo de segundo plano a partir do segundo plano. |
 | `ERR_RECORDING`     | O gravador não conseguiu começar, ou parou antes de escrever qualquer áudio.                                                       |
 | `ERR_NOT_RECORDING` | `stop` sem nada gravado desde o último `stop`.                                                                                     |

@@ -108,9 +108,9 @@ Un conteneur (disposé comme un `VStack`) qui réagit aux touchers.
 | `onLongPress`                 | Maintenu pendant `longPressDuration` ms (500 par défaut).         |
 | `disabled`                    | Ignore les touchers.                                              |
 | `hitArea`                     | Marge tactile supplémentaire en points.                           |
-| `pressedOpacity` _(Kuito)_   | Opacité pendant l'appui, comme `TouchableOpacity`. 1 = aucune.    |
-| `pressedScale` _(Kuito)_     | Échelle pendant l'appui, p. ex. `0.97`. 1 = aucune.               |
-| `haptic` _(Kuito)_           | `light`, `medium`, `heavy` ou `selection` au toucher posé.        |
+| `pressedOpacity` _(Kuito)_    | Opacité pendant l'appui, comme `TouchableOpacity`. 1 = aucune.    |
+| `pressedScale` _(Kuito)_      | Échelle pendant l'appui, p. ex. `0.97`. 1 = aucune.               |
+| `haptic` _(Kuito)_            | `light`, `medium`, `heavy` ou `selection` au toucher posé.        |
 
 <!-- end of generated props -->
 
@@ -191,10 +191,10 @@ import cover from './assets/cover.png';
 | `onLoadStart` / `onLoadEnd` | Autour de chaque chargement, réussi ou non.                                 |
 | `onLoad`                    | `{ width, height }` de l'image en pixels.                                   |
 | `onError`                   | `{ error }`, p. ex. `"HTTP 404"`.                                           |
-| `aspectRatio` _(Kuito)_    | Largeur ÷ hauteur : dimensionne la vue avant l'arrivée de l'image.          |
-| `placeholder` _(Kuito)_    | Couleur affichée pendant le chargement.                                     |
-| `fadeDuration` _(Kuito)_   | Fondu enchaîné en millisecondes à l'apparition de l'image ; 0 par défaut.   |
-| `cache` _(Kuito)_          | `memory-disk` (par défaut), `memory`, `disk` ou `none`.                     |
+| `aspectRatio` _(Kuito)_     | Largeur ÷ hauteur : dimensionne la vue avant l'arrivée de l'image.          |
+| `placeholder` _(Kuito)_     | Couleur affichée pendant le chargement.                                     |
+| `fadeDuration` _(Kuito)_    | Fondu enchaîné en millisecondes à l'apparition de l'image ; 0 par défaut.   |
+| `cache` _(Kuito)_           | `memory-disk` (par défaut), `memory`, `disk` ou `none`.                     |
 
 <!-- end of generated props -->
 
@@ -227,8 +227,8 @@ que les onglets les affichent ([ressources](assets.md#symbols)).
 
 <!-- Symbol props: generated from src/protocol/manifest.ts -->
 
-| Prop                   | Signification                                                                  |
-| ---------------------- | ------------------------------------------------------------------------------ |
+| Prop                  | Signification                                                                  |
+| --------------------- | ------------------------------------------------------------------------------ |
 | `name` _(Kuito)_      | Un SF Symbol sur iOS et un Material Symbol sur Android, ou `{ ios, android }`. |
 | `size` _(Kuito)_      | En points ; 24 par défaut, et la taille de la vue.                             |
 | `weight` _(Kuito)_    | De `ultralight` à `black` ; `regular` par défaut.                              |

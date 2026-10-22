@@ -112,7 +112,7 @@ Die Headless-Runtime wertet die gebündelte App aus, nie einen Live Patch: Eine 
 | `deadline`         | 25 s (Refresh) oder 170 s (Processing) nach dem Start                                                                             | 9 Minuten nach dem Start                                                                                |
 | `requiresCharging` | Macht sie zu einer Processing-Aufgabe (`requiresExternalPower`), die iOS ausführt, wenn das Gerät im Leerlauf ist, oft über Nacht | `setRequiresCharging`                                                                                   |
 | `requiresNetwork`  | Gilt für Processing-Aufgaben; App-Refresh-Aufgaben ist keine Verbindung garantiert                                                | `NETWORK_TYPE_ANY`                                                                                      |
-| Wiederholungen     | iOS führt eine Anfrage einmal aus; jeder Lauf reicht die nächste ein, aus der Registrierung, die Kuito speichert                 | Periodische Jobs wiederholen sich                                                                       |
+| Wiederholungen     | iOS führt eine Anfrage einmal aus; jeder Lauf reicht die nächste ein, aus der Registrierung, die Kuito speichert                  | Periodische Jobs wiederholen sich                                                                       |
 | Aus, wenn          | Die Hintergrundaktualisierung aus ist (`status()` meldet `denied`), Stromsparmodus, oder der Benutzer die App beendet hat         | Der Benutzer die Hintergrundnutzung der App eingeschränkt (`restricted`) oder sie erzwungen beendet hat |
 
 **Warum JobScheduler und nicht WorkManager.** Ein periodischer Job mit Netzwerk- und Lade-

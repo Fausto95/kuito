@@ -13,4 +13,3 @@ The generated images should be committed before packaging the framework so a new
 - Development shells without branding should get the Kuito fallback once the native config migration is complete.
 - Production release tooling should warn when app-specific artwork is absent.
 - Android foreground art must stay inside the adaptive-icon safe area.
-

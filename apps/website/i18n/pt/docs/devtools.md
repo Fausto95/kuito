@@ -10,7 +10,7 @@ metem no caminho da sua aplicação: não há nenhum botão flutuante.
 | Simulador iOS         | ⌘D                                              |
 | Emulador Android      | ⌘M / Ctrl+M, ou a tecla de menu                 |
 | Um dispositivo físico | Abane-o                                         |
-| A CLI `kuito dev`    | Prima `m` (funciona para todos os dispositivos) |
+| A CLI `kuito dev`     | Prima `m` (funciona para todos os dispositivos) |
 
 Abrem como uma folha nativa com:
 
@@ -74,7 +74,7 @@ Chrome DevTools Protocol, da forma como o React Native DevTools depura o Hermes:
 
 | Alvo         | O que corre lá                                                             |
 | ------------ | -------------------------------------------------------------------------- |
-| Thread de JS | A sua aplicação e o kernel do Kuito (`src/runtime`)                       |
+| Thread de JS | A sua aplicação e o kernel do Kuito (`src/runtime`)                        |
 | Thread de UI | Valores de movimento, gestos e callbacks da thread de UI (`src/ui-thread`) |
 
 Prima `j` no `kuito dev` para abrir o DevTools na thread de JS do dispositivo que

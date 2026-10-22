@@ -704,7 +704,6 @@ test('ios.pushEnvironment is the aps-environment entitlement remote push needs',
     properties: { 'aps-environment': 'development' },
   });
 
-
   assert.equal(
     spec(resolve(ios({ pushEnvironment: 'production' }))).entitlements?.properties[
       'aps-environment'

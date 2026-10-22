@@ -107,9 +107,9 @@ Ein Container (angeordnet wie `VStack`), der auf Berührungen reagiert.
 | `onLongPress`                 | `longPressDuration` ms lang gehalten (standardmäßig 500).                                |
 | `disabled`                    | Ignoriert Berührungen.                                                                   |
 | `hitArea`                     | Zusätzlicher berührbarer Rand in Punkten.                                                |
-| `pressedOpacity` _(Kuito)_   | Deckkraft während des Drucks, wie `TouchableOpacity`. 1 = keine.                         |
-| `pressedScale` _(Kuito)_     | Skalierung während des Drucks, z. B. `0.97`. 1 = keine.                                  |
-| `haptic` _(Kuito)_           | `light`, `medium`, `heavy` oder `selection` beim Berühren.                               |
+| `pressedOpacity` _(Kuito)_    | Deckkraft während des Drucks, wie `TouchableOpacity`. 1 = keine.                         |
+| `pressedScale` _(Kuito)_      | Skalierung während des Drucks, z. B. `0.97`. 1 = keine.                                  |
+| `haptic` _(Kuito)_            | `light`, `medium`, `heavy` oder `selection` beim Berühren.                               |
 
 <!-- end of generated props -->
 
@@ -190,10 +190,10 @@ import cover from './assets/cover.png';
 | `onLoadStart` / `onLoadEnd` | Um jeden Ladevorgang herum, bei Erfolg wie bei Fehlschlag.                  |
 | `onLoad`                    | `{ width, height }` des Bildes in Pixeln.                                   |
 | `onError`                   | `{ error }`, z. B. `"HTTP 404"`.                                            |
-| `aspectRatio` _(Kuito)_    | Breite ÷ Höhe: bemisst die View, bevor das Bild ankommt.                    |
-| `placeholder` _(Kuito)_    | Farbe, die während des Ladens angezeigt wird.                               |
-| `fadeDuration` _(Kuito)_   | Überblendung in Millisekunden, wenn das Bild erscheint; standardmäßig 0.    |
-| `cache` _(Kuito)_          | `memory-disk` (Standard), `memory`, `disk` oder `none`.                     |
+| `aspectRatio` _(Kuito)_     | Breite ÷ Höhe: bemisst die View, bevor das Bild ankommt.                    |
+| `placeholder` _(Kuito)_     | Farbe, die während des Ladens angezeigt wird.                               |
+| `fadeDuration` _(Kuito)_    | Überblendung in Millisekunden, wenn das Bild erscheint; standardmäßig 0.    |
+| `cache` _(Kuito)_           | `memory-disk` (Standard), `memory`, `disk` oder `none`.                     |
 
 <!-- end of generated props -->
 
@@ -226,8 +226,8 @@ Tabs sie anzeigen ([Assets](assets.md#symbols)).
 
 <!-- Symbol props: generated from src/protocol/manifest.ts -->
 
-| Prop                   | Bedeutung                                                                           |
-| ---------------------- | ----------------------------------------------------------------------------------- |
+| Prop                  | Bedeutung                                                                           |
+| --------------------- | ----------------------------------------------------------------------------------- |
 | `name` _(Kuito)_      | Ein SF Symbol auf iOS und ein Material Symbol auf Android, oder `{ ios, android }`. |
 | `size` _(Kuito)_      | In Punkten; standardmäßig 24, zugleich die Größe der View.                          |
 | `weight` _(Kuito)_    | `ultralight` bis `black`; standardmäßig `regular`.                                  |

@@ -61,7 +61,7 @@ Le gestionnaire reçoit l'événement avec ses champs directement dessus : `even
 | `onLoadEnd`   | Il s'est terminé, abouti ou échoué.                             | les mêmes                                                      |
 | `onError`     | Il a échoué.                                                    | les mêmes, avec le `code` et la `description` de la plateforme |
 | `onNavigate`  | L'URL, le titre, l'état de chargement ou l'historique a changé. | les mêmes                                                      |
-| `onMessage`   | La page a appelé `window.KuitoWebView.postMessage`.            | `data`, la chaîne qu'elle a postée ; `url`, l'URL de la page   |
+| `onMessage`   | La page a appelé `window.KuitoWebView.postMessage`.             | `data`, la chaîne qu'elle a postée ; `url`, l'URL de la page   |
 
 `onNavigate` se déclenche aussi pour une navigation dans le même document
 (`history.pushState`, un `#fragment`), qui n'a pas d'événements de chargement. Sur iOS, un

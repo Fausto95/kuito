@@ -683,9 +683,7 @@ test('a header may be a function of the params, or false to hide it', async () =
 
   const show = router.ofKind('NavigationScreen').find((each) => each.props.title === '');
 
-  assert.deepEqual(show?.props.headerItems, [
-    { label: 'Rate 7', placement: 'trailing' },
-  ]);
+  assert.deepEqual(show?.props.headerItems, [{ label: 'Rate 7', placement: 'trailing' }]);
 
   assert.equal(show?.props.largeTitle ?? null, null, 'a small title unless asked');
   assert.equal(show?.props.search ?? null, null);
