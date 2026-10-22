@@ -1,69 +1,46 @@
-# Module packaging
+# Share a native module
 
-Plan item 2.9.3: tree shaking drops whole native modules, not only their
-functions, and a module ships as a package without an Expo-style manifest.
-Both parts are built: A, the shell names no module; B, packages
-([native modules](native-modules.md#ship-a-module-in-a-package)).
+Package a native module when several apps need the same platform integration. First implement and test it inside one app, following [write a native module](native-modules.md).
 
-## Before
+## Arrange the package
 
-- A module was its spec (`<dir>/<dir>.ts`), with `always` among its native
-  needs. `kuito-module.json` and the name registry went with #206.
-- Eight modules set `always` and shipped in every shell: AppState,
-  Appearance, BackgroundTasks, Linking, Notifications, Splash, SystemUI and
-  Window, about 1,300 lines of Swift and 1,500 of Kotlin. Every Android
-  app's manifest carried Notifications' `SCHEDULE_EXACT_ALARM` and
-  `RECEIVE_BOOT_COMPLETED` and its two receivers, and Google Play restricts
-  exact alarms to apps that need them. The reason: the shell named
-  singletons that lived in those modules (`KuitoLinks.shared`,
-  `KuitoSplash.shared`, `KuitoWindowMetrics`, ...).
-- Specs were found only in `native/modules/` and the app's `modules/`.
-
-## A. The shell names no module
-
-- What only the shell sees is the shell's own state, in
-  `native/ios/App/Shell` and `dev.kuito.runtime.shell`: `KuitoLinks`,
-  `KuitoAppLifecycle`, `KuitoTraits`, `KuitoWindowMetrics`,
-  `KuitoSystemBars` and `KuitoPushRegistration`. The shell writes it; a
-  module reads and observes it. Camera, Audio, Video and WebView read it too,
-  so they no longer require AppState or Linking.
-- The launch screen is the shell's (`KuitoSplash`). It hides at the first
-  frame with content ([splash](splash.md#until-the-app-is-ready)), Splash
-  module or not; the module adds `hold`, `hide`, `visible`, `layout` and
-  variants.
-- Work iOS or Android takes only at launch is a module's
-  [launch](native-modules.md#launch) (`launch: true` in its `ios` or
-  `android` section): BackgroundTasks registers its BGTaskScheduler
-  handlers and the headless runtime's start, Location starts that runtime
-  when iOS relaunched the app for a location event, Notifications becomes
-  the notification center's delegate. The generated `KuitoLink.launch()` calls
-  the included ones.
-- `always` is gone from the spec format. A module is in a shell exactly when
-  the bundle calls it, a module it calls requires it, or the config needs
-  it: declared background tasks bring BackgroundTasks, whose job service
-  runs them, and `locationAlways` brings Location, whose foreground service
-  it declares (`configuredModules`, src/cli/modules.ts).
-
-## B. A module in a package is the same directory
-
-A package ships modules laid out as an app's `modules/` are, and names the
-directory in its `package.json`:
-
-```json
-{ "name": "kuito-battery", "kuito": { "modules": "modules" } }
+```text
+kuito-battery/
+  package.json
+  modules/battery/
+    battery.ts
+    ios/BatteryModule.swift
+    android/BatteryModule.kt
 ```
 
-The CLI reads that key only for packages in the app's own `dependencies`,
-and catalogs their specs beside the built-ins and the app's. The spec stays
-the manifest: no JSON file, config plugin or autolinking step to keep in
-sync. An app imports the spec, or a namespace the package exports, as it
-imports its own (`import Battery from 'kuito-battery/modules/battery/battery'`).
-The rules that hold today hold across packages: two modules of one name, or
-two specs that declare one type name, fail the build naming both files.
+Point `kuito.modules` at the source directory and include that directory in the published package:
 
-## Not in scope
+```json
+{
+  "name": "kuito-battery",
+  "version": "1.0.0",
+  "files": ["modules"],
+  "kuito": { "modules": "modules" },
+  "exports": { "./battery": "./modules/battery/battery.ts" }
+}
+```
 
-- Stable ids across spec changes. Numbering stays global, so adding a
-  package rebuilds the shell once, as adding an app module does.
-- Prebuilt binaries in packages: a package ships sources, compiled with the
-  shell.
+The TypeScript spec is also the native manifest: it declares platform classes, dependencies, permissions and resources. Ship TypeScript, Swift and Kotlin sources. They compile with each consuming app's native shell; do not replace them with prebuilt binaries.
+
+## Install it in an app
+
+```sh
+npm install kuito-battery
+```
+
+The package name above is illustrative; replace it with the package you publish. Add it to the app's direct `dependencies`, then import its exported spec. Calling a member includes the module in the native build. An installed package with no used module adds no native module to the shell.
+
+Package TypeScript receives normal bundling but not Kuito's app component/UI-thread transforms. Export specs and plain helper functions; put app components in the app's source.
+
+## Check before publishing
+
+Run `npm pack --dry-run` to inspect the published files. Test the packed package in a separate app and build both platforms. Check that all native sources, resources and referenced specs are present.
+
+Module names and generated type names must be unique across the app. Duplicate names fail with both source paths. A packaged spec that depends on another package must import it by package name, and the consuming app must declare the packages it uses.
+
+Changing a module's native contract requires a shell rebuild. [Over-the-air updates](updates.md) cannot add or replace native modules.

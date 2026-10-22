@@ -1,3 +1,4 @@
+// Animate through several keyframes.
 import { Box, keyframes, motion, repeat } from 'kuito';
 
 const pulse = motion(1);

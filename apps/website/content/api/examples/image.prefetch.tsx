@@ -1,3 +1,4 @@
+// Warm the image cache.
 import { Image, List, image } from 'kuito';
 
 type Show = { id: number; poster: string };

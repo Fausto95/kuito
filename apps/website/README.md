@@ -1,79 +1,71 @@
-# Kuito website
+# Work on the Kuito website
 
-The product website and documentation hub for **Kuito**, built with [TanStack Start](https://tanstack.com/start) and deployed using Cloudflare's Vite integration for [Workers](https://developers.cloudflare.com/workers/framework-guides/web-apps/tanstack-start/).
+The website renders the repository's guides and a generated reference for every public export, component, CSS property and CLI command. Edit the canonical source, regenerate, then check the rendered page.
 
-## Develop
+## Start locally
 
-From this directory:
+Install root dependencies first (`npm ci` at the repository root), then from this directory:
 
 ```sh
-npm install
+npm ci
 npm run dev
 ```
 
-`predev` and `prebuild` run `npm run generate`, which produces everything the site renders from the repository:
+Use Node.js 22.18 or newer. The website has its own lockfile and dependencies. `predev` and `prebuild` generate the docs automatically.
 
-- `api:generate` reads the framework's TypeScript exports into `src/content/reference.generated.json` (the full API reference, read on the server only).
-- `usage:generate` finds real usage of every export in `templates/app`, `demo/` and the docs' code blocks: one TypeScript program whose `kuito`, `kuito/config` and `kuito/tests` imports resolve into `src/`, every call, JSX tag, property access and type reference resolved with the checker to the declaration the reference entry was generated from. The enclosing statement becomes the "Usage" section of that entry, with its file and line; a type nobody names borrows the examples of the exports that mention it. An export nothing uses falls back to a hand-written `content/api/examples/<id>.tsx`.
-- `docs:generate` turns `docs/*.md`, `CONTRIBUTING.md` and the concise pages under `content/` into pages under `src/content/generated/`, one JSON per locale, plus the slim API index the client uses for navigation and search. The SVGs that `docs-map.json` lists under `diagrams` (from `docs/assets`) are inlined at the top of their page, ids prefixed, colors mapped to the `--dg-*` tokens so they follow the theme; the Architecture landing shows them all.
+## Find the source to edit
 
-Both outputs are gitignored. A new document, a renamed heading or a new export appears on the next build.
+| Content                                              | Source                                                               |
+| ---------------------------------------------------- | -------------------------------------------------------------------- |
+| Guides, component workflows and architecture details | `../../docs/*.md`                                                    |
+| Documentation and architecture landing pages         | `content/introduction.md`, `content/architecture.md`                 |
+| Sections, order and merged reference pages           | `src/content/docs-map.json`, `src/content/sections.ts`               |
+| Component groups                                     | `src/content/categories.json`                                        |
+| API signatures, props, options and types             | Public exports of `kuito`, `kuito/config`, `kuito/tests` and globals |
+| Descriptions missing source JSDoc                    | `content/api/descriptions.json`                                      |
+| Complete API examples                                | Markdown fences or `content/api/examples/<export-id>.tsx`            |
+| CSS and CLI examples/use cases                       | `content/api/css-examples.json`, `content/api/cli-examples.json`     |
+| Navigation/UI labels                                 | `src/i18n/messages.ts`                                               |
 
-## Check
+There is one public prose page per topic. Do not create a second short/long version. A `page` entry in the map merges a guide with its generated export page. Every root docs file must be mapped or explicitly excluded. Historical experiments can stay repository-only.
 
-````sh
-npm run coverage:check   # api-surface.txt is current; every export has a description and an example
-npm run snippets:check   # every ts/tsx example compiles; ```tsx partial opts a fragment out
-npm run links:check      # every link reaches a page, a heading or a repository file
-npm run typecheck
-npm run build
-npm run preview
-````
+The six top-level sections separate learning guides, components, APIs, architecture, CLI and styling/TSX. Within them, categories describe tasks: arranging views, forms and actions, storing data, navigation, debugging or releasing. Keep examples beside the feature they demonstrate. There is no `/examples` gallery or legacy URL compatibility layer.
 
-`npm run coverage` rewrites `api-surface.txt` after an API change; commit it with the docs
-that change. The same checks run in `.github/workflows/kuito-website.yml` on every pull
-request that touches what the site is generated from. From the repository root,
-`npm run docs:coverage` and `npm run docs:snippets` run the first two.
-
-TanStack Router generates `src/routeTree.gen.ts`, which is gitignored, during the Vite build, so
-`npm run typecheck` builds first. A bare `npx tsc --noEmit` needs a build before it.
-
-## Documentation structure
-
-Six sections, after the React Native website: **Guides**, **Components**, **APIs**, **Architecture**, **CLI** and **Language**. `src/content/docs-map.json` places every repository document in a section and category; the generator fails on a document it does not list, so nothing is silently dropped.
-
-- A document can be merged into the generated page of an export (`"page": "fileSystem"`): the page then shows the guide first and the reference underneath, like React Native's API pages.
-- Components and APIs come from the generated reference. A component is a primitive or a capitalized export that renders a node; `src/content/categories.json` gives each its category, and the generator fails when the two disagree. Other exports are grouped by the file that declares them (`API_CATEGORY_RULES` in `src/content/sections.ts`).
-
-## Translations
-
-English is the default and lives in the repository documents. French, Portuguese (pt-PT) and German mirror the English sources under `i18n/<locale>/`: `i18n/<locale>/docs/<slug>.md` for a repository document, `i18n/<locale>/content/<path>.md` for a concise page, `i18n/<locale>/CONTRIBUTING.md` for `CONTRIBUTING.md`.
-
-Rules a translation must keep, because the build relies on them:
-
-- The same headings in the same order and count. Heading anchors are the English ones in every locale, by position, so `reactivity.md#stores` resolves everywhere; a count mismatch is reported by `docs:generate` and the page falls back to local anchors.
-- Fenced code, inline code, link URLs and anchors verbatim; product names left as is.
-
-A page without a translation is served in English with a notice. UI strings live in `src/i18n/messages.ts`; every locale must define every key (the type checker enforces it).
-
-## Theme
-
-`<html data-theme>` is the single source of truth, persisted in `localStorage` and applied by an inline script before paint (`src/lib/theme.ts`). Colors come from the tokens in `src/styles.css`; the phone and editor mockups on the front page stay dark in both themes on purpose.
-
-## Deploy
-
-After authenticating Wrangler and setting up the Cloudflare account:
+## Generate and validate
 
 ```sh
-npm run deploy
+npm run generate
+npm run coverage:check
+npm run snippets:check
+npm run links:check
+npm run build
+npx tsc --noEmit
 ```
 
-The Worker is named `kuito-website`. Configure the custom domain in Cloudflare after its ownership and DNS are finalized. Deployment is **not automatic** and needs credentials.
+`api:generate` reads declarations, `usage:generate` indexes complete authored examples with the TypeScript checker, and `docs:generate` renders Markdown and indexes. Generated JSON and the TanStack route tree are ignored. A build creates the route tree needed for TypeScript checking; `npm run typecheck` builds first if preferred.
 
-## Branding
+Coverage requires a description and complete example for every export, with no type exemptions. A type can use the example of an API that consumes it, labeled with that relationship. Imports alone do not count as usage. Dedicated examples take priority. The generator does not mine demo fragments or clip code.
 
-The caracal source is `public/kuito-mark.svg`. Run `npm run brand:export` to generate the native starter image assets. Generated images belong in the framework package before release.
+Snippet checks compile all English TS/TSX examples against the actual exports, and parse CSS and CLI examples with the framework's parsers. They do not execute device APIs, network calls, Swift or Kotlin. Mark a deliberate code fragment with `partial`, but prefer a complete example. Link checks verify local pages, headings and repository targets; they do not fetch unrelated external sites.
 
-## Concise pages and hand-written examples
+`api-surface.txt` records export signatures and the CLI/CSS surface. After an intentional surface or reference-generation change, run `npm run coverage`, review the diff and commit it. CI runs the docs checks and production build in `.github/workflows/kuito-website.yml`.
 
-The pages under `content/guides`, `content/components` and `content/language` are the concise documentation: essentials only, one short example per point, and an "In depth" link to the full repository document, which the site still renders as a hidden `<slug>-in-depth` page (searchable, not in the sidebar). `content/api/descriptions.json` gives a one-sentence description to every export whose source has no JSDoc; a JSDoc description, once written, takes precedence. `content/api/examples/<id>.tsx` gives a usage example to an export nothing in the repository uses; real usage, when it exists, wins.
+## Translate a page
+
+English comes from the canonical source. French, Portuguese and German mirror its repository-relative path under `i18n/<locale>/`, with `apps/website/` removed for website-owned pages.
+
+Translate the final English page, preserving code, link destinations and heading order/count. Then record the SHA-256 of that English source under the locale and source path in `i18n/source-hashes.json`. For example, `shasum -a256 ../../docs/apps.md` computes the source hash. The build only uses a translation when its recorded hash matches; otherwise it serves the current English page with a notice. Update hashes only after reviewing the translation against the new source.
+
+UI labels are separately translated in `src/i18n/messages.ts`. Do not mark an old translation current just to remove the notice.
+
+## Preview and deploy
+
+```sh
+npm run preview
+```
+
+Inspect navigation, search, a component's guide/props, an API example, a CSS entry and the narrow-screen layout. The theme uses `data-theme` on the root element and tokens in `src/styles.css`.
+
+After configuring Cloudflare credentials and the target account, `npm run deploy` publishes the `kuito-website` Worker. Deployment is separate from a docs change or Git push.
+
+For prose conventions, read [Writing documentation](CONTRIBUTING-DOCS.md).

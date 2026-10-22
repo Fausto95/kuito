@@ -1,3 +1,4 @@
+// Assert calls to a native capability.
 import { Button, haptics } from 'kuito';
 import { assert, press, render, screen, test, type ModuleCall } from 'kuito/tests';
 

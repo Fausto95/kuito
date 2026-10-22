@@ -1,3 +1,4 @@
+// Mark a destructive choice in an alert.
 import { alert, type AlertButtonStyle } from 'kuito';
 
 const choice = (text: string, style: AlertButtonStyle) => ({ text, style });

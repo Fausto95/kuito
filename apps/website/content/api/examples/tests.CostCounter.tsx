@@ -1,3 +1,4 @@
+// Inspect one native work counter.
 import { Button, Text, VStack, signal } from 'kuito';
 import { assert, costOf, press, render, screen, test, type CostCounter } from 'kuito/tests';
 

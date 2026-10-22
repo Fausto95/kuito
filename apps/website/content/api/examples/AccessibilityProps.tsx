@@ -1,3 +1,4 @@
+// Make an icon-only button accessible.
 import { Pressable, Symbol, type AccessibilityProps } from 'kuito';
 
 // An icon button needs words for a screen reader: callers pass them through.

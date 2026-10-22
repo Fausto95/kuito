@@ -1,3 +1,4 @@
+// Respond to a tap's coordinates.
 import { Box, motion, tap, timing, type TapEvent } from 'kuito';
 
 function Ripple() {

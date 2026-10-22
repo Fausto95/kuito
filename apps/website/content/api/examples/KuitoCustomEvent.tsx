@@ -1,3 +1,4 @@
+// Dispatch a custom event from a view.
 import { Box, KuitoCustomEvent, Pressable, Text, onMount, ref } from 'kuito';
 
 // A row deep in the feed asks the feed to refresh, without a callback prop

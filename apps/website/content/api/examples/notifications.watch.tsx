@@ -1,3 +1,4 @@
+// Observe notifications received in the foreground.
 import { Text, notifications, signal } from 'kuito';
 
 function Inbox() {

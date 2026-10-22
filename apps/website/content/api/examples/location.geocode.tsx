@@ -1,3 +1,4 @@
+// Find coordinates for an address.
 import { location } from 'kuito';
 
 const matches = await location.geocode('1 Infinite Loop, Cupertino');

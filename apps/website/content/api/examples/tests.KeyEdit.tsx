@@ -1,3 +1,4 @@
+// Check keyed list updates.
 import { Button, List, Text, VStack, signal } from 'kuito';
 import { assert, press, render, screen, test, type KeyEdit } from 'kuito/tests';
 

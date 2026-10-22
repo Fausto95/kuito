@@ -1,0 +1,390 @@
+{
+  "background-color": {
+    "value": "#f8fafc",
+    "useCase": "Set a card surface color."
+  },
+  "background": {
+    "value": "linear-gradient(135deg, #2563eb, #0f172a)",
+    "useCase": "Give a header a gradient backdrop."
+  },
+  "color": {
+    "value": "#0f172a",
+    "useCase": "Set readable foreground text."
+  },
+  "opacity": {
+    "value": "0.6",
+    "useCase": "Visually de-emphasize secondary content."
+  },
+  "padding": {
+    "value": "16px",
+    "useCase": "Add space inside the container."
+  },
+  "padding-top": {
+    "value": "16px",
+    "useCase": "Add space inside the container."
+  },
+  "padding-right": {
+    "value": "16px",
+    "useCase": "Add space inside the container."
+  },
+  "padding-bottom": {
+    "value": "16px",
+    "useCase": "Add space inside the container."
+  },
+  "padding-left": {
+    "value": "16px",
+    "useCase": "Add space inside the container."
+  },
+  "padding-horizontal": {
+    "value": "16px",
+    "useCase": "Add space inside the container."
+  },
+  "padding-vertical": {
+    "value": "16px",
+    "useCase": "Add space inside the container."
+  },
+  "padding-inline": {
+    "value": "16px",
+    "useCase": "Add space inside the logical edge of a mirrored layout."
+  },
+  "padding-inline-start": {
+    "value": "16px",
+    "useCase": "Add space inside the logical edge of a mirrored layout."
+  },
+  "padding-inline-end": {
+    "value": "16px",
+    "useCase": "Add space inside the logical edge of a mirrored layout."
+  },
+  "padding-block": {
+    "value": "16px",
+    "useCase": "Add space inside the logical edge of a mirrored layout."
+  },
+  "padding-block-start": {
+    "value": "16px",
+    "useCase": "Add space inside the logical edge of a mirrored layout."
+  },
+  "padding-block-end": {
+    "value": "16px",
+    "useCase": "Add space inside the logical edge of a mirrored layout."
+  },
+  "gap": {
+    "value": "12px",
+    "useCase": "Space children without individual margins."
+  },
+  "row-gap": {
+    "value": "12px",
+    "useCase": "Space children without individual margins."
+  },
+  "column-gap": {
+    "value": "12px",
+    "useCase": "Space children without individual margins."
+  },
+  "width": {
+    "value": "160px",
+    "useCase": "Reserve horizontal space for an image."
+  },
+  "height": {
+    "value": "48px",
+    "useCase": "Give a control a consistent height."
+  },
+  "min-width": {
+    "value": "120px",
+    "useCase": "Keep an action from becoming too narrow."
+  },
+  "max-width": {
+    "value": "640px",
+    "useCase": "Limit a readable content column."
+  },
+  "min-height": {
+    "value": "44px",
+    "useCase": "Keep a row tall enough to interact with."
+  },
+  "max-height": {
+    "value": "320px",
+    "useCase": "Bound a panel height."
+  },
+  "aspect-ratio": {
+    "value": "1",
+    "useCase": "Keep an image square."
+  },
+  "overflow": {
+    "value": "hidden",
+    "useCase": "Clip children to a container."
+  },
+  "direction": {
+    "value": "rtl",
+    "useCase": "Set a subtree reading direction."
+  },
+  "box-sizing": {
+    "value": "border-box",
+    "useCase": "Include padding and borders in declared size."
+  },
+  "position": {
+    "value": "absolute",
+    "useCase": "Position a badge over its parent."
+  },
+  "top": {
+    "value": "8px",
+    "useCase": "Place an absolutely positioned overlay relative to its container."
+  },
+  "right": {
+    "value": "8px",
+    "useCase": "Place an absolutely positioned overlay relative to its container."
+  },
+  "bottom": {
+    "value": "8px",
+    "useCase": "Place an absolutely positioned overlay relative to its container."
+  },
+  "left": {
+    "value": "8px",
+    "useCase": "Place an absolutely positioned overlay relative to its container."
+  },
+  "inset-inline": {
+    "value": "8px",
+    "useCase": "Place an absolutely positioned overlay relative to its container."
+  },
+  "inset-inline-start": {
+    "value": "8px",
+    "useCase": "Place an absolutely positioned overlay relative to its container."
+  },
+  "inset-inline-end": {
+    "value": "8px",
+    "useCase": "Place an absolutely positioned overlay relative to its container."
+  },
+  "inset-block": {
+    "value": "8px",
+    "useCase": "Place an absolutely positioned overlay relative to its container."
+  },
+  "inset-block-start": {
+    "value": "8px",
+    "useCase": "Place an absolutely positioned overlay relative to its container."
+  },
+  "inset-block-end": {
+    "value": "8px",
+    "useCase": "Place an absolutely positioned overlay relative to its container."
+  },
+  "inset": {
+    "value": "8px",
+    "useCase": "Place an absolutely positioned overlay relative to its container."
+  },
+  "margin": {
+    "value": "8px",
+    "useCase": "Separate this view from adjacent content."
+  },
+  "margin-top": {
+    "value": "8px",
+    "useCase": "Separate this view from adjacent content."
+  },
+  "margin-right": {
+    "value": "8px",
+    "useCase": "Separate this view from adjacent content."
+  },
+  "margin-bottom": {
+    "value": "8px",
+    "useCase": "Separate this view from adjacent content."
+  },
+  "margin-left": {
+    "value": "8px",
+    "useCase": "Separate this view from adjacent content."
+  },
+  "margin-horizontal": {
+    "value": "8px",
+    "useCase": "Separate this view from adjacent content."
+  },
+  "margin-inline": {
+    "value": "8px",
+    "useCase": "Separate this view from adjacent content."
+  },
+  "margin-inline-start": {
+    "value": "8px",
+    "useCase": "Separate this view from adjacent content."
+  },
+  "margin-inline-end": {
+    "value": "8px",
+    "useCase": "Separate this view from adjacent content."
+  },
+  "margin-block": {
+    "value": "8px",
+    "useCase": "Separate this view from adjacent content."
+  },
+  "margin-block-start": {
+    "value": "8px",
+    "useCase": "Separate this view from adjacent content."
+  },
+  "margin-block-end": {
+    "value": "8px",
+    "useCase": "Separate this view from adjacent content."
+  },
+  "margin-vertical": {
+    "value": "8px",
+    "useCase": "Separate this view from adjacent content."
+  },
+  "flex": {
+    "value": "1",
+    "useCase": "Fill free space in a stack."
+  },
+  "flex-flow": {
+    "value": "row wrap",
+    "useCase": "Wrap a row of chips."
+  },
+  "flex-direction": {
+    "value": "row",
+    "useCase": "Arrange content horizontally."
+  },
+  "flex-wrap": {
+    "value": "wrap",
+    "useCase": "Allow items onto another line."
+  },
+  "flex-grow": {
+    "value": "1",
+    "useCase": "Allocate remaining space to this child."
+  },
+  "flex-shrink": {
+    "value": "0",
+    "useCase": "Keep an icon from shrinking."
+  },
+  "flex-basis": {
+    "value": "120px",
+    "useCase": "Set the starting size of a flex item."
+  },
+  "flex-line-count": {
+    "value": "2",
+    "useCase": "Limit a wrapping flex layout to two lines."
+  },
+  "align-items": {
+    "value": "center",
+    "useCase": "Center children on the cross axis."
+  },
+  "align-self": {
+    "value": "stretch",
+    "useCase": "Stretch one child across its container."
+  },
+  "align-content": {
+    "value": "space-between",
+    "useCase": "Distribute wrapped lines."
+  },
+  "justify-content": {
+    "value": "space-between",
+    "useCase": "Separate a row’s leading and trailing content."
+  },
+  "display": {
+    "value": "none",
+    "useCase": "Remove content from layout."
+  },
+  "hidden": {
+    "value": "true",
+    "useCase": "Hide a view through the native hidden prop."
+  },
+  "border-radius": {
+    "value": "12px",
+    "useCase": "Round a card’s corners."
+  },
+  "corner-radius": {
+    "value": "12px",
+    "useCase": "Set rounded corners using the native alias."
+  },
+  "border": {
+    "value": "1px solid #cbd5e1",
+    "useCase": "Outline a card."
+  },
+  "border-width": {
+    "value": "1px",
+    "useCase": "Set the thickness of an outline."
+  },
+  "border-color": {
+    "value": "#2563eb",
+    "useCase": "Highlight a selected control."
+  },
+  "box-shadow": {
+    "value": "0 4px 12px #00000033",
+    "useCase": "Lift a floating panel visually."
+  },
+  "shadow-color": {
+    "value": "#00000033",
+    "useCase": "Tint a native shadow."
+  },
+  "shadow-radius": {
+    "value": "6px",
+    "useCase": "Soften the shadow edge."
+  },
+  "shadow-offset-x": {
+    "value": "0px",
+    "useCase": "Keep a shadow horizontally centered."
+  },
+  "shadow-offset-y": {
+    "value": "4px",
+    "useCase": "Move a shadow below its view."
+  },
+  "font-size": {
+    "value": "18px",
+    "useCase": "Set a body label size."
+  },
+  "font-weight": {
+    "value": "600",
+    "useCase": "Emphasize a section title."
+  },
+  "font-family": {
+    "value": "system",
+    "useCase": "Use the platform system font."
+  },
+  "font-style": {
+    "value": "italic",
+    "useCase": "Style an annotation."
+  },
+  "line-height": {
+    "value": "1.5",
+    "useCase": "Increase paragraph line spacing."
+  },
+  "letter-spacing": {
+    "value": "0.5px",
+    "useCase": "Space a short uppercase label."
+  },
+  "text-align": {
+    "value": "center",
+    "useCase": "Center a heading."
+  },
+  "text-transform": {
+    "value": "uppercase",
+    "useCase": "Format a short label."
+  },
+  "-webkit-line-clamp": {
+    "value": "2",
+    "useCase": "Limit a summary to two lines."
+  },
+  "number-of-lines": {
+    "value": "2",
+    "useCase": "Limit lines through the native alias."
+  },
+  "transform": {
+    "value": "translateY(8px) scale(0.98)",
+    "useCase": "Offset and scale a card without changing layout."
+  },
+  "translate-x": {
+    "value": "8px",
+    "useCase": "Offset a view horizontally."
+  },
+  "translate-y": {
+    "value": "8px",
+    "useCase": "Offset a view vertically."
+  },
+  "scale": {
+    "value": "1.05",
+    "useCase": "Enlarge a selected item."
+  },
+  "scale-x": {
+    "value": "1.05",
+    "useCase": "Scale only the horizontal axis."
+  },
+  "scale-y": {
+    "value": "1.05",
+    "useCase": "Scale only the vertical axis."
+  },
+  "rotate": {
+    "value": "15deg",
+    "useCase": "Rotate a decorative element."
+  },
+  "transition": {
+    "value": "opacity 200ms ease-out",
+    "useCase": "Animate a change in opacity."
+  }
+}

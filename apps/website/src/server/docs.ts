@@ -26,7 +26,15 @@ import {
 import { isLocale, type Locale } from '../i18n/messages';
 import usageIndex from '../content/generated/usage.json' with { type: 'json' };
 
-export type UsageExample = { file: string; line: number; code: string; via?: string };
+export type UsageExample = {
+  file: string;
+  line: number;
+  code: string;
+  title: string;
+  context?: string;
+  via?: string;
+  viaSection?: 'components' | 'apis';
+};
 
 const usage = usageIndex as Record<string, UsageExample[]>;
 
@@ -91,7 +99,7 @@ export type DocPagePayload = {
   children?: ApiIndexEntry[];
   /** Ids of documented exports named inside this entry's types, for linking them. */
   linkable?: string[];
-  /** Real code using this export, from the repository. */
+  /** Complete authored examples using this export. */
   usage?: UsageExample[];
   types?: TypesGroup[];
   commands?: typeof cliCommands;
@@ -151,7 +159,7 @@ export const getDocPage = createServerFn({ method: 'GET' })
       for (const entry of apiEntries) {
         if (entry.kind !== 'type') continue;
 
-        const category = entry.section === 'native' ? 'modules' : apiCategory(entry);
+        const category = apiCategory(entry);
 
         if (!groups.has(category)) groups.set(category, []);
         groups.get(category)!.push(entry);

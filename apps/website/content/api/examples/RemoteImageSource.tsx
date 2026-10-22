@@ -1,3 +1,4 @@
+// Load an image with request headers.
 import { Image, type RemoteImageSource } from 'kuito';
 
 const avatar = (token: string): RemoteImageSource => ({

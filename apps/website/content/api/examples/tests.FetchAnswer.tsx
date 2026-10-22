@@ -1,3 +1,4 @@
+// Return a fake network response.
 import { Text, resource } from 'kuito';
 import { assert, render, screen, test, type FetchAnswer } from 'kuito/tests';
 

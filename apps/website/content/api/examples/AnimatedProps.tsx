@@ -1,3 +1,4 @@
+// Share animation targets between views.
 import { Pressable, Text, signal, spring, timing, type AnimatedProps } from 'kuito';
 
 const selected = signal(false);

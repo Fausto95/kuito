@@ -51,13 +51,6 @@ export function SiteHeader() {
             {t('section.apis.title')}
           </Link>
           <Link
-            to="/{-$locale}/examples"
-            params={{ locale: localeParam(locale) }}
-            onClick={() => setOpen(false)}
-          >
-            {t('nav.examples')}
-          </Link>
-          <Link
             to="/{-$locale}/docs/$section"
             params={{ locale: localeParam(locale), section: 'architecture' }}
             onClick={() => setOpen(false)}

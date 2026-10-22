@@ -1,3 +1,4 @@
+// Obtain an iOS push token.
 import { notifications, platform } from 'kuito';
 
 // On each launch: the token can change. Android rejects with ERR_UNSUPPORTED for now.

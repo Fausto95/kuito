@@ -1,3 +1,4 @@
+// Measure a remote image.
 import { image } from 'kuito';
 
 function fit(size: image.ImageSize, maxWidth: number): image.ImageSize {

@@ -52,9 +52,11 @@ function text(value) {
   return String(value ?? '');
 }
 
-function printedType(type, node) {
+function printedType(type, node, expand = false) {
   try {
-    return text(checker.typeToString(type, node, flags));
+    return text(
+      checker.typeToString(type, node, flags | (expand ? ts.TypeFormatFlags.InTypeAlias : 0)),
+    );
   } catch {
     return 'unknown';
   }
@@ -107,7 +109,14 @@ function origin(symbol) {
 
 function visibleProperties(type) {
   try {
-    return checker.getPropertiesOfType(type).filter((s) => !(s.flags & ts.SymbolFlags.Private));
+    return checker.getPropertiesOfType(type).filter(
+      (s) =>
+        !(s.flags & ts.SymbolFlags.Private) &&
+        // A string union is a set of choices, not a page of String.prototype methods.
+        !s.declarations?.every((d) =>
+          /\/typescript\/lib\/lib\..*\.d\.ts$/.test(d.getSourceFile().fileName),
+        ),
+    );
   } catch {
     return [];
   }
@@ -250,7 +259,11 @@ function makeItem(exported, id, section) {
     tags: tags(symbol),
     source: origin(symbol),
     declaration: exportedType ? text(decl.getText().slice(0, 22000)) : '',
-    type: printedType(exportedType ? checker.getDeclaredTypeOfSymbol(symbol) : type, decl),
+    type: printedType(
+      exportedType ? checker.getDeclaredTypeOfSymbol(symbol) : type,
+      decl,
+      exportedType,
+    ),
     overloads: sigs.map((sig) => makeSignature(sig, decl)),
     constructors: ctors.map((sig) => makeSignature(sig, decl)),
     members: [],
@@ -519,7 +532,7 @@ const metadata = docsMetadata();
 const serialized =
   JSON.stringify(
     {
-      version: '0.0.1',
+      version: JSON.parse(await readFile(resolve(repo, 'package.json'), 'utf8')).version,
       generated: 'TypeScript checker',
       counts: sectionCounts,
       entries: docs,

@@ -73,7 +73,7 @@ function Page() {
   const title = pageTitle(page, t);
   const headings = [
     ...(doc?.headings ?? []),
-    ...(page.usage?.length ? [{ id: 'usage', text: t('api.usage'), level: 2 }] : []),
+    ...(!doc && page.usage?.length ? [{ id: 'usage', text: t('api.usage'), level: 2 }] : []),
     ...(entry ? entryHeadings(entry, t) : []),
   ];
   const kindLabel = entry ? t(`api.kind.${entry.kind}` as MessageKey) : undefined;
@@ -92,7 +92,6 @@ function Page() {
           badges={
             <>
               {kindLabel && <span className="badge badge-kind">{kindLabel}</span>}
-              {entry && <span className="badge">kuito v0.0.1</span>}
               {doc && (
                 <span className="badge">
                   {doc.words} {t('docs.words')}
@@ -104,7 +103,7 @@ function Page() {
         {doc && <Article html={doc.html} />}
         {entry && (
           <>
-            <UsageExamples examples={page.usage ?? []} />
+            {!doc && <UsageExamples examples={page.usage ?? []} />}
             {doc && (
               <h2 className="api-reference-heading" id="reference">
                 {t('api.reference')}

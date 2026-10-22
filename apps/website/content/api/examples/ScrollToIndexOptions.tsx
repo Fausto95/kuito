@@ -1,3 +1,4 @@
+// Scroll a list to a particular item.
 import { Button, List, Text, ref, type ListHandle, type ScrollToIndexOptions } from 'kuito';
 
 function Chapters(props: { titles: string[]; current: number }) {

@@ -1,3 +1,4 @@
+// Transform several drawing shapes together.
 import { Circle, Drawing, Group } from 'kuito';
 
 <Drawing label="Three dots" viewBox={[0, 0, 30, 10]} width={60} height={20}>

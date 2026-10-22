@@ -9,7 +9,7 @@ import componentCategories from './categories.json' with { type: 'json' };
 import docsMap from './docs-map.json' with { type: 'json' };
 import docsIndex from './generated/docs-index.json' with { type: 'json' };
 import apiIndex from './generated/api-index.json' with { type: 'json' };
-import { messages, type Locale } from '../i18n/messages';
+import type { Locale } from '../i18n/messages';
 
 import { isSectionId, sectionIds, type SectionId } from './section-ids';
 
@@ -34,7 +34,6 @@ type MapEntry = {
   page?: string;
   file?: string;
   exclude?: boolean;
-  hidden?: boolean;
 };
 
 const map = Object.fromEntries(
@@ -85,55 +84,66 @@ const COMPONENT_CATEGORIES = Object.entries(componentCategories as Record<string
   return byCategory;
 }, {});
 
-/** Where a non-component export belongs, by the file that declares it. */
+/** Group by the task an app author is doing, including namespace members and types. */
 const API_CATEGORY_RULES: [RegExp, string][] = [
-  [/^root:src\/ui\/(reactivity|store)\.ts$/, 'reactivity'],
-  [/^root:src\/native\/persisted\.ts$/, 'reactivity'],
+  [/src\/ui\/(reactivity|store)\.ts$/, 'state-data'],
+  [/(persisted|database|storage|file-system|secure-store)\.ts$/, 'storage-files'],
   [
     /^root:src\/(ui\/motion|runtime\/(animation-specs|compose|derived|effects)|ui\/animations)\.ts$/,
     'motion',
   ],
   [/^root:src\/(runtime\/gesture-specs|ui\/gestures)\.ts$/, 'gestures'],
   [/^root:src\/(ui\/navigation\.tsx|runtime\/routes\.ts)$/, 'navigation'],
-  [/^root:src\/native\/(define-module|modules|schema|scope|views)\.ts$/, 'module-authoring'],
-  [/^root:src\/native\/(action-sheet|alert|prompt|share|keep-awake|dialog)\.ts$/, 'dialogs'],
-  [/^root:src\/native\//, 'modules'],
-  [/^root:native\//, 'modules'],
-  [/^native:/, 'modules'],
-  [/^global:/, 'web-apis'],
+  [/(define-module|modules|schema|scope|views)\.ts$/, 'module-authoring'],
+  [/(action-sheet|alert|prompt|share|dialog|clipboard|haptics)\.ts$/, 'dialogs-feedback'],
+  [/(camera|video|webview|audio|image|image-picker|media-picker|fonts)\.ts$/, 'media-playback'],
+  [/(accessibility|localization)\.ts$/, 'accessibility-language'],
+  [/(permissions|location|notifications|background-tasks)\.ts$/, 'device-services'],
+  [/(network|linking)\.ts$/, 'network-links'],
+  [
+    /(app|appearance|brightness|device|keep-awake|keyboard|splash|window|system-bars)\.ts$/,
+    'app-device',
+  ],
+  [/^global:/, 'javascript-utilities'],
   [/^config:/, 'config'],
-  [/^tests:/, 'testing'],
-  [/^root:/, 'runtime'],
+  [/^tests:/, 'quality'],
+  [/^root:/, 'elements-styles'],
 ];
 
 export const SECTION_CATEGORIES: Record<SectionId, string[]> = {
   guides: [
-    'getting-started',
-    'fundamentals',
-    'build-apps',
-    'recipes',
-    'native-modules',
-    'ship',
-    'testing',
-    'development',
-    'community',
+    'start',
+    'state-data',
+    'screens',
+    'navigation',
+    'motion',
+    'device-workflows',
+    'module-authoring',
+    'quality',
+    'release',
+    'contributing',
   ],
   components: [...Object.keys(COMPONENT_CATEGORIES), 'other'],
   apis: [
-    'reactivity',
+    'state-data',
+    'storage-files',
+    'network-links',
+    'javascript-utilities',
     'motion',
     'gestures',
     'navigation',
-    'dialogs',
-    'runtime',
+    'dialogs-feedback',
+    'media-playback',
+    'device-services',
+    'app-device',
+    'accessibility-language',
+    'elements-styles',
     'module-authoring',
-    'modules',
-    'web-apis',
     'config',
-    'testing',
+    'quality',
     'types',
   ],
-  architecture: ['overview', 'runtime', 'development-loop', 'internals'],
+  architecture: ['design', 'compiler', 'rendering'],
   cli: ['overview', 'reference'],
   language: ['tsx', 'css'],
 };
@@ -147,9 +157,16 @@ export function apiCategory(entry: ApiIndexEntry): string {
     );
   }
 
+  if (
+    /^global\.(fetch|Headers|HeadersInit|BodyInit|RequestInit|Response|WebSocket|URL|URLSearchParams)$/.test(
+      entry.id,
+    )
+  )
+    return 'network-links';
+
   const key = `${entry.section}:${entry.file ?? ''}`;
 
-  return API_CATEGORY_RULES.find(([pattern]) => pattern.test(key))?.[1] ?? 'runtime';
+  return API_CATEGORY_RULES.find(([pattern]) => pattern.test(key))?.[1] ?? 'module-authoring';
 }
 
 export const sectionOfEntry = (entry: ApiIndexEntry): SectionId =>
@@ -206,7 +223,7 @@ export function sectionNav(locale: Locale, section: SectionId): SectionNav {
   };
 
   for (const [slug, entry] of Object.entries(map)) {
-    if (entry.section !== section || entry.page || entry.exclude || entry.hidden) continue;
+    if (entry.section !== section || entry.page || entry.exclude) continue;
     push(entry.category ?? 'other', docItem(locale, slug));
   }
 
@@ -345,23 +362,6 @@ export function searchIndex(locale: Locale): SearchHit[] {
         });
       }
     }
-  }
-
-  for (const [slug, entry] of Object.entries(map)) {
-    if (!entry.hidden || entry.exclude) continue;
-
-    const page = index[locale][slug];
-
-    if (!page) continue;
-
-    hits.push({
-      section: entry.section as SectionId,
-      slug,
-      title: `${page.title} — ${messages[locale]['docs.inDepth']}`,
-      category: entry.category ?? 'other',
-      kind: 'doc',
-      description: page.description,
-    });
   }
 
   for (const entry of apiEntries) {

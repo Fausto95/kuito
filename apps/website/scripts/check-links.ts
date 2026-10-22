@@ -42,6 +42,75 @@ for (const [slug, entry] of Object.entries(docsMap as Record<string, Mapped | st
   routes.add(`${entry.section}/${entry.page ?? slug}`);
 }
 
+routes.add('cli/commands');
+routes.add('cli/options');
+routes.add('language/css-properties');
+routes.add('apis/types');
+
+type Entry = {
+  id: string;
+  kind: string;
+  declaration: string;
+  members: { name: string }[];
+  overloads: { typeParameters: unknown[] }[];
+  constructors: { typeParameters: unknown[] }[];
+};
+
+const reference = await read<{
+  entries: Entry[];
+  cssProperties: { name: string; category: string }[];
+  cliCommands: { name: string }[];
+}>('src/content/reference.generated.json');
+const examples = await read<Record<string, unknown[]>>('src/content/generated/usage.json');
+const referenceAnchors = new Map<string, Set<string>>();
+
+for (const entry of reference.entries) {
+  const anchors = new Set<string>();
+
+  if (examples[entry.id]?.length) anchors.add('usage');
+  if (entry.kind === 'namespace') anchors.add('exports');
+  if (['type', 'enum'].includes(entry.kind) && entry.declaration) anchors.add('declaration');
+
+  if (entry.members.length) {
+    anchors.add('members');
+    for (const member of entry.members) anchors.add('prop-' + member.name);
+  }
+
+  for (const [key, prefix] of [
+    ['overloads', ''],
+    ['constructors', 'constructor-'],
+  ] as const) {
+    const signatures = entry[key];
+
+    if (signatures.length) anchors.add(key === 'overloads' ? 'signatures' : 'constructors');
+
+    signatures.forEach((signature, index) => {
+      const at = prefix + (signatures.length > 1 ? `overload-${index + 1}-` : '');
+
+      if (signatures.length > 1) anchors.add(`${prefix}overload-${index + 1}`);
+      if (signature.typeParameters.length) anchors.add(at + 'type-parameters');
+      anchors.add(at + 'parameters');
+      anchors.add(at + 'returns');
+    });
+  }
+
+  if (
+    !['namespace', 'component'].includes(entry.kind) &&
+    !entry.overloads.length &&
+    !entry.members.length
+  )
+    anchors.add('type');
+
+  referenceAnchors.set(entry.id, anchors);
+}
+
+referenceAnchors.set(
+  'css-properties',
+  new Set(reference.cssProperties.flatMap((p) => [p.name, p.category])),
+);
+
+referenceAnchors.set('commands', new Set(reference.cliCommands.map((c) => c.name)));
+
 const broken: string[] = [];
 
 for (const locale of locales) {
@@ -75,7 +144,7 @@ for (const locale of locales) {
       const route = /^(?:\/(?:fr|pt|de))?\/docs\/([^/]+)(?:\/([^/]+))?\/?$/.exec(path);
 
       if (!route || !sectionIds.includes(route[1] as never)) {
-        if (!/^(?:\/(?:fr|pt|de))?\/(?:examples|api(?:\/.*)?)?$/.test(path)) broken.push(at);
+        if (!/^(?:\/(?:fr|pt|de))?\/?$/.test(path)) broken.push(at);
         continue;
       }
 
@@ -84,7 +153,12 @@ for (const locale of locales) {
       const slug = decodeURIComponent(route[2]);
 
       if (!routes.has(`${route[1]}/${slug}`)) broken.push(at);
-      else if (anchor && anchorsOf.has(slug) && !anchorsOf.get(slug)!.has(anchor)) broken.push(at);
+      else if (
+        anchor &&
+        !anchorsOf.get(slug)?.has(anchor) &&
+        !referenceAnchors.get(slug)?.has(anchor)
+      )
+        broken.push(at);
     }
   }
 }

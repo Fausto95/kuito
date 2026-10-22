@@ -1,3 +1,4 @@
+// Handle incremental drag movement.
 import { Box, pan, signal, type PanChangeEvent } from 'kuito';
 
 const scrubbed = signal(0);

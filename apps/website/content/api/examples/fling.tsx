@@ -1,3 +1,4 @@
+// Recognize a directional swipe.
 import { Box, fling, signal } from 'kuito';
 
 const page = signal(0);

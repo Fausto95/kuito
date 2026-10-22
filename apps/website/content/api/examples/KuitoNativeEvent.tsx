@@ -1,3 +1,4 @@
+// Handle event propagation and cancellation.
 import { Box, Button, onMount, ref, signal, type KuitoNativeEvent } from 'kuito';
 
 const saving = signal(false);

@@ -1,19 +1,59 @@
-# Component lifecycle and logical native events
+# Component lifetime and cleanup
 
-## Current experimental APIs
+Use lifecycle helpers for subscriptions, timers and native work that should
+exist only while a component is mounted. Create them during component setup.
 
-- `onMount(callback)` runs after a successful host view commit; a returned function is cleaned up on instance disposal; compatible refresh retains the same mounted instance.
-- `onCleanup(callback)` registers cleanup without running on mount.
-- `watch(source, observer, {immediate?})` observes the selected signal value, skipping initial notification by default. Dependencies are retracked as the source changes. A watch compares values for its instance's lifetime: when the instance re-runs (new props, a re-planned branch), a selected value that differs from the last one it saw notifies the observer.
-- `effect(callback)` tracks synchronous signal reads and runs after mounting; returned cleanup runs before re-execution and during teardown.
-- `ref()` returns a stable view handle for native view IDs; handles provide logical parent/children, `setProperty`, `focus`/`blur` host commands, and EventTarget-like listeners.
-- Native press is delivered through capture, target, and bubble phases; `dispatchEvent` accepts custom event-shaped objects. Native host dispatch is still a proof of concept, not a W3C conformance implementation.
+## Start and stop a timer
 
-## Limitations
+```tsx
+import { Text, onMount, signal } from 'kuito';
 
-- Fast Refresh currently recreates the component descriptor tree. Unchanged component lifecycle scopes are retained on compatible refresh; changed effects are replaced, and stable handles survive while view identities are retained.
-- `focus` and `blur` require a real platform-native command implementation and throw a descriptive error if absent.
-- `setProperty` writes imperatively; subsequent signal commits can overwrite this value.
-- Event cancellation applies to Kuito's logical event graph; it does not automatically stop an already-issued UIKit/Android OS action.
-- Cleanup callbacks are not currently transactional: an exception during a cleanup after host commit cannot roll back native view mutations.
-- Event argument typing and passive listeners, accessible semantics, composed portals, and nested lifecycle scope disposal are incomplete.
+export function ElapsedTime() {
+  const seconds = signal(0);
+  onMount(() => {
+    const timer = setInterval(() => seconds.value++, 1000);
+    return () => clearInterval(timer);
+  });
+  return <Text>{`${seconds.value} seconds on this screen`}</Text>;
+}
+```
+
+`onMount` runs after a successful native mount. Its returned cleanup runs when
+the component is disposed and before an accepted refresh reruns the mount work.
+A failed patch does not tear down the current component.
+
+## Tie a side effect to state
+
+```tsx
+import { Text, effect, onCleanup, signal } from 'kuito';
+
+export function Connection(props: { connect: (room: string) => () => void }) {
+  const room = signal('general');
+  effect(() => {
+    const disconnect = props.connect(room.value);
+    return disconnect;
+  });
+  onCleanup(() => console.log('Connection screen disposed'));
+  return <Text>{`Connected to ${room.value}`}</Text>;
+}
+```
+
+`effect` tracks reads made synchronously in its callback. A dependency change
+cleans up the previous run before starting another. Reads after `await` do not
+establish dependencies. Use `watch` when you want to choose the dependency
+explicitly, and [task/resource](async.md) for async work and cancellation.
+
+`onCleanup` registers a disposal callback when there is no corresponding start
+operation. Do not put lifecycle registration in an event handler and expect
+it to acquire the component's setup scope.
+
+## Screen visibility is different from mounting
+
+Pushing another route or switching tabs usually keeps the previous screen
+mounted. A mounted timer can therefore continue behind another screen. Use
+the app's state or route state when work depends on visibility, and use
+`watch(app.state, ...)` for foreground/background transitions.
+
+Native subscriptions created during component setup are generally scoped to
+that component; subscriptions created elsewhere must be removed explicitly.
+Check the API's returned handle for `remove()`. See [app state](app-state.md).

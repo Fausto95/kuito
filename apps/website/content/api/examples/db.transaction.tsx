@@ -1,3 +1,4 @@
+// Commit several table writes atomically.
 import { db, type Schema } from 'kuito';
 
 type Account = { id: string; balance: number };

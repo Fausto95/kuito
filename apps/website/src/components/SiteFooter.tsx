@@ -23,9 +23,6 @@ export function SiteFooter() {
             <Link to="/{-$locale}/docs/$section" params={{ ...params, section: 'apis' }}>
               {t('footer.apiReference')}
             </Link>
-            <Link to="/{-$locale}/examples" params={params}>
-              {t('footer.examples')}
-            </Link>
             <Link
               to="/{-$locale}/docs/$section/$slug"
               params={{ ...params, section: 'guides', slug: 'introduction' }}

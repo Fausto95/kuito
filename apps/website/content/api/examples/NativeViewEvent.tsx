@@ -1,3 +1,4 @@
+// Type an event emitted by a module view.
 import { defineModule, view, type NativeViewEvent } from 'kuito';
 
 // modules/rating/rating.ts: a native star rating view and the event it sends.

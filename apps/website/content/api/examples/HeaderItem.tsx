@@ -1,3 +1,4 @@
+// Add a navigation header action.
 import { signal, type HeaderItem, type RouteOptions } from 'kuito';
 
 const editing = signal(false);

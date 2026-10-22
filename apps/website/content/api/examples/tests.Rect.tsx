@@ -1,3 +1,4 @@
+// Assert a measured view rectangle.
 import { HStack, Text } from 'kuito';
 import { assert, render, screen, test, type Rect } from 'kuito/tests';
 

@@ -1,3 +1,4 @@
+// Share stroke styling between shapes.
 import { Circle, Drawing, Path, type ShapePaint } from 'kuito';
 
 // The app's icon strokes, shared by every shape that draws one.

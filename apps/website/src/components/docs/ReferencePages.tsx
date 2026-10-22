@@ -7,6 +7,9 @@ import type { TypesGroup } from '../../server/docs';
 import { DocLink } from './DocLink';
 import { Inline } from './Inline';
 import { Callout } from './PageChrome';
+import cssExamples from '../../../content/api/css-examples.json';
+import cliExamples from '../../../content/api/cli-examples.json';
+import { CodeBlock } from './CodeBlock';
 
 function FilterInput({
   value,
@@ -102,6 +105,13 @@ export function CliCommands({ commands }: { commands: typeof cliCommands }) {
                 </td>
                 <td>
                   <Inline>{command.summary}</Inline>
+                  <p>
+                    {(cliExamples as Record<string, { useCase: string }>)[command.name].useCase}
+                  </p>
+                  <CodeBlock
+                    code={(cliExamples as Record<string, { code: string }>)[command.name].code}
+                    lang="sh"
+                  />
                 </td>
               </tr>
             ))}
@@ -177,13 +187,14 @@ export function CssProperties({ properties }: { properties: typeof cssProperties
                 <tr>
                   <th>{t('css.property')}</th>
                   <th>{t('css.accepts')}</th>
+                  <th>{t('api.usage')}</th>
                 </tr>
               </thead>
               <tbody>
                 {visible
                   .filter((property) => property.category === category)
                   .map((property) => (
-                    <tr key={property.name}>
+                    <tr key={property.name} id={property.name}>
                       <td>
                         <code>{property.name}</code>
                       </td>
@@ -191,6 +202,18 @@ export function CssProperties({ properties }: { properties: typeof cssProperties
                         <Inline anchorsIn="language/styles">
                           {property.accepts.replace(/\\\|/g, '|')}
                         </Inline>
+                      </td>
+                      <td>
+                        <code>
+                          {property.name}:{' '}
+                          {(cssExamples as Record<string, { value: string }>)[property.name].value};
+                        </code>
+                        <p>
+                          {
+                            (cssExamples as Record<string, { useCase: string }>)[property.name]
+                              .useCase
+                          }
+                        </p>
                       </td>
                     </tr>
                   ))}

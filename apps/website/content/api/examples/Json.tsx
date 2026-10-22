@@ -1,3 +1,4 @@
+// Type plain data passed to native code.
 import { defineModule, fn, type Json } from 'kuito';
 
 // modules/analytics/analytics.ts: an event's properties cross as JSON,

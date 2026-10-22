@@ -1,3 +1,4 @@
+// Use a recent cached position.
 import { location } from 'kuito';
 
 const fix = await location.last({ maxAge: 60_000, requiredAccuracy: 100 });

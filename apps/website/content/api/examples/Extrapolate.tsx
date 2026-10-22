@@ -1,3 +1,4 @@
+// Choose behavior beyond interpolation stops.
 import { Box, Scroll, interpolate, scrollMotion, type Extrapolate } from 'kuito';
 
 function Header(props: { parallax: boolean }) {

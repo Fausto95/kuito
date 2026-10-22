@@ -1,3 +1,4 @@
+// Inspect a native property value.
 import { Button, Show, Text, VStack, signal } from 'kuito';
 import { assert, press, render, screen, test, type PropValue } from 'kuito/tests';
 

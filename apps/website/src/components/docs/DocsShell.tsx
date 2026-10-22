@@ -76,7 +76,12 @@ export function DocsShell({ section, nav, activeSlug, headings = [], wide, child
               </DocLink>
             ))}
           </nav>
-          <button type="button" className="docs-search-button" onClick={openSearch}>
+          <button
+            type="button"
+            className="docs-search-button"
+            aria-label={t('search.button')}
+            onClick={openSearch}
+          >
             <Search size={15} aria-hidden="true" />
             <span>{t('search.button')}</span>
             <kbd>⌘K</kbd>

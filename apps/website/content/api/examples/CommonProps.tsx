@@ -1,3 +1,4 @@
+// Forward native view props from a wrapper.
 import { Text, type CommonProps } from 'kuito';
 
 // A badge that takes every prop a view takes (layout, styles, accessibility,

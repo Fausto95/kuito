@@ -1,3 +1,4 @@
+// Reload and scroll an embedded page.
 import { Button, WebView, ref, type WebViewHandle } from 'kuito';
 
 function Article() {

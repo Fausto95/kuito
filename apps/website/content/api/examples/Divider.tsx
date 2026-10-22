@@ -1,3 +1,4 @@
+// Separate adjacent settings.
 import { Divider, Text, VStack } from 'kuito';
 
 <VStack>

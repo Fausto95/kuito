@@ -1,3 +1,4 @@
+// Configure font measurements for tests.
 import { Text, VStack } from 'kuito';
 import { assert, render, screen, test, type FontTable } from 'kuito/tests';
 

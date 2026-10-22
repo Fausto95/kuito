@@ -1,3 +1,4 @@
+// Accept supported request-header formats.
 function authorized(token: string, extra: HeadersInit = {}): Headers {
   const headers = new Headers(extra);
 

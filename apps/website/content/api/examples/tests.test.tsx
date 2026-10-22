@@ -1,3 +1,4 @@
+// Define a screen behavior test.
 import { Button, Text, VStack, signal } from 'kuito';
 import { assert, press, render, screen, test } from 'kuito/tests';
 

@@ -1,3 +1,4 @@
+// Find a control by role and accessible name.
 import { Button, HStack } from 'kuito';
 import { assert, press, render, screen, test, type RoleOptions } from 'kuito/tests';
 

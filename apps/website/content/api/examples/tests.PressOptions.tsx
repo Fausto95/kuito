@@ -1,3 +1,4 @@
+// Press a particular point in a control.
 import { Pressable, Text, signal } from 'kuito';
 import { assert, press, render, screen, test, type PressOptions } from 'kuito/tests';
 

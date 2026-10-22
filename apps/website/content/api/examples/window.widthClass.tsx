@@ -1,3 +1,4 @@
+// Choose a layout for the available width.
 import { Show, Text, window } from 'kuito';
 
 window.widthClass.value; // 'compact', 'medium' or 'expanded'

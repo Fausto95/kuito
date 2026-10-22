@@ -1,3 +1,4 @@
+// Build a reusable card container.
 import { Text, VStack, type ContainerProps } from 'kuito';
 
 // A card is a container with the app's look; callers lay out and fill it.

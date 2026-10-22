@@ -1,3 +1,4 @@
+// Display a reactive record count.
 import { Text, db, type Schema } from 'kuito';
 
 type Message = { id: number; thread: string; read: number; sentAt: number };

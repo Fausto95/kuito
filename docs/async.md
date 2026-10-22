@@ -1,89 +1,98 @@
-# Kuito async runtime — experimental
+# Load data and run async actions
 
-Kuito has **component-scoped** async actions and resources. These are implemented
-in the plain-JavaScript Hermes kernel and tested in Node's isolated VM. Timers,
-`fetch` and the rest of the standard library they build on are listed in
-[web-apis.md](web-apis.md), with what each does not do.
+Use `resource` to load when a component mounts. Use `task` for work triggered
+by the user, such as saving a form. Both expose `running`, `data` and `error`
+signals, and cancel work when their component is disposed.
 
-`async`/`await` works in app code on both platforms. App bundles target ES2022,
-which Hermes V1 compiles as written, so async functions stay native. Hermes V1
-rejects async generators (`async function*`, and `for await` over one); the
-bytecode compiler reports them at build time, and a Live Patch that uses one
-fails to evaluate on the device.
-
-## Public API
+## Load a profile with loading and error states
 
 ```tsx
-import { task, resource, VStack, Text, Button } from 'kuito';
+import { Button, Text, VStack, resource } from 'kuito';
 
-declare function saveChanges(options: { signal: AbortSignal }): Promise<void>;
-
-function Example() {
-  const query = resource(async ({ signal }) => {
-    const response = await fetch('https://example.com/api', { signal });
-    return response.json();
+export function Profile() {
+  const profile = resource(async ({ signal }) => {
+    const response = await fetch('https://example.com/api/profile', { signal });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return (await response.json()) as { name: string };
   });
 
-  const save = task(
-    async ({ signal }) => {
-      await saveChanges({ signal });
-    },
-    { policy: 'drop' },
-  );
-
   return (
-    <VStack>
-      <Text>{query.running.value ? 'Loading...' : String(query.data.value ?? '')}</Text>
+    <VStack gap={12}>
+      <Text>{profile.running.value ? 'Loading profile…' : (profile.data.value?.name ?? '')}</Text>
+      <Text>{profile.error.value ? 'Could not load your profile.' : ''}</Text>
       <Button
-        onPress={() => {
-          void save.run().catch(() => {});
-        }}
+        disabled={profile.running.value}
+        onPress={() => void profile.refresh().catch(() => {})}
       >
-        Save
+        Refresh
       </Button>
     </VStack>
   );
 }
 ```
 
-## Execution and lifecycle
+Replace the example URL with your endpoint. `fetch` resolves for HTTP errors,
+so check `response.ok` before reading the body. The response shape assertion
+here assumes your server's contract; validate untrusted JSON in a real app.
 
-- `task()` starts only when its `run(...args)` method is called, and normally
-  returns a rejecting Promise on failure. The caller handles rejections.
-- `resource()` starts after a successful patch commit and exposes `refresh()`.
-  Resource failures populate `error.value` rather than causing an unhandled
-  rejection from automatic loading. When the component does not render
-  `error`, the failure goes to the [`Catch`](control-flow.md#catch) around
-  it, or to the reporting seam when there is none. A
-  [`Loading`](control-flow.md#loading) around it shows its fallback until the
-  load settles.
-- Both expose persistent `running`, `data`, and `error` signals and
-  `cancel()`. Task policies: `replace` (cancel previous, last-result-wins) and
-  `drop` (reuse in-flight Promise).
-- On a compatible Fast Refresh, old async records are invalidated/aborted, while
-  the signal objects remain stable. Stale continuations cannot commit results.
-  On rejected patches, old work remains active. Component disposal cancels work.
-- Abort is cooperative. Non-abortable operations may finish, but their stale
-  results never update Kuito async state. The signal is the kernel's own
-  `AbortSignal` ([web-apis.md](web-apis.md#abortcontroller)), so passing it to
-  `fetch` cancels the request.
-- A task or resource keeps its slot by name, like every hook
-  (`docs/reactivity.md`): adding, removing or reordering hooks around it keeps
-  its signals, and removing it disposes it.
+Automatic resource failures populate `error`. Reading it in the rendered UI
+makes this component responsible for displaying the failure. Otherwise a parent
+`Catch` can show a fallback. `Loading` can coordinate the initial loading state
+of several child resources. See [conditional UI](control-flow.md).
 
-## Promise host integration
+## Submit once while a request is in flight
 
-The shared mobile Hermes runtime now calls `drainMicrotasks()` after source
-evaluation and event dispatch. This is a checkpoint for Promise jobs; it does
-**not** provide an event loop. External native callbacks must re-enter the owning
-VM thread and drain jobs again.
+```tsx
+import { Button, Text, TextField, VStack, signal, task } from 'kuito';
 
-Timer, HTTP and module callbacks re-enter the VM thread as jobs of their own,
-each followed by a microtask checkpoint.
+export function Rename() {
+  const name = signal('');
+  const save = task(
+    async ({ signal }, value: string) => {
+      const response = await fetch('https://example.com/api/profile', {
+        method: 'PATCH',
+        signal,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: value }),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return value;
+    },
+    { policy: 'drop' },
+  );
 
-Current UI reactive bindings observe the dependencies captured on their initial
-evaluation. Branch-dependent signal dependencies still need dynamic retracking.
+  return (
+    <VStack gap={12}>
+      <TextField label="Name" value={name} />
+      <Button
+        disabled={save.running.value || !name.value.trim()}
+        onPress={() => void save.run(name.value).catch(() => {})}
+      >
+        {save.running.value ? 'Saving…' : 'Save'}
+      </Button>
+      <Text>{save.error.value ? 'Save failed. Try again.' : ''}</Text>
+    </VStack>
+  );
+}
+```
 
-## Next native milestones
+`run(...args)` and `refresh()` return promises that reject on failure. The
+examples catch those rejections because their error signals are displayed.
+Do not discard a rejecting promise without handling it.
 
-1. Add independent native workers, resource caching and measured device performance.
+| Policy              | Use case                    | Behavior                                                     |
+| ------------------- | --------------------------- | ------------------------------------------------------------ |
+| `replace` (default) | Search as the query changes | Cancels the previous run; only the newest result commits     |
+| `drop`              | Save or submit button       | Reuses the in-flight promise instead of starting another run |
+
+## Cancellation and lifetime
+
+Pass the supplied abort signal to `fetch` and other cancellable operations.
+Call `cancel()` to stop sooner. Cancellation cannot undo a server-side action;
+make important server writes safe to retry. A stale non-cancellable result
+cannot replace a newer result.
+
+Resources start after a successful mount commit. Compatible Live Patches keep
+the state signal objects while invalidating old work. A rejected patch leaves
+the existing work active. `async`/`await` is supported; async generators are not
+supported by the pinned Hermes runtime.

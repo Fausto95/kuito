@@ -1,3 +1,4 @@
+// Assert the result of a user action.
 import { Text } from 'kuito';
 import { assert, render, screen, test } from 'kuito/tests';
 

@@ -17,10 +17,10 @@
     "pretypecheck": "npm run build",
     "docs:generate": "node scripts/generate-docs.ts",
     "generate": "npm run api:generate && npm run usage:generate && npm run docs:generate",
-    "usage:generate": "node scripts/generate-usage.ts",
+    "usage:generate": "node scripts/generate-examples.ts",
     "coverage": "npm run generate && node scripts/check-coverage.ts",
     "coverage:check": "npm run generate && node scripts/check-coverage.ts --check",
-    "snippets:check": "node scripts/check-snippets.ts",
+    "snippets:check": "node scripts/check-snippets.ts && node scripts/check-reference-examples.ts",
     "links:check": "node scripts/check-links.ts"
   },
   "dependencies": {

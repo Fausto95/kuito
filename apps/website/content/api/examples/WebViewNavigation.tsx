@@ -1,3 +1,4 @@
+// Follow navigation inside embedded content.
 import { Text, WebView, signal, type WebViewNavigation } from 'kuito';
 
 const state = signal<WebViewNavigation | null>(null);

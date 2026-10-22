@@ -1,3 +1,4 @@
+// React when a sheet reaches a snap point.
 import { Sheet, Text, signal, type SnapEvent } from 'kuito';
 
 const snapPoints = ['content', '90%'] as const;

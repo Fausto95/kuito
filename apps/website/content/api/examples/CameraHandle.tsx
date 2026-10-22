@@ -1,3 +1,4 @@
+// Pause and resume a camera preview.
 import { Button, Camera, ref, type CameraHandle } from 'kuito';
 
 function Scanner() {

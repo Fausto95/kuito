@@ -1,3 +1,4 @@
+// Draw an open sequence of segments.
 import { Drawing, Polyline } from 'kuito';
 
 <Drawing label="Plays this week" viewBox={[0, 0, 60, 20]} width={120} height={40}>

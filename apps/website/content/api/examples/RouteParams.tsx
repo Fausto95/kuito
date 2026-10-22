@@ -1,3 +1,4 @@
+// Type a destination's parameters.
 import { navigate, routes, type RouteParams, type RouteTo } from 'kuito';
 
 declare module 'kuito' {

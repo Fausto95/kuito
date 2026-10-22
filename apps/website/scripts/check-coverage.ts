@@ -8,10 +8,10 @@
  * docs need the same change.
  *
  * Every export must also have a description (JSDoc, or `content/api/descriptions.json`)
- * and an example (mined by `generate-usage.ts`, or `content/api/examples/<id>.tsx`).
+ * and an example (a complete docs example indexed by `generate-examples.ts`, or `content/api/examples/<id>.tsx`).
  * Its page exists by construction: the reference is the site's API index. Types
- * may skip the example through `content/api/exempt-types.json`, a reviewed list.
- * Descriptions, examples and exemptions for exports that no longer exist fail too.
+ * use a complete example directly or through an API that consumes that type.
+ * Descriptions and examples for exports that no longer exist fail too.
  *
  * Usage: node scripts/check-coverage.ts           (after generate: writes api-surface.txt)
  *        node scripts/check-coverage.ts --check   (fails on a stale surface or any gap)
@@ -48,7 +48,6 @@ const json = async <T>(path: string): Promise<T> => JSON.parse(await readFile(at
 const reference = await json<Reference>('src/content/reference.generated.json');
 const usage = await json<Record<string, unknown[]>>('src/content/generated/usage.json');
 const descriptions = await json<Record<string, string>>('content/api/descriptions.json');
-const exempt = await json<{ types: string[] }>('content/api/exempt-types.json');
 const examplesDir = at('content/api/examples');
 const examples = existsSync(examplesDir)
   ? (await readdir(examplesDir))
@@ -82,13 +81,12 @@ const surface = [
   .concat('\n');
 
 const ids = new Set(reference.entries.map((entry) => entry.id));
-const kinds = new Map(reference.entries.map((entry) => [entry.id, entry.kind]));
 const gaps: string[] = [];
 
 for (const entry of reference.entries) {
   const missing = [
     !entry.description.trim() && !descriptions[entry.id]?.trim() && 'description',
-    !usage[entry.id]?.length && !exempt.types.includes(entry.id) && 'example',
+    !usage[entry.id]?.length && 'example',
   ].filter(Boolean);
 
   if (missing.length) gaps.push(`${entry.id} (${entry.kind}): no ${missing.join(', no ')}`);
@@ -101,9 +99,6 @@ const orphans = [
   ...examples
     .filter((id) => !ids.has(id))
     .map((id) => `content/api/examples/${id}.tsx: ${id} is not an export`),
-  ...exempt.types
-    .filter((id) => kinds.get(id) !== 'type')
-    .map((id) => `content/api/exempt-types.json: ${id} is not an exported type`),
 ];
 
 const surfaceFile = at('api-surface.txt');

@@ -1,3 +1,4 @@
+// Fake one native module.
 import { Button, Text, VStack, clipboard, signal } from 'kuito';
 import { assert, press, render, screen, test, type ModuleFake } from 'kuito/tests';
 

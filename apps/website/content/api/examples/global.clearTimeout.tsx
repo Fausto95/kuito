@@ -1,3 +1,4 @@
+// Cancel a pending timer.
 const reminder = setTimeout(() => console.log('Still there?'), 30_000);
 
 // The user came back first: the reminder never shows.

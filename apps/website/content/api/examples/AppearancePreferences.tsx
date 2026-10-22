@@ -1,3 +1,4 @@
+// Read the system display preferences.
 import { Text, appearance, type AppearancePreferences } from 'kuito';
 
 function describe(preferences: AppearancePreferences): string {

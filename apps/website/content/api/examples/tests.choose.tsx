@@ -1,3 +1,4 @@
+// Select a native control option.
 import { Select, Text, VStack, signal } from 'kuito';
 import { assert, choose, render, screen, test } from 'kuito/tests';
 

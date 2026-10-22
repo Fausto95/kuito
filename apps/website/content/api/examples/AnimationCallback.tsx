@@ -1,3 +1,4 @@
+// Remove a toast after its exit completes.
 import { Box, motion, timing, type AnimationCallback } from 'kuito';
 
 function Toast(props: { onHidden: () => void }) {

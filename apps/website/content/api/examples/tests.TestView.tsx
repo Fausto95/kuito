@@ -1,3 +1,4 @@
+// Inspect the rendered native tree.
 import { HStack, Text } from 'kuito';
 import { assert, render, screen, test, type TestView } from 'kuito/tests';
 

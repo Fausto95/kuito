@@ -1,3 +1,4 @@
+// Read a long press location and duration.
 import { Box, longPress, signal, type LongPressEvent } from 'kuito';
 
 const menuAt = signal<{ x: number; y: number } | null>(null);

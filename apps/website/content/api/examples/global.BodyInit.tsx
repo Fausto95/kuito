@@ -1,3 +1,4 @@
+// Send text, form fields or bytes with fetch.
 async function post(url: string, body: BodyInit) {
   const response = await fetch(url, { method: 'POST', body });
 

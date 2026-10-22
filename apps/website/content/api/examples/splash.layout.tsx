@@ -1,3 +1,4 @@
+// Read the native splash layout.
 import { splash } from 'kuito';
 
 const layout = splash.layout(); // null without a splash
