@@ -127,7 +127,12 @@ for (let run = 0; run < Number(options.runs); run++) {
   const frames = frameBounds(parseFrames(log));
 
   runs.push(summary);
-  console.log(`run ${run + 1}:`, JSON.stringify(summary), frames ? 'frames: ' + JSON.stringify(frames) : '');
+
+  console.log(
+    `run ${run + 1}:`,
+    JSON.stringify(summary),
+    frames ? 'frames: ' + JSON.stringify(frames) : '',
+  );
 }
 
 const median = (pick: (summary: CommitSummary) => number) => {

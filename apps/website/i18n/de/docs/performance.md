@@ -82,8 +82,8 @@ Pro Szenario den Median über die Läufe von:
 
 Shell und Renderer markieren ihre Arbeit, damit ein Trace sie zuordnet:
 
-| Abschnitt              | Thread | Was                                                              |
-| ---------------------- | ------ | ---------------------------------------------------------------- |
+| Abschnitt             | Thread | Was                                                              |
+| --------------------- | ------ | ---------------------------------------------------------------- |
 | `Kuito commit <rows>` | main   | Anwenden eines Mutations-Batches von Hermes                      |
 | `Kuito layout`        | main   | Ein Durchlauf der Flexbox-Engine über die Wurzel                 |
 | `Kuito measureLeaf`   | main   | Die Engine bittet Android, einen Text oder ein Control zu messen |

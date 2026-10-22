@@ -12,10 +12,10 @@ Vielen Dank für die Mithilfe bei der Verbesserung von Kuito. Das Projekt ist ex
 
 ## Lokale Einrichtung
 
-Der zugrunde liegende Checkout behält während der laufenden Umbenennung vorerst die Kuito-Befehlsnamen bei.
-
 ```bash
 npm install
+npm ci --prefix apps/website             # Lint prüft auch die Website
+npm --prefix apps/website run build      # schreibt die Dateien, die die Website importiert
 npm test
 npm run lint
 npm run fmt

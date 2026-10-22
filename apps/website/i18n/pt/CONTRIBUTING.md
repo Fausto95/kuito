@@ -12,10 +12,10 @@ Obrigado por ajudar a melhorar o Kuito. O projeto é experimental: as contribui�
 
 ## Configuração local
 
-O checkout subjacente mantém, por agora, os nomes de comandos do Kuito enquanto a mudança de nome decorre.
-
 ```bash
 npm install
+npm ci --prefix apps/website             # o lint verifica também o site
+npm --prefix apps/website run build      # escreve os ficheiros que o site importa
 npm test
 npm run lint
 npm run fmt

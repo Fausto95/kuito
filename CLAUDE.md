@@ -26,6 +26,8 @@ at build time, motion and gestures as declarations, Live Patch.
 
 - `npm test` — Vitest via Vite+. Every test passes on `main`; anything failing is yours.
 - `npm run lint` — Oxlint with type-aware rules **and** TypeScript diagnostics; warnings fail.
+  It covers `apps/website`, which needs `npm ci --prefix apps/website` and one
+  `npm --prefix apps/website run build` (generated route tree and content) first.
 - `npm run fmt` — Oxfmt. Run before committing.
 - `npm run changeset` — a PR users will notice adds a changeset; releases are cut from them
   (`CONTRIBUTING.md#releases`).

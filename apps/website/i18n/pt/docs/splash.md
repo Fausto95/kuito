@@ -150,7 +150,7 @@ export default function App() {
   nada por que esperar (depois de um reload, ou sem splash na configuração,
   caso em que não desenha nada).
 - Nenhuma thread é nomeada: o compilador e o kernel correm a animação na
-  thread da UI ([valores de movimento](motion.md#you-never-pick-a-thread)).
+  thread da UI ([valores de movimento](placement.md)).
 
 As partes são vistas `SplashPart`, uma vista nativa do módulo `Splash`
 ([vistas nativas](native-modules.md#views)) que desenha as imagens do asset

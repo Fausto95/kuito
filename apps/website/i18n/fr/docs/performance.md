@@ -82,8 +82,8 @@ Par scénario, la médiane sur les runs de :
 
 Le shell et le moteur de rendu marquent leur travail pour qu'une trace puisse l'attribuer :
 
-| Section                | Thread    | Quoi                                                             |
-| ---------------------- | --------- | ---------------------------------------------------------------- |
+| Section               | Thread    | Quoi                                                             |
+| --------------------- | --------- | ---------------------------------------------------------------- |
 | `Kuito commit <rows>` | principal | Application d'un lot de mutations venant de Hermes               |
 | `Kuito layout`        | principal | Une passe du moteur flexbox sur la racine                        |
 | `Kuito measureLeaf`   | principal | Le moteur demandant à Android de mesurer un texte ou un contrôle |

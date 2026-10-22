@@ -54,13 +54,13 @@ vom Typ document-end), und auf Android, sobald die Seite fertig geladen ist
 Der Handler erhält das Ereignis mit seinen Feldern direkt darauf: `event.url`, nicht
 `event.nativeEvent.url` wie bei react-native-webview.
 
-| Ereignis      | Wann                                                         | Felder                                                 |
-| ------------- | ------------------------------------------------------------ | ------------------------------------------------------ |
-| `onLoadStart` | Ein Ladevorgang des Hauptframes beginnt.                     | `url`, `title`, `loading`, `canGoBack`, `canGoForward` |
-| `onLoad`      | Er ist geladen.                                              | dieselben                                              |
-| `onLoadEnd`   | Er ist beendet, geladen oder fehlgeschlagen.                 | dieselben                                              |
-| `onError`     | Er ist fehlgeschlagen.                                       | dieselben, mit `code` und `description` der Plattform  |
-| `onNavigate`  | URL, Titel, Ladezustand oder Verlauf haben sich geändert.    | dieselben                                              |
+| Ereignis      | Wann                                                        | Felder                                                 |
+| ------------- | ----------------------------------------------------------- | ------------------------------------------------------ |
+| `onLoadStart` | Ein Ladevorgang des Hauptframes beginnt.                    | `url`, `title`, `loading`, `canGoBack`, `canGoForward` |
+| `onLoad`      | Er ist geladen.                                             | dieselben                                              |
+| `onLoadEnd`   | Er ist beendet, geladen oder fehlgeschlagen.                | dieselben                                              |
+| `onError`     | Er ist fehlgeschlagen.                                      | dieselben, mit `code` und `description` der Plattform  |
+| `onNavigate`  | URL, Titel, Ladezustand oder Verlauf haben sich geändert.   | dieselben                                              |
 | `onMessage`   | Die Seite hat `window.KuitoWebView.postMessage` aufgerufen. | `data`, der gepostete String; `url`, die URL der Seite |
 
 `onNavigate` feuert auch bei einer Navigation innerhalb desselben Dokuments

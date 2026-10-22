@@ -22,7 +22,7 @@ está aqui listado não existe.
 | `crypto.getRandomValues()`, `randomUUID()`    | O CSPRNG da plataforma; sem `crypto.subtle`                       |
 | `structuredClone`                             | Cópia profunda com ciclos; sem `transfer`                         |
 | `Intl`                                        | O do próprio Hermes: `Collator`, `DateTimeFormat`, `NumberFormat` |
-| `console`                                     | Chega à LogBox e ao `kuito dev` ([logbox](logbox.md))            |
+| `console`                                     | Chega à LogBox e ao `kuito dev` ([logbox](logbox.md))             |
 
 `demo/web-apis.tsx` executa todas as entradas num dispositivo (`kuito dev ios --entry web-apis.tsx`
 em `demo/`) e imprime `ok` ou `FAILED` para cada uma.

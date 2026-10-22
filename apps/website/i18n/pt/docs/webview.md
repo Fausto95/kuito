@@ -61,7 +61,7 @@ o `event.nativeEvent.url` do react-native-webview.
 | `onLoadEnd`   | Terminou, com sucesso ou com falha.                               | os mesmos                                               |
 | `onError`     | Falhou.                                                           | os mesmos, com o `code` e a `description` da plataforma |
 | `onNavigate`  | O URL, o título, o estado de carregamento ou o histórico mudaram. | os mesmos                                               |
-| `onMessage`   | A página chamou `window.KuitoWebView.postMessage`.               | `data`, a string que publicou; `url`, o URL da página   |
+| `onMessage`   | A página chamou `window.KuitoWebView.postMessage`.                | `data`, a string que publicou; `url`, o URL da página   |
 
 `onNavigate` também dispara numa navegação dentro do mesmo documento
 (`history.pushState`, um `#fragment`), que não tem eventos de carregamento. No iOS, um

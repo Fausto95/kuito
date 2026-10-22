@@ -10,7 +10,7 @@ aus dem Weg: es gibt keinen schwebenden Button.
 | iOS-Simulator        | ⌘D                                         |
 | Android-Emulator     | ⌘M / Strg+M oder die Menütaste             |
 | Ein physisches Gerät | Schütteln                                  |
-| Die `kuito dev`-CLI | `m` drücken (funktioniert für jedes Gerät) |
+| Die `kuito dev`-CLI  | `m` drücken (funktioniert für jedes Gerät) |
 
 Sie öffnen sich als natives Sheet mit:
 
@@ -81,7 +81,7 @@ Chrome DevTools Protocol debugbar, so wie React Native DevTools Hermes debuggt:
 
 | Ziel      | Was dort läuft                                                 |
 | --------- | -------------------------------------------------------------- |
-| JS-Thread | Die App und der Kuito-Kernel (`src/runtime`)                  |
+| JS-Thread | Die App und der Kuito-Kernel (`src/runtime`)                   |
 | UI-Thread | Motion-Werte, Gesten und UI-Thread-Callbacks (`src/ui-thread`) |
 
 In `kuito dev` `j` drücken, um DevTools auf dem JS-Thread des zuletzt

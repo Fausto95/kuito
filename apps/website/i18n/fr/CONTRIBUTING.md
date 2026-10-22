@@ -12,10 +12,10 @@ Merci de contribuer à l'amélioration de Kuito. Le projet est expérimental : l
 
 ## Installation locale
 
-Le checkout sous-jacent conserve pour l'instant les noms de commandes Kuito pendant que le renommage se poursuit.
-
 ```bash
 npm install
+npm ci --prefix apps/website             # le lint vérifie aussi le site
+npm --prefix apps/website run build      # écrit les fichiers que le site importe
 npm test
 npm run lint
 npm run fmt

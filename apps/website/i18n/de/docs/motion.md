@@ -49,7 +49,7 @@ bewegt. Ein Motion-Wert verschwindet, wenn seine Komponente unmountet.
   bildet stückweise zwischen Zahlen oder Hex-Farben ab und hält seine Endwerte,
   sofern nicht `{ extrapolate: 'extend' }` gesetzt ist. `map` nimmt eine
   Funktion entgegen, die der Compiler für den UI-Thread kompiliert hat (siehe
-  [Ein Thread wird nie gewählt](#you-never-pick-a-thread)).
+  [Ein Thread wird nie gewählt](placement.md)).
 - `x.value = animation` animiert ihn; `x.value = 5` bewegt ihn sofort.
 
 ## Gesten

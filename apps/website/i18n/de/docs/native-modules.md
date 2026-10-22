@@ -64,11 +64,11 @@ export default defineModule('Battery', {
 });
 ```
 
-| Deklaration             | Läuft auf                                   | JavaScript erhält | Nativ                                         |
-| ----------------------- | ------------------------------------------- | ----------------- | --------------------------------------------- |
-| `fn.sync`               | dem JS-Thread                               | den Wert          | gibt den Wert zurück                          |
-| `fn.main`               | dem Main-Thread (UI)                        | ein Promise       | gibt den Wert zurück, `@MainActor`            |
-| `fn.background`         | dem seriellen Hintergrund-Thread des Moduls | ein Promise       | gibt den Wert zurück                          |
+| Deklaration             | Läuft auf                                   | JavaScript erhält | Nativ                                        |
+| ----------------------- | ------------------------------------------- | ----------------- | -------------------------------------------- |
+| `fn.sync`               | dem JS-Thread                               | den Wert          | gibt den Wert zurück                         |
+| `fn.main`               | dem Main-Thread (UI)                        | ein Promise       | gibt den Wert zurück, `@MainActor`           |
+| `fn.background`         | dem seriellen Hintergrund-Thread des Moduls | ein Promise       | gibt den Wert zurück                         |
 | `fn.main.callback`, ... | startet auf seinem Thread                   | ein Promise       | schließt ein `KuitoPromise` später einmal ab |
 
 Neben Funktionen deklariert eine Spezifikation, was die Plattform sendet:
@@ -830,12 +830,12 @@ Eingebaute und App-Module gehen durch diesen einen Pfad. Kuitos eingebaute
 Module liegen in `native/modules/<name>/` (Kebab-Case,
 `native/modules/app-state`), aufgebaut wie die einer App.
 
-| Generiert (in `.kuito/`)                                                    | Aus                                                                                 |
-| ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `ios/Generated/KuitoLink.swift`                                             | den Spezifikationen der eingeschlossenen Module und den Ids, die das Bundle aufruft |
-| `ios/project.json`: Quellen, `packages`, Frameworks, Info.plist              | dem `ios` der eingeschlossenen Module                                               |
-| `android/generated/dev/kuito/link/KuitoLink.kt`                            | den Spezifikationen der eingeschlossenen Module und den Ids, die das Bundle aufruft |
-| `android/AndroidManifest.xml`, in das des Frameworks gemergt                 | den `permissions`, `providers` und `services` der eingeschlossenen Module           |
+| Generiert (in `.kuito/`)                                                  | Aus                                                                                 |
+| ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `ios/Generated/KuitoLink.swift`                                           | den Spezifikationen der eingeschlossenen Module und den Ids, die das Bundle aufruft |
+| `ios/project.json`: Quellen, `packages`, Frameworks, Info.plist           | dem `ios` der eingeschlossenen Module                                               |
+| `android/generated/dev/kuito/link/KuitoLink.kt`                           | den Spezifikationen der eingeschlossenen Module und den Ids, die das Bundle aufruft |
+| `android/AndroidManifest.xml`, in das des Frameworks gemergt              | den `permissions`, `providers` und `services` der eingeschlossenen Module           |
 | Gradles `-Pkuito.sources`, `-Pkuito.dependencies` und `-Pkuito.moduleRes` | dem `android` der eingeschlossenen Module                                           |
 
 Unveränderte generierte Dateien werden nicht angefasst, sodass ein Rebuild
@@ -922,7 +922,7 @@ wenn der eigene Code der Shell die Klassen des Moduls aufruft.
 | `ERR_VIEW_NOT_FOUND`     | Die View einer View-Funktion ist nicht gemountet.                                       |
 | `ERR_ARGUMENT`           | Ein Argument ließ sich nicht in den deklarierten Typ dekodieren.                        |
 | `ERR_ENCODE`             | Ein Ergebnis oder eine Ereignis-Payload ist kein JSON.                                  |
-| `ERR_NATIVE`             | Die Funktion hat etwas anderes als `KuitoModuleError` geworfen.                        |
+| `ERR_NATIVE`             | Die Funktion hat etwas anderes als `KuitoModuleError` geworfen.                         |
 | `ERR_THREAD`             | Ein synchroner Aufruf hat eine asynchrone Funktion erreicht.                            |
 | `ERR_NO_ACTIVITY`        | Das Modul benötigt die Activity, und ein Hintergrund-Task läuft ohne eine. Nur Android. |
 
@@ -943,11 +943,11 @@ Eine Modulfunktion überquert die Host-Grenze über ihre Id, von
 `src/runtime/link.ts` durch `native/shared/KuitoRuntime.cpp` bis zum Linker
 jeder Plattform (`KuitoLinker`) und dessen generiertem `KuitoLink`:
 
-| Host-Funktion                              | Gibt zurück                                                                                                               |
-| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| `__kuitoHostCall(id, ...args)`            | das Ergebnis einer `js`-Funktion; ein Fehlschlag wirft `__kuitoLinkError(id, code, message)`                             |
-| `__kuitoHostCallAsync(id, call, ...args)` | nichts; der Host ruft später `__kuitoLinkSettle(call, value)` oder `__kuitoLinkFail(call, code, message)` auf           |
-| `__kuitoHostObserve(id, observing)`       | nichts; während der Beobachtung ruft der Host `__kuitoLinkEmit(id, value)` für ein Ereignis oder einen Live-Wert auf     |
+| Host-Funktion                             | Gibt zurück                                                                                                               |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `__kuitoHostCall(id, ...args)`            | das Ergebnis einer `js`-Funktion; ein Fehlschlag wirft `__kuitoLinkError(id, code, message)`                              |
+| `__kuitoHostCallAsync(id, call, ...args)` | nichts; der Host ruft später `__kuitoLinkSettle(call, value)` oder `__kuitoLinkFail(call, code, message)` auf             |
+| `__kuitoHostObserve(id, observing)`       | nichts; während der Beobachtung ruft der Host `__kuitoLinkEmit(id, value)` für ein Ereignis oder einen Live-Wert auf      |
 | `__kuitoUIHostCall(id, ...args)`          | auf dem UI-Thread das Ergebnis einer `main`-Funktion, sofort ausgeführt ([UI-Thread-Aufrufe](#calls-from-ui-thread-code)) |
 
 Werte überqueren die Grenze als typisierte JSI-Werte (native/shared/Link.h,

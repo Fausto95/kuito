@@ -106,9 +106,9 @@ Um contentor (disposto como um `VStack`) que responde a toques.
 | `onLongPress`                 | Mantido durante `longPressDuration` ms (500 por predefinição).    |
 | `disabled`                    | Ignora os toques.                                                 |
 | `hitArea`                     | Margem tocável extra, em pontos.                                  |
-| `pressedOpacity` _(Kuito)_   | Opacidade enquanto premido, como `TouchableOpacity`. 1 = nenhuma. |
-| `pressedScale` _(Kuito)_     | Escala enquanto premido, p. ex. `0.97`. 1 = nenhuma.              |
-| `haptic` _(Kuito)_           | `light`, `medium`, `heavy` ou `selection` ao pousar o dedo.       |
+| `pressedOpacity` _(Kuito)_    | Opacidade enquanto premido, como `TouchableOpacity`. 1 = nenhuma. |
+| `pressedScale` _(Kuito)_      | Escala enquanto premido, p. ex. `0.97`. 1 = nenhuma.              |
+| `haptic` _(Kuito)_            | `light`, `medium`, `heavy` ou `selection` ao pousar o dedo.       |
 
 <!-- end of generated props -->
 
@@ -187,10 +187,10 @@ import cover from './assets/cover.png';
 | `onLoadStart` / `onLoadEnd` | Em torno de cada carregamento, com sucesso ou falha.                            |
 | `onLoad`                    | `{ width, height }` da imagem, em píxeis.                                       |
 | `onError`                   | `{ error }`, p. ex. `"HTTP 404"`.                                               |
-| `aspectRatio` _(Kuito)_    | Largura ÷ altura: dimensiona a vista antes de a imagem chegar.                  |
-| `placeholder` _(Kuito)_    | Cor mostrada durante o carregamento.                                            |
-| `fadeDuration` _(Kuito)_   | Fundido cruzado, em milissegundos, quando a imagem aparece; 0 por predefinição. |
-| `cache` _(Kuito)_          | `memory-disk` (predefinição), `memory`, `disk` ou `none`.                       |
+| `aspectRatio` _(Kuito)_     | Largura ÷ altura: dimensiona a vista antes de a imagem chegar.                  |
+| `placeholder` _(Kuito)_     | Cor mostrada durante o carregamento.                                            |
+| `fadeDuration` _(Kuito)_    | Fundido cruzado, em milissegundos, quando a imagem aparece; 0 por predefinição. |
+| `cache` _(Kuito)_           | `memory-disk` (predefinição), `memory`, `disk` ou `none`.                       |
 
 <!-- end of generated props -->
 
@@ -222,8 +222,8 @@ os separadores os mostram ([assets](assets.md#symbols)).
 
 <!-- Symbol props: generated from src/protocol/manifest.ts -->
 
-| Prop                   | Significado                                                                 |
-| ---------------------- | --------------------------------------------------------------------------- |
+| Prop                  | Significado                                                                 |
+| --------------------- | --------------------------------------------------------------------------- |
 | `name` _(Kuito)_      | Um SF Symbol no iOS e um Material Symbol no Android, ou `{ ios, android }`. |
 | `size` _(Kuito)_      | Em pontos; 24 por predefinição, e o tamanho da vista.                       |
 | `weight` _(Kuito)_    | De `ultralight` a `black`; `regular` por predefinição.                      |
