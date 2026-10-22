@@ -23,15 +23,16 @@ jobs:
         run: npm ci --no-fund --no-audit
       - name: Check the package as users install it
         run: node scripts/check-package.ts
-      - uses: changesets/action@v1
+      # v2 reads what `changeset publish` (Changesets v3) records in the file
+      # CHANGESETS_OUTPUT names, and pushes the tag and the GitHub release from
+      # it; v1 parsed v2's console output and found nothing to tag.
+      - uses: changesets/action@v2
         with:
-          title: 'chore: version packages'
-          commit: 'chore: version packages'
-          version: npm run version-packages
-          publish: npm run release
+          pr-title: 'chore: version packages'
+          commit-message: 'chore: version packages'
+          version-script: npm run version-packages
+          publish-script: npm run release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           # setup-node's .npmrc, which npm reads, takes the token from here.
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: 'true'
