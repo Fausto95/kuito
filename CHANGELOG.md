@@ -1,4 +1,4 @@
-# kuito
+# @kuito/kuito
 
 ## 0.0.1
 

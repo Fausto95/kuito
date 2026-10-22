@@ -59,7 +59,7 @@ const componentExample = [
   '}',
 ].join('\n');
 
-const setup = ['npx kuito create MyApp', 'cd MyApp', 'npx kuito dev ios'].join('\n');
+const setup = ['npx @kuito/kuito create MyApp', 'cd MyApp', 'npx kuito dev ios'].join('\n');
 
 function Home() {
   const { locale } = Route.useParams();
