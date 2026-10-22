@@ -23,8 +23,9 @@ native dependencies and generates a native project. `doctor` reports missing
 tools; `npx kuito devices` lists available targets.
 
 The generated app depends on this local checkout. Keep it available while
-developing the app. After a release is published, running `npx kuito create MyApp` makes the app
-depend on that release instead. The checkout flow above uses the current development source.
+developing the app. After a release is published, running `npx @kuito/kuito create MyApp` makes the app
+depend on that release instead, as `kuito` (an npm alias of `@kuito/kuito`, so
+imports stay `from 'kuito'`). The checkout flow above uses the current development source.
 
 ## Replace the home screen
 

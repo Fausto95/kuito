@@ -28,21 +28,27 @@ export function validateAppName(name: string) {
   return name;
 }
 
-/** Installed from npm, the app takes that release; run from a checkout, the checkout. */
+/**
+ * Installed from npm, the app takes that release, under the alias `kuito`
+ * its imports name (npm publishes it scoped); run from a checkout, the checkout.
+ */
 async function kuitoDependency(framework: string, directory: string) {
   if (!framework.split(sep).includes('node_modules'))
     return `file:${relative(directory, framework)}`;
 
   const file = join(framework, 'package.json');
   const manifest: unknown = JSON.parse(await readFile(file, 'utf8'));
-  const version =
-    typeof manifest === 'object' && manifest !== null && 'version' in manifest
-      ? manifest.version
+  const field = (key: string) =>
+    typeof manifest === 'object' && manifest !== null && key in manifest
+      ? Object.getOwnPropertyDescriptor(manifest, key)?.value
       : null;
+  const name: unknown = field('name');
+  const version: unknown = field('version');
 
-  if (typeof version !== 'string') throw new Error(`${file} has no version`);
+  if (typeof name !== 'string' || typeof version !== 'string')
+    throw new Error(`${file} has no name or version`);
 
-  return `^${version}`;
+  return `npm:${name}@^${version}`;
 }
 
 function packageJson(name: string, kuito: string) {

@@ -42,8 +42,8 @@ La page [architecture](./architecture.md) explique chaque partie.
 ## Créer une application
 
 ```sh
-npx kuito doctor
-npx kuito create MyApp
+npx @kuito/kuito doctor
+npx @kuito/kuito create MyApp
 cd MyApp
 npx kuito dev ios    # or: npx kuito dev android
 ```

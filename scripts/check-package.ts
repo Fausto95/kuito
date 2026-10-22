@@ -46,14 +46,19 @@ try {
   run('npm', ['pack', '--pack-destination', scratch], { cwd: ROOT });
 
   const manifest = readJson(join(ROOT, 'package.json'));
-  const version =
-    typeof manifest === 'object' && manifest !== null && 'version' in manifest
-      ? manifest.version
+  const field = (key: string): unknown =>
+    typeof manifest === 'object' && manifest !== null && key in manifest
+      ? Object.getOwnPropertyDescriptor(manifest, key)?.value
       : null;
+  const name = field('name');
+  const version = field('version');
 
-  if (typeof version !== 'string') throw new Error('package.json has no version');
+  if (typeof name !== 'string' || typeof version !== 'string')
+    throw new Error('package.json has no name or version');
 
-  const tarball = join(scratch, `kuito-${version}.tgz`);
+  // npm pack names a scoped package's tarball <scope>-<name>-<version>.tgz.
+  const tarball = join(scratch, `${name.replace('@', '').replace('/', '-')}-${version}.tgz`);
+  const release = `npm:${name}@^${version}`;
   const cli = join(scratch, 'cli');
 
   mkdirSync(cli);
@@ -64,13 +69,17 @@ try {
   const app = join(scratch, 'Smoke');
   const declared = dependencyOn(join(app, 'package.json'), 'kuito');
 
-  if (declared !== `^${version}`)
-    throw new Error(`The created app depends on kuito ${String(declared)}, not ^${version}`);
+  if (declared !== release)
+    throw new Error(`The created app depends on kuito ${String(declared)}, not ${release}`);
 
   // The release is not on npm yet: the app installs the tarball it would download.
   const pkg = readFileSync(join(app, 'package.json'), 'utf8');
 
-  writeFileSync(join(app, 'package.json'), pkg.replace(`"^${version}"`, JSON.stringify(tarball)));
+  writeFileSync(
+    join(app, 'package.json'),
+    pkg.replace(JSON.stringify(release), JSON.stringify(tarball)),
+  );
+
   run('npm', ['install', '--no-audit', '--no-fund'], { cwd: app });
   run('npm', ['test'], { cwd: app });
 
@@ -97,7 +106,7 @@ try {
   );
 
   console.log(
-    `kuito ${version}: packed, installed, created an app, passed its tests and compiled it`,
+    `${name} ${version}: packed, installed, created an app, passed its tests and compiled it`,
   );
 } finally {
   rmSync(scratch, { recursive: true, force: true });
