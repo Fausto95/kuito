@@ -14,6 +14,8 @@ Thank you for helping improve Kuito. The project is experimental: the most usefu
 
 ```bash
 npm install
+npm ci --prefix apps/website             # lint type-checks the website too
+npm --prefix apps/website run build      # writes the files the site imports
 npm test
 npm run lint
 npm run fmt

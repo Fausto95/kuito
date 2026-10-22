@@ -12,6 +12,12 @@ jobs:
           node-version: '24'
       - name: Install development dependencies
         run: npm install --no-fund --no-audit
+      # Lint type-checks the site too: its TypeScript lives in apps/website, and
+      # its build writes the route tree and the generated content it imports.
+      - name: Install and build the website
+        run: |
+          npm ci --prefix apps/website --no-fund --no-audit
+          npm --prefix apps/website run build
       - name: Check formatting and lint (Vite+)
         run: |
           npx vp fmt --check
