@@ -101,7 +101,9 @@ export function CliCommands({ commands }: { commands: typeof cliCommands }) {
             {commands.map((command) => (
               <tr key={command.name} id={command.name}>
                 <td>
-                  <code>kuito {command.usage}</code>
+                  <code>
+                    npx {command.name === 'create' ? '@kuito/kuito' : 'kuito'} {command.usage}
+                  </code>
                 </td>
                 <td>
                   <Inline>{command.summary}</Inline>

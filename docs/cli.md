@@ -1,21 +1,21 @@
 # Run, test and build an app
 
-Run commands from the app directory containing kuito.config.ts. In an app,
-`npx kuito` uses its installed framework. In this repository, use
-`node scripts/kuito.ts` or `npm run kuito --`.
+Create an app with `npx @kuito/kuito`, then run `npx kuito` from the app directory
+containing `kuito.config.ts`. App commands use the installed framework version.
 
 ## Create an app
 
 ```sh
-node scripts/kuito.ts doctor
-node scripts/kuito.ts create MyApp
+npx @kuito/kuito create MyApp
 cd MyApp
+npx kuito doctor
 npx kuito dev ios
 ```
 
-Run create from the framework checkout. The starter links to that checkout and
-installs dependencies. `create --no-install` skips installation; `init` aliases
-create. See [first app](apps.md) for requirements and the first screen.
+The CLI creates the starter and installs the published package as the `kuito`
+dependency. `npx @kuito/kuito create MyApp --no-install` skips installation;
+run `npm install` inside the app before using it. `init` is an alias for `create`.
+See [first app](apps.md) for requirements and the first screen.
 
 ## Choose a target and develop
 
