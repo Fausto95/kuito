@@ -4,7 +4,8 @@
 
 Build native iOS and Android interfaces with TypeScript, TSX, signals and CSS. Kuito compiles reactive bindings to native view updates; app logic runs in Hermes, and motion and gestures can run on the UI thread.
 
-Kuito is experimental and not production-ready.
+> [!WARNING]
+> Kuito is experimental and not production-ready.
 
 ## Run your first app
 
