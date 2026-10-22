@@ -128,18 +128,23 @@ test('a created app’s npm test passes on a machine without Xcode or the Androi
   }
 });
 
-test('an app created by Kuito from npm depends on that release', async () => {
+test('an app created by Kuito from npm depends on that release, imported as kuito', async () => {
   const parent = temp();
   const framework = join(parent, 'node_modules/kuito');
   const directory = join(parent, 'MyApp');
 
   try {
     mkdirSync(framework, { recursive: true });
-    writeFileSync(join(framework, 'package.json'), JSON.stringify({ version: '1.2.3' }));
+
+    writeFileSync(
+      join(framework, 'package.json'),
+      JSON.stringify({ name: '@kuito/kuito', version: '1.2.3' }),
+    );
 
     await createApp({ name: 'MyApp', directory, framework });
 
-    assert.equal(packageOf(directory).dependencies['kuito'], '^1.2.3');
+    // npm publishes Kuito under a scope; the alias keeps the app's imports `kuito`.
+    assert.equal(packageOf(directory).dependencies['kuito'], 'npm:@kuito/kuito@^1.2.3');
   } finally {
     rmSync(parent, { recursive: true, force: true });
   }
