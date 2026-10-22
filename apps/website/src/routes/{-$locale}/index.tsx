@@ -1,3 +1,5 @@
+import { pageMetadata } from '../../lib/metadata';
+import { defaultLocale, isLocale, messages } from '../../i18n/messages';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { useState } from 'react';
 import { useMessages } from '../../i18n/locale';
@@ -20,7 +22,18 @@ import {
   Zap,
 } from 'lucide-react';
 
-export const Route = createFileRoute('/{-$locale}/')({ component: Home });
+export const Route = createFileRoute('/{-$locale}/')({
+  head: ({ params }) => {
+    const locale = isLocale(params.locale) ? params.locale : defaultLocale;
+
+    return pageMetadata({
+      title: `Kuito — ${messages[locale]['home.title']} ${messages[locale]['home.titleAccent']}`,
+      description: messages[locale]['home.lead'],
+      locale,
+    });
+  },
+  component: Home,
+});
 
 const DOC = {
   quickstart: ['guides', 'introduction'],

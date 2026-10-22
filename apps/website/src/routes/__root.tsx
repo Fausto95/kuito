@@ -17,11 +17,6 @@ export const Route = createRootRoute({
           'A TypeScript-first native app framework with compiled CSS, familiar Web APIs, fine-grained reactivity, and real iOS and Android views.',
       },
       { name: 'theme-color', content: '#090b12' },
-      { property: 'og:title', content: 'Kuito — Native apps. Web simplicity.' },
-      {
-        property: 'og:description',
-        content: 'Build real native apps with TypeScript, familiar CSS, and Web APIs.',
-      },
     ],
     links: [
       { rel: 'icon', type: 'image/svg+xml', href: '/kuito-mark.svg' },
