@@ -4,23 +4,20 @@
 
 Build native iOS and Android interfaces with TypeScript, TSX, signals and CSS. Kuito compiles reactive bindings to native view updates; app logic runs in Hermes, and motion and gestures can run on the UI thread.
 
-Kuito is experimental and not production-ready. Use a checkout to try the current development version.
+Kuito is experimental and not production-ready.
 
 ## Run your first app
 
 Install Node.js 22.18 or newer. For iOS, use macOS with Xcode and XcodeGen. For Android, install JDK 21, the Android SDK/NDK and Gradle 8.
 
 ```sh
-git clone https://github.com/Fausto95/kuito.git
-cd kuito
-npm ci
-node scripts/kuito.ts doctor
-node scripts/kuito.ts create MyApp
+npx @kuito/kuito create MyApp
 cd MyApp
+npx kuito doctor
 npx kuito dev ios
 ```
 
-Use `npx kuito dev android` for Android. The generated app depends on the checkout, so keep it available. [Create your first app](docs/apps.md) explains the files, app configuration and device setup.
+Use `npx kuito dev android` for Android. The CLI creates the app and installs its dependencies; no framework checkout is needed. [Create your first app](docs/apps.md) explains the files, app configuration and device setup.
 
 ## Write a screen
 

@@ -1,20 +1,19 @@
 # Create your first app
 
 Build a small native screen, run it on a simulator, and edit it while it is running.
-Kuito is experimental; this checkout is the supported starting point.
+Kuito is experimental and not production-ready.
 
 ## Install the tools
 
 Use Node.js 22.18 or newer. iOS development needs macOS, Xcode and XcodeGen.
 Android development needs JDK 21, the Android SDK and NDK, and Gradle 8.
 
-From a checkout of this repository:
+Create an app with the published CLI:
 
 ```sh
-npm ci
-node scripts/kuito.ts doctor
-node scripts/kuito.ts create MyApp
+npx @kuito/kuito create MyApp
 cd MyApp
+npx kuito doctor
 npx kuito dev ios
 ```
 
@@ -22,10 +21,9 @@ Use `npx kuito dev android` for Android. The first build downloads the pinned
 native dependencies and generates a native project. `doctor` reports missing
 tools; `npx kuito devices` lists available targets.
 
-The generated app depends on this local checkout. Keep it available while
-developing the app. After a release is published, running `npx @kuito/kuito create MyApp` makes the app
-depend on that release instead, as `kuito` (an npm alias of `@kuito/kuito`, so
-imports stay `from 'kuito'`). The checkout flow above uses the current development source.
+The CLI installs the published `@kuito/kuito` package under the dependency name
+`kuito` using an npm alias. Inside the app, use `npx kuito` for CLI commands and
+`from 'kuito'` for imports. No framework checkout is needed.
 
 ## Replace the home screen
 
