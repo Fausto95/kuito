@@ -1,7 +1,6 @@
 package dev.kuito.runtime.devtools
 
 import android.content.Context
-import android.graphics.Color
 import android.graphics.Typeface
 import android.view.Gravity
 import android.view.ViewGroup
@@ -18,18 +17,11 @@ import android.widget.TextView
  */
 class KuitoLoadingView(context: Context) : FrameLayout(context) {
     private val status = TextView(context)
-    private val mark = TextView(context)
+    private val mark = KuitoBrandMark(context)
 
     init {
         setBackgroundColor(KuitoDevTheme.ink)
         isClickable = true
-
-        mark.text = "◆"
-        mark.textSize = 34f
-        mark.setTextColor(Color.WHITE)
-        mark.gravity = Gravity.CENTER
-        mark.background = KuitoDevTheme.rounded(context, KuitoDevTheme.accent, 22f, null)
-        mark.elevation = dp(16f).toFloat()
 
         val title = TextView(context).apply {
             text = "Kuito"
@@ -45,7 +37,7 @@ class KuitoLoadingView(context: Context) : FrameLayout(context) {
         addView(LinearLayout(context).apply {
             orientation = LinearLayout.VERTICAL
             gravity = Gravity.CENTER_HORIZONTAL
-            addView(mark, LinearLayout.LayoutParams(dp(76f), dp(76f)))
+            addView(mark, LinearLayout.LayoutParams(dp(96f), dp(96f)))
             addView(title, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { topMargin = dp(24f) })
             addView(status, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
                 topMargin = dp(26f)
