@@ -289,6 +289,7 @@ marked.use({
 
 async function renderDocument(
   source: string,
+  english: string,
   locale: Locale,
   slug: string,
   headingIds: string[] | null,
@@ -299,7 +300,9 @@ async function renderDocument(
     slug,
     locale,
     base: locale === 'en' ? '' : '/' + locale,
-    sourceDir: dirname(source),
+    // A translation keeps the English page's link targets verbatim, so they
+    // resolve from where the English page lives, not from i18n/<locale>/.
+    sourceDir: dirname(english),
     headingIds,
     headings: [],
     usedIds: new Set(),
@@ -382,7 +385,7 @@ async function main() {
       const translated = locale === 'en' || existsSync(localized);
       const source = translated ? (locale === 'en' ? english : localized) : english;
       const ids = locale === 'en' ? null : (englishHeadings.get(slug) ?? null);
-      const page = await renderDocument(source, locale, slug, ids);
+      const page = await renderDocument(source, english, locale, slug, ids);
 
       if (locale === 'en')
         englishHeadings.set(
