@@ -1,6 +1,6 @@
 {
   "name": "kuito",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Kuito: a TypeScript-first native UI framework on Hermes",
   "keywords": [
     "android",
