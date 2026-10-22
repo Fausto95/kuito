@@ -21,7 +21,9 @@
     "coverage": "npm run generate && node scripts/check-coverage.ts",
     "coverage:check": "npm run generate && node scripts/check-coverage.ts --check",
     "snippets:check": "node scripts/check-snippets.ts && node scripts/check-reference-examples.ts",
-    "links:check": "node scripts/check-links.ts"
+    "links:check": "node scripts/check-links.ts",
+    "social:export": "node scripts/export-social-card.mjs",
+    "metadata:check": "node scripts/check-metadata.ts"
   },
   "dependencies": {
     "@tanstack/react-router": "^1.130.0",

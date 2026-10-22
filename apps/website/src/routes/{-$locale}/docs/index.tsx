@@ -1,3 +1,4 @@
+import { pageMetadata } from '../../../lib/metadata';
 import { createFileRoute, getRouteApi } from '@tanstack/react-router';
 import { DocsShell } from '../../../components/docs/DocsShell';
 import { DocsHub } from '../../../components/docs/SectionPages';
@@ -13,12 +14,12 @@ export const Route = createFileRoute('/{-$locale}/docs/')({
         ? params.locale
         : 'en';
 
-    return {
-      meta: [
-        { title: `${messages[locale]['docs.title']} — Kuito` },
-        { name: 'description', content: messages[locale]['docs.lead'] },
-      ],
-    };
+    return pageMetadata({
+      title: `${messages[locale]['docs.title']} — Kuito`,
+      description: messages[locale]['docs.lead'],
+      locale,
+      segments: ['docs'],
+    });
   },
   component: Hub,
 });

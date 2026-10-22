@@ -1,3 +1,4 @@
+import { pageMetadata } from '../../../../lib/metadata';
 import { createFileRoute, notFound } from '@tanstack/react-router';
 import { ApiEntryView, entryHeadings } from '../../../../components/docs/ApiEntryView';
 import { Article } from '../../../../components/docs/Article';
@@ -32,18 +33,18 @@ export const Route = createFileRoute('/{-$locale}/docs/$section/$slug')({
     const locale = isLocale(params.locale) ? params.locale : defaultLocale;
     const title = pageTitle(loaderData, (key) => messages[locale][key]);
 
-    return {
-      meta: [
-        { title: `${title} — Kuito ${messages[locale]['docs.title']}` },
-        {
-          name: 'description',
-          content:
-            loaderData?.doc?.description ||
-            loaderData?.entry?.description ||
-            messages[locale][`section.${loaderData?.resolved.section ?? 'guides'}.lead`],
-        },
-      ],
-    };
+    if (!loaderData) return {};
+
+    return pageMetadata({
+      title: `${title} — Kuito ${messages[locale]['docs.title']}`,
+      description:
+        loaderData.doc?.description ||
+        loaderData.entry?.description ||
+        messages[locale][`section.${loaderData.resolved.section}.lead`],
+      locale,
+      segments: ['docs', loaderData.resolved.section, loaderData.resolved.slug],
+      type: 'article',
+    });
   },
   component: Page,
   notFoundComponent: NotFound,

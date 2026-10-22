@@ -69,3 +69,15 @@ Inspect navigation, search, a component's guide/props, an API example, a CSS ent
 After configuring Cloudflare credentials and the target account, `npm run deploy` publishes the `kuito-website` Worker. Deployment is separate from a docs change or Git push.
 
 For prose conventions, read [Writing documentation](CONTRIBUTING-DOCS.md).
+
+## Social previews
+
+Every page emits its title, description, canonical URL, Open Graph tags and Twitter large-image card in the server-rendered HTML. `src/lib/metadata.ts` keeps these fields aligned, including locale prefixes and the production origin (`https://kuito.dev`). Documentation pages use their own generated descriptions.
+
+All routes share the branded 1200 × 630 PNG at `public/social-card.png`. Regenerate it after changing `scripts/export-social-card.mjs` or the logo:
+
+```sh
+npm run social:export
+```
+
+To verify actual server HTML across all locale and route families, build the site, start `npm run preview -- --host 127.0.0.1 --port 4175`, then run `npm run metadata:check -- http://127.0.0.1:4175` in another terminal.

@@ -1,3 +1,4 @@
+import { pageMetadata } from '../../../../lib/metadata';
 import { createFileRoute, getRouteApi, notFound } from '@tanstack/react-router';
 import { DocsShell } from '../../../../components/docs/DocsShell';
 import { SectionLanding } from '../../../../components/docs/SectionPages';
@@ -17,12 +18,14 @@ export const Route = createFileRoute('/{-$locale}/docs/$section/')({
         : 'en';
     const section = isSectionId(params.section) ? params.section : 'guides';
 
-    return {
-      meta: [
-        { title: `${messages[locale][`section.${section}.title`]} — Kuito` },
-        { name: 'description', content: messages[locale][`section.${section}.lead`] },
-      ],
-    };
+    if (!isSectionId(params.section)) return {};
+
+    return pageMetadata({
+      title: `${messages[locale][`section.${section}.title`]} — Kuito`,
+      description: messages[locale][`section.${section}.lead`],
+      locale,
+      segments: ['docs', section],
+    });
   },
   component: Landing,
 });
