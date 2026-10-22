@@ -37,10 +37,12 @@ test('the dev shells draw the brand mark from the master’s own paths and color
   }
 });
 
-test('the startup screen shows the brand mark, not a placeholder glyph', () => {
+test('the startup screen and the devtools show the brand mark, not a placeholder glyph', () => {
   for (const file of [
     'native/ios/App/Devtools/KuitoLoadingView.swift',
+    'native/ios/App/Devtools/KuitoDevtoolsController.swift',
     'native/android/app/src/debug/java/dev/kuito/runtime/devtools/KuitoLoadingView.kt',
+    'native/android/app/src/debug/java/dev/kuito/runtime/devtools/KuitoDevtoolsSheet.kt',
   ]) {
     const source = read(file);
 
