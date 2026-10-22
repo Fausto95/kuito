@@ -1,0 +1,45 @@
+{
+  "name": "@kuito/website",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "npm run build && wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "cf-typegen": "wrangler types",
+    "brand:export": "node scripts/export-brand.mjs",
+    "api:generate": "node scripts/generate-api-reference.mjs",
+    "predev": "npm run generate",
+    "prebuild": "npm run generate",
+    "pretypecheck": "npm run build",
+    "docs:generate": "node scripts/generate-docs.ts",
+    "generate": "npm run api:generate && npm run usage:generate && npm run docs:generate",
+    "usage:generate": "node scripts/generate-usage.ts",
+    "coverage": "npm run generate && node scripts/check-coverage.ts",
+    "coverage:check": "npm run generate && node scripts/check-coverage.ts --check",
+    "snippets:check": "node scripts/check-snippets.ts",
+    "links:check": "node scripts/check-links.ts"
+  },
+  "dependencies": {
+    "@tanstack/react-router": "^1.130.0",
+    "@tanstack/react-start": "^1.130.0",
+    "lucide-react": "^0.468.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.64.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "marked": "^18.1.1",
+    "sharp": "^0.34.0",
+    "typescript": "^5.8.0",
+    "vite": "^8.3.4",
+    "wrangler": "^4.0.0"
+  }
+}

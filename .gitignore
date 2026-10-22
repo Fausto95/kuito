@@ -1,0 +1,24 @@
+node_modules/
+dist/
+.kuito/
+.DS_Store
+*.log
+
+# Generated mobile projects / build outputs
+native/ios/*.xcodeproj/
+native/ios/App/Info.plist
+native/android/.gradle/
+native/android/**/build/
+native/android/local.properties
+
+.kuito/
+native/ios/*.xcodeproj/
+
+# Generated mobile build output and device asset bundles
+native/ios/KuitoIOS.xcodeproj/
+native/ios/App/Resources/*.js
+native/android/app/src/main/assets/kuito/*.js
+native/android/app/src/main/assets/kuito/*.hbc
+native/android/.gradle/
+native/android/app/.cxx/
+native/android/.kotlin/

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500" role="img" aria-label="Native renderer: from the kernel's view operations to UIKit and Android views">
+  <defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#101b2c"/><stop offset="1" stop-color="#09111e"/></linearGradient>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#8ba4bd" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  </defs>
+  <rect x="1" y="1" width="1198" height="498" rx="24" fill="url(#bg)" stroke="#2b3d51" stroke-width="2"/>
+  <text x="46" y="51" font-size="12" letter-spacing="2.5" fill="#70b9ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-weight="700">05  /  NATIVE RENDERER</text>
+  <text x="46" y="88" font-size="29" font-weight="700" fill="#f2f7ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">The same view operations on both platforms</text>
+  <text x="46" y="116" font-size="15" fill="#a8b8cd" font-family="Inter, ui-sans-serif, system-ui, sans-serif">The kernel numbers views and commits a plan; each renderer keeps one record per view and the same tables, keyed by prop name.</text>
+
+  <rect x="45" y="150" width="250" height="196" rx="16" fill="#16253a" stroke="#7bb8ff" stroke-opacity=".55" stroke-width="1.5"/>
+  <rect x="65" y="169" rx="9" width="78" height="26" fill="#6dbdff" fill-opacity=".12" stroke="#6dbdff" stroke-opacity=".3"/><text x="76" y="187" font-size="12" font-weight="650" fill="#6dbdff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">KERNEL</text>
+  <text x="66" y="226" font-size="17" font-weight="700" fill="#f4f9ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">plan → reconcile → commit</text>
+  <text x="66" y="258" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">A label names one native object</text>
+  <text x="66" y="282" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Numbers inside, labels at the edge</text>
+  <text x="66" y="318" font-size="13" font-weight="550" fill="#87c3ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Decides flattening and diffs props</text>
+
+  <path d="M301 248 L334 248" stroke="#8ba4bd" stroke-width="2.2" fill="none" marker-end="url(#arrow)"/>
+
+  <rect x="342" y="150" width="236" height="196" rx="16" fill="#16253a" stroke="#c7a8ff" stroke-opacity=".55" stroke-width="1.5"/>
+  <rect x="362" y="169" rx="9" width="106" height="26" fill="#baa5ff" fill-opacity=".12" stroke="#baa5ff" stroke-opacity=".3"/><text x="373" y="187" font-size="12" font-weight="650" fill="#baa5ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">HOST BATCH</text>
+  <text x="363" y="226" font-size="19" font-weight="700" fill="#f4f9ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">One call per job</text>
+  <text x="363" y="258" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Create · Remove · Move · Flatten</text>
+  <text x="363" y="282" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Prop · Command · UI · UIScript</text>
+  <text x="363" y="318" font-size="13" font-weight="550" fill="#c7a8ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Typed records, strings by index</text>
+
+  <path d="M584 248 L617 248" stroke="#8ba4bd" stroke-width="2.2" fill="none" marker-end="url(#arrow)"/>
+
+  <rect x="625" y="150" width="530" height="196" rx="16" fill="#16253a" stroke="#7edec0" stroke-opacity=".55" stroke-width="1.5"/>
+  <rect x="645" y="169" rx="9" width="92" height="26" fill="#7edec0" fill-opacity=".12" stroke="#7edec0" stroke-opacity=".3"/><text x="656" y="187" font-size="12" font-weight="650" fill="#7edec0" font-family="Inter, ui-sans-serif, system-ui, sans-serif">RENDERER</text>
+  <text x="646" y="226" font-size="19" font-weight="700" fill="#f4f9ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">UIKit · iOS  /  Android Views</text>
+  <text x="646" y="258" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">View tree: create, move, remove (with exiting), clear</text>
+  <text x="646" y="282" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">View factory: a kind → a native view, module views too</text>
+  <text x="646" y="306" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Property tables: animation · layout · decoration · text · controls</text>
+  <text x="646" y="330" font-size="13" font-weight="550" fill="#a0efda" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Commands: focus · blur · keyboard.dismiss · accessibility.announce</text>
+
+  <rect x="45" y="376" width="533" height="84" rx="14" fill="#16253a" stroke="#ffce88" stroke-opacity=".5" stroke-width="1.5"/>
+  <text x="66" y="404" font-size="15" font-weight="650" fill="#ffce88" font-family="Inter, ui-sans-serif, system-ui, sans-serif">One record per view</text>
+  <text x="66" y="426" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">view (nil while flattened) · content · layout node</text>
+  <text x="66" y="447" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">gestures · exiting · composed style state</text>
+
+  <rect x="625" y="376" width="530" height="84" rx="14" fill="#16253a" stroke="#6fbde8" stroke-opacity=".5" stroke-width="1.5"/>
+  <text x="646" y="404" font-size="15" font-weight="650" fill="#a7dcff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Events go back the same way</text>
+  <text x="646" y="426" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">The emitter writes one wire format; a parity test fails</text>
+  <text x="646" y="447" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">until each platform has every setter the manifest marks.</text>
+
+  <path d="M890 352 L890 368" stroke="#6fbde8" stroke-width="1.7" stroke-dasharray="6 6" fill="none" marker-end="url(#arrow)"/>
+  <path d="M311 352 L311 368" stroke="#ffce88" stroke-width="1.7" stroke-dasharray="6 6" fill="none" marker-end="url(#arrow)"/>
+  <text x="46" y="485" font-size="13" font-weight="550" fill="#a7dcff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Every renderer error is the same four cases on both platforms.</text>
+</svg>

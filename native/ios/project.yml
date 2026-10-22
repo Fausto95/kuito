@@ -1,0 +1,76 @@
+name: KuitoIOS
+options:
+  bundleIdPrefix: dev.kuito
+settings:
+  base:
+    # Where this directory is. An app's generated shell includes this spec from
+    # its own .kuito/ios and points KUITO_NATIVE back here (src/cli/shells.ts).
+    KUITO_NATIVE: '$(PROJECT_DIR)'
+    # The prebuilt Hermes the generated spec adds as a Swift package, at
+    # KUITO_HERMES (src/cli/hermes-ios.ts), is built for C++20, and Debug's
+    # has its debugger compiled in while Release's does not: code including
+    # its headers must agree, or Hermes's classes change layout.
+    CLANG_CXX_LANGUAGE_STANDARD: c++20
+    SWIFT_VERSION: 5.0
+    IPHONEOS_DEPLOYMENT_TARGET: '16.0'
+    # The frame path's C++ level, below. The CLI's generated spec sets it, to
+    # nothing for KUITO_NATIVE_DEBUG=1 (docs/performance.md#native-optimization).
+    KUITO_NATIVE_OPTIMIZATION: -O2
+  configs:
+    Debug:
+      GCC_PREPROCESSOR_DEFINITIONS: '$(inherited) HERMES_ENABLE_DEBUGGER=1'
+targets:
+  KuitoIOS:
+    type: application
+    platform: iOS
+    deploymentTarget: '16.0'
+    sources:
+      - path: App
+        # The bundled JS belongs to the app being built: its shell adds its own.
+        excludes:
+          - Resources
+      - path: Renderer
+      - path: Modules
+      # The C++ every layout pass and touch runs compiles at
+      # KUITO_NATIVE_OPTIMIZATION, -O2 even in Debug: a per-file flag comes
+      # after the configuration's -O0. The rest stays at the configuration's
+      # level, easy to debug.
+      - path: ../shared/KuitoRuntime.cpp
+      - path: ../shared/Http.cpp
+      - path: ../shared/Standard.cpp
+      - path: ../shared/Socket.cpp
+      - path: ../shared/UIRuntime.cpp
+        compilerFlags: '$(KUITO_NATIVE_OPTIMIZATION)'
+      - path: ../shared/ViewTable.cpp
+        compilerFlags: '$(KUITO_NATIVE_OPTIMIZATION)'
+      - path: ../shared/Inspector.cpp
+      - path: ../shared/layout
+        compilerFlags: '$(KUITO_NATIVE_OPTIMIZATION)'
+      - path: ../shared/gestures
+        compilerFlags: '$(KUITO_NATIVE_OPTIMIZATION)'
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.kuito.shell
+        SWIFT_OBJC_BRIDGING_HEADER: $(KUITO_NATIVE)/App/Kuito-Bridging-Header.h
+        HEADER_SEARCH_PATHS: '$(inherited) $(KUITO_NATIVE)/../shared $(KUITO_HERMES)/include'
+        TARGETED_DEVICE_FAMILY: '1,2'
+        ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: 'NO'
+      # Each configuration compiles its own KuitoViewController (App/Debug,
+      # App/Release). Release ships to users, so it compiles none of the
+      # development shell: the dev link, the devtools and the LogBox.
+      configs:
+        # Hermes's CDP agent for Chrome DevTools (docs/devtools.md): Debug only.
+        Debug:
+          GCC_PREPROCESSOR_DEFINITIONS: '$(inherited) KUITO_INSPECTOR=1'
+          EXCLUDED_SOURCE_FILE_NAMES: '*/native/ios/App/Release/*'
+        # C, C++ and Objective-C at -O2 rather than Xcode's -Os, as Android's
+        # release build: a faster layout pass for a few percent of binary size.
+        Release:
+          GCC_OPTIMIZATION_LEVEL: 2
+          EXCLUDED_SOURCE_FILE_NAMES: '*/native/ios/App/Debug/* */native/ios/App/Devtools/* */native/ios/App/LogBox/*'
+    info:
+      path: App/Info.plist
+      properties:
+        CFBundleDisplayName: Kuito
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false

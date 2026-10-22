@@ -1,0 +1,58 @@
+name: Kuito website
+
+# Everything the site is generated from: an API or docs change on main must keep
+# the reference, the examples and the links whole.
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'apps/website/**'
+      - 'docs/**'
+      - 'README.md'
+      - 'CONTRIBUTING.md'
+      - 'src/ui/**'
+      - 'src/native/**'
+      - 'src/tests/**'
+      - 'src/style/**'
+      - 'src/cli/config.ts'
+      - 'src/cli/kuito-config.ts'
+      - 'native/modules/**'
+      - 'demo/**'
+      - 'templates/**'
+      - '.github/workflows/kuito-website.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: apps/website
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install framework dependencies
+        run: npm ci --no-audit --no-fund
+        working-directory: .
+      # demo/ resolves kuito from the root install. Recipe screens are the only
+      # tests under demo/, and root `npm test` does not walk them.
+      - name: Demo recipe tests
+        run: node ../scripts/kuito.ts test
+        working-directory: demo
+      - name: Install website dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Generate the reference and the pages
+        run: npm run generate
+      - name: Public surface and its docs
+        run: node scripts/check-coverage.ts --check
+      - name: Examples compile
+        run: npm run snippets:check
+      - name: Links resolve
+        run: npm run links:check
+      - name: Build
+        run: npm run build
+      # After the build, which generates src/routeTree.gen.ts.
+      - name: Type-check
+        run: npx tsc --noEmit
+      # Deploying waits until the site has a domain and a release to document.

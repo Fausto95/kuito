@@ -1,0 +1,8 @@
+{
+  "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE9cYAIW1TR0+5a/wi8ogMuiOvoSdfmIAd8AeodFpTR3TGxd0vTrpauZP/9mgAu+GwugndaJXxa9AIqVD8FKmIvg==",
+  "script": "globalThis.fixture = 1;",
+  "envelope": {
+    "manifest": "{\"format\":1,\"id\":\"ceded0cb95f2146b\",\"app\":\"com.example.reel\",\"platform\":\"android\",\"url\":\"https://updates.example.com/reel\",\"fingerprint\":\"abababababababababababababababababababababababababababababababab\",\"createdAt\":1761134400000,\"files\":[{\"path\":\"app.hbc\",\"sha256\":\"1a266bd9de01455633f1b09a13874f583ce9847c8f4cf0b67ed3c0740be1c879\",\"size\":23}]}",
+    "signature": "MEQCIDZcrWuFWMaHsYaww7gtGl/90s+2ugppKQSM22RNmCdCAiALKIaBXXSH8xMyX43mSTDt3BZj3bm2sA71DwUr+Lbd5g=="
+  }
+}

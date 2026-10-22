@@ -1,0 +1,288 @@
+{
+  "summary": {
+    "launch": {
+      "runs": 4,
+      "frames": 165,
+      "jankPercent": 34.065,
+      "p50": 23,
+      "p90": 73,
+      "p99": 1200,
+      "anrs": 0,
+      "uiSlowPercent": 54.650999999999996,
+      "uiP90": 61.6335,
+      "uiMaxMs": 1872.0555,
+      "uiTotalMs": 5209.159,
+      "startMs": 4662,
+      "contentMs": 8076.674999999999,
+      "evaluateMs": 3255.977
+    },
+    "sheet": {
+      "runs": 4,
+      "frames": 40.5,
+      "jankPercent": 67.675,
+      "p50": 42,
+      "p90": 225,
+      "p99": 375,
+      "anrs": 0,
+      "uiSlowPercent": 20.9495,
+      "uiP90": 43.5985,
+      "uiMaxMs": 278.64549999999997,
+      "uiTotalMs": 1160.413
+    },
+    "tabs": {
+      "runs": 4,
+      "frames": 47.5,
+      "jankPercent": 59.68,
+      "p50": 45,
+      "p90": 175,
+      "p99": 325,
+      "anrs": 0,
+      "uiSlowPercent": 35.247,
+      "uiP90": 49.711,
+      "uiMaxMs": 142.8955,
+      "uiTotalMs": 1680.9845
+    },
+    "discover": {
+      "runs": 4,
+      "frames": 273,
+      "jankPercent": 52.400000000000006,
+      "p50": 40,
+      "p90": 137.5,
+      "p99": 650,
+      "anrs": 0,
+      "uiSlowPercent": 8.67,
+      "uiP90": 16.066,
+      "uiMaxMs": 246.9115,
+      "uiTotalMs": 2093.0405
+    },
+    "library": {
+      "runs": 4,
+      "frames": 200.5,
+      "jankPercent": 50.97,
+      "p50": 33.5,
+      "p90": 83,
+      "p99": 150,
+      "anrs": 0,
+      "uiSlowPercent": 14.216000000000001,
+      "uiP90": 23.4045,
+      "uiMaxMs": 109.5485,
+      "uiTotalMs": 2368.321
+    }
+  },
+  "runs": {
+    "launch": [
+      {
+        "frames": 92,
+        "janky": 59,
+        "jankPercent": 64.13,
+        "p50": 32,
+        "p90": 250,
+        "p95": 350,
+        "p99": 3200,
+        "anrs": 0,
+        "startMs": 9274
+      },
+      {
+        "frames": 163,
+        "janky": 49,
+        "jankPercent": 30.06,
+        "p50": 23,
+        "p90": 73,
+        "p95": 150,
+        "p99": 1350,
+        "anrs": 0,
+        "startMs": 4530
+      },
+      {
+        "frames": 190,
+        "janky": 68,
+        "jankPercent": 35.79,
+        "p50": 23,
+        "p90": 73,
+        "p95": 93,
+        "p99": 1050,
+        "anrs": 0,
+        "startMs": 4712
+      },
+      {
+        "frames": 167,
+        "janky": 54,
+        "jankPercent": 32.34,
+        "p50": 23,
+        "p90": 57,
+        "p95": 101,
+        "p99": 650,
+        "anrs": 0,
+        "startMs": 4612
+      }
+    ],
+    "sheet": [
+      {
+        "frames": 37,
+        "janky": 26,
+        "jankPercent": 70.27,
+        "p50": 48,
+        "p90": 300,
+        "p95": 350,
+        "p99": 350,
+        "anrs": 0
+      },
+      {
+        "frames": 44,
+        "janky": 29,
+        "jankPercent": 65.91,
+        "p50": 40,
+        "p90": 150,
+        "p95": 350,
+        "p99": 450,
+        "anrs": 0
+      },
+      {
+        "frames": 36,
+        "janky": 25,
+        "jankPercent": 69.44,
+        "p50": 44,
+        "p90": 300,
+        "p95": 300,
+        "p99": 400,
+        "anrs": 0
+      },
+      {
+        "frames": 45,
+        "janky": 2,
+        "jankPercent": 4.44,
+        "p50": 19,
+        "p90": 23,
+        "p95": 24,
+        "p99": 48,
+        "anrs": 0
+      }
+    ],
+    "tabs": [
+      {
+        "frames": 56,
+        "janky": 31,
+        "jankPercent": 55.36,
+        "p50": 38,
+        "p90": 150,
+        "p95": 250,
+        "p99": 350,
+        "anrs": 0
+      },
+      {
+        "frames": 50,
+        "janky": 32,
+        "jankPercent": 64,
+        "p50": 42,
+        "p90": 200,
+        "p95": 200,
+        "p99": 300,
+        "anrs": 0
+      },
+      {
+        "frames": 45,
+        "janky": 33,
+        "jankPercent": 73.33,
+        "p50": 48,
+        "p90": 150,
+        "p95": 150,
+        "p99": 200,
+        "anrs": 0
+      },
+      {
+        "frames": 0,
+        "janky": 0,
+        "jankPercent": 0,
+        "p50": 4950,
+        "p90": 4950,
+        "p95": 4950,
+        "p99": 4950,
+        "anrs": 0
+      }
+    ],
+    "discover": [
+      {
+        "frames": 363,
+        "janky": 204,
+        "jankPercent": 56.2,
+        "p50": 44,
+        "p90": 125,
+        "p95": 150,
+        "p99": 300,
+        "anrs": 0
+      },
+      {
+        "frames": 393,
+        "janky": 191,
+        "jankPercent": 48.6,
+        "p50": 36,
+        "p90": 150,
+        "p95": 150,
+        "p99": 850,
+        "anrs": 0
+      },
+      {
+        "frames": 178,
+        "janky": 130,
+        "jankPercent": 73.03,
+        "p50": 57,
+        "p90": 150,
+        "p95": 200,
+        "p99": 800,
+        "anrs": 0
+      },
+      {
+        "frames": 183,
+        "janky": 69,
+        "jankPercent": 37.7,
+        "p50": 28,
+        "p90": 117,
+        "p95": 150,
+        "p99": 500,
+        "anrs": 0
+      }
+    ],
+    "library": [
+      {
+        "frames": 180,
+        "janky": 111,
+        "jankPercent": 61.67,
+        "p50": 38,
+        "p90": 93,
+        "p95": 113,
+        "p99": 150,
+        "anrs": 0
+      },
+      {
+        "frames": 221,
+        "janky": 89,
+        "jankPercent": 40.27,
+        "p50": 29,
+        "p90": 73,
+        "p95": 105,
+        "p99": 150,
+        "anrs": 0
+      },
+      {
+        "frames": 17,
+        "janky": 16,
+        "jankPercent": 94.12,
+        "p50": 129,
+        "p90": 1300,
+        "p95": 1550,
+        "p99": 1550,
+        "anrs": 0
+      },
+      {
+        "frames": 280,
+        "janky": 109,
+        "jankPercent": 38.93,
+        "p50": 29,
+        "p90": 73,
+        "p95": 97,
+        "p99": 150,
+        "anrs": 0
+      }
+    ]
+  }
+}

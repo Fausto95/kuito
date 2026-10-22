@@ -1,0 +1,52 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application android:name=".KuitoApplication"
+        android:label="${appName}" android:icon="${appIcon}"
+        android:roundIcon="${appIcon}" android:usesCleartextTraffic="${usesCleartextTraffic}"
+        android:enableOnBackInvokedCallback="true"
+        android:theme="@style/AppTheme">
+        <!-- Configuration changes reach the running app instead of recreating
+             the activity, which would restart Hermes: dark mode and language
+             (Appearance, Localization), rotation and window resizes (the root
+             lays out again), and font scale (the renderer rescales text). -->
+        <activity android:name=".KuitoActivity" android:exported="true"
+            android:launchMode="singleTask"
+            android:configChanges="uiMode|locale|layoutDirection|orientation|screenSize|smallestScreenSize|screenLayout|fontScale"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- A bare activity for renderer tests that need a window (a dialog,
+             back), enabled only in their build (scripts/test-android.ts). It
+             lives here because instrumentation runs in the app's process,
+             which cannot start an activity the test APK declares. -->
+        <activity android:name="androidx.activity.ComponentActivity"
+            android:exported="false" android:enabled="${rendererTests}"
+            android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+    </application>
+    <!-- What Linking.canOpenURL can see on Android 11 and later. -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="http" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="mailto" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="tel" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="sms" />
+        </intent>
+    </queries>
+</manifest>

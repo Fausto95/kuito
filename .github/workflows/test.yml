@@ -1,0 +1,82 @@
+name: Tests
+on:
+  push:
+  pull_request:
+jobs:
+  checks:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install development dependencies
+        run: npm install --no-fund --no-audit
+      - name: Check formatting and lint (Vite+)
+        run: |
+          npx vp fmt --check
+          npm run lint
+      - name: Check the files generated from the protocol manifest
+        run: |
+          npm run generate
+          git diff --exit-code
+      - name: Verify development toolchain syntax
+        run: |
+          node --check research/probe.ts
+          node --check src/dev/session.ts
+          node --check src/dev/compiler.ts
+          node --check src/cli/index.ts
+          node --check src/cli/devices.ts
+          node --check src/cli/platforms.ts
+  # The kernel, compiler and headless suites on Linux at both ends of
+  # package.json's engines; macOS adds the tests tagged `macos`
+  # (vite.config.ts), which build the iOS shell.
+  test:
+    name: test (${{ matrix.os }}, Node ${{ matrix.node }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            node: '22.18'
+          - os: ubuntu-24.04
+            node: '24'
+          - os: macos-15
+            node: '24'
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Install development dependencies
+        run: npm install --no-fund --no-audit
+      - name: Test
+        run: |
+          set -o pipefail
+          npm test 2>&1 | tee test-output.txt
+      - name: Preserve failing test diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kuito-test-output-${{ matrix.os }}-node-${{ matrix.node }}
+          path: test-output.txt
+          if-no-files-found: warn
+  # The npm package as a user installs it, at both ends of engines: what a
+  # checkout cannot show (scripts/check-package.ts).
+  package:
+    name: package (Node ${{ matrix.node }})
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['22.18', '24']
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Install development dependencies
+        run: npm install --no-fund --no-audit
+      - name: Pack, install, create an app and run its tests
+        run: node scripts/check-package.ts

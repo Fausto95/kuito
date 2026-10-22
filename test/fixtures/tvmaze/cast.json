@@ -1,0 +1,44 @@
+[
+  {
+    "person": {
+      "id": 14245,
+      "name": "Bryan Cranston",
+      "image": {
+        "medium": "https://static.tvmaze.com/uploads/images/medium_portrait/195/488839.jpg",
+        "original": "https://static.tvmaze.com/uploads/images/original_untouched/195/488839.jpg"
+      }
+    },
+    "character": {
+      "id": 45529,
+      "name": "Walter White"
+    }
+  },
+  {
+    "person": {
+      "id": 12328,
+      "name": "Aaron Paul",
+      "image": {
+        "medium": "https://static.tvmaze.com/uploads/images/medium_portrait/264/660079.jpg",
+        "original": "https://static.tvmaze.com/uploads/images/original_untouched/264/660079.jpg"
+      }
+    },
+    "character": {
+      "id": 45531,
+      "name": "Jesse Pinkman"
+    }
+  },
+  {
+    "person": {
+      "id": 11207,
+      "name": "Anna Gunn",
+      "image": {
+        "medium": "https://static.tvmaze.com/uploads/images/medium_portrait/2/6596.jpg",
+        "original": "https://static.tvmaze.com/uploads/images/original_untouched/2/6596.jpg"
+      }
+    },
+    "character": {
+      "id": 45530,
+      "name": "Skyler White"
+    }
+  }
+]

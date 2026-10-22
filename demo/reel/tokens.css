@@ -1,0 +1,35 @@
+/* Reel: near-black surfaces, one warm accent, gold for ratings. */
+:root {
+  font-size: 16px;
+  --bg: #08080b;
+  --surface: #121218;
+  --raised: #1c1c25;
+  --line: #ffffff14;
+  --text: #f5f5f7;
+  --muted: #a1a1aa;
+  --faint: #6b6b76;
+  --accent: #ff5a5f;
+  --accent-deep: #e8364e;
+  --gold: #f5c451;
+  --hero-from: #24161c;
+  --hero-to: #121218;
+  --shadow: #00000099;
+  --field-line: #ffffff1f;
+}
+
+/* In light mode the surfaces and text turn over; the accents stay. */
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f6f6f8;
+    --surface: #ffffff;
+    --raised: #ececf1;
+    --line: #0000001a;
+    --text: #111114;
+    --muted: #5b5b66;
+    --faint: #8e8e99;
+    --hero-from: #ffe9ea;
+    --hero-to: #ffffff;
+    --shadow: #0000001f;
+    --field-line: #0000001f;
+  }
+}

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="440" viewBox="0 0 1200 440" role="img" aria-label="Reactivity: a signal updates the native properties that read it">
+  <defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#101b2c"/><stop offset="1" stop-color="#09111e"/></linearGradient>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#8ba4bd" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  </defs>
+  <rect x="1" y="1" width="1198" height="438" rx="24" fill="url(#bg)" stroke="#2b3d51" stroke-width="2"/>
+  <text x="46" y="51" font-size="12" letter-spacing="2.5" fill="#70b9ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-weight="700">06  /  REACTIVITY</text>
+  <text x="46" y="88" font-size="29" font-weight="700" fill="#f2f7ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">A write reaches the properties that read it</text>
+  <text x="46" y="116" font-size="15" fill="#a8b8cd" font-family="Inter, ui-sans-serif, system-ui, sans-serif">The component function runs once. Each JSX expression that reads a signal is a binding to one native property.</text>
+
+  <rect x="45" y="150" width="300" height="230" rx="16" fill="#16253a" stroke="#7bb8ff" stroke-opacity=".55" stroke-width="1.5"/>
+  <rect x="65" y="169" rx="9" width="70" height="26" fill="#6dbdff" fill-opacity=".12" stroke="#6dbdff" stroke-opacity=".3"/><text x="76" y="187" font-size="12" font-weight="650" fill="#6dbdff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">SIGNAL</text>
+  <text x="66" y="228" font-size="19" font-weight="700" fill="#f4f9ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">count = signal(0)</text>
+  <text x="66" y="262" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">count.value++</text>
+  <text x="66" y="288" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Writes in one event batch together</text>
+  <text x="66" y="314" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">computed · watch · effect · store</text>
+  <text x="66" y="352" font-size="13" font-weight="550" fill="#87c3ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Kept in the instance's slot, by name</text>
+
+  <path d="M351 265 L384 265" stroke="#8ba4bd" stroke-width="2.2" fill="none" marker-end="url(#arrow)"/>
+
+  <rect x="392" y="150" width="380" height="230" rx="16" fill="#16253a" stroke="#c7a8ff" stroke-opacity=".55" stroke-width="1.5"/>
+  <rect x="412" y="169" rx="9" width="86" height="26" fill="#baa5ff" fill-opacity=".12" stroke="#baa5ff" stroke-opacity=".3"/><text x="423" y="187" font-size="12" font-weight="650" fill="#baa5ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">BINDINGS</text>
+  <text x="413" y="228" font-size="19" font-weight="700" fill="#f4f9ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">One closure per expression</text>
+  <text x="413" y="262" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">&lt;Text&gt;{count.value}&lt;/Text&gt;</text>
+  <text x="413" y="288" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">opacity={count.value &gt; 0 ? 1 : 0.5}</text>
+  <text x="413" y="314" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Show · Switch · For re-plan their branch</text>
+  <text x="413" y="352" font-size="13" font-weight="550" fill="#c7a8ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Tracks the signals it read, nothing else</text>
+
+  <path d="M778 265 L811 265" stroke="#8ba4bd" stroke-width="2.2" fill="none" marker-end="url(#arrow)"/>
+
+  <rect x="819" y="150" width="336" height="230" rx="16" fill="#16253a" stroke="#7edec0" stroke-opacity=".55" stroke-width="1.5"/>
+  <rect x="839" y="169" rx="9" width="136" height="26" fill="#7edec0" fill-opacity=".12" stroke="#7edec0" stroke-opacity=".3"/><text x="850" y="187" font-size="12" font-weight="650" fill="#7edec0" font-family="Inter, ui-sans-serif, system-ui, sans-serif">NATIVE PROPERTY</text>
+  <text x="840" y="228" font-size="19" font-weight="700" fill="#f4f9ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Prop record in the batch</text>
+  <text x="840" y="262" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Only the values that changed</text>
+  <text x="840" y="288" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Same view, same native object</text>
+  <text x="840" y="314" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Applied on the UI thread</text>
+  <text x="840" y="352" font-size="13" font-weight="550" fill="#a0efda" font-family="Inter, ui-sans-serif, system-ui, sans-serif">No component re-render, no diff of a tree</text>
+
+  <text x="46" y="415" font-size="13" font-weight="550" fill="#a7dcff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">An instance is its place, its definition and its key; hooks keep their slot by name, so adding or reordering one keeps the others' state.</text>
+</svg>

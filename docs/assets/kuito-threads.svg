@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="458" viewBox="0 0 1200 458" role="img" aria-label="One app, two execution threads">
+  <defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#101b2c"/><stop offset="1" stop-color="#09111e"/></linearGradient>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#8ba4bd" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  </defs>
+  <rect x="1" y="1" width="1198" height="456" rx="24" fill="url(#bg)" stroke="#2b3d51" stroke-width="2"/>
+  <text x="46" y="51" font-size="12" letter-spacing="2.5" fill="#70b9ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-weight="700">02  /  SCHEDULING &amp; RENDERING</text>
+  <text x="46" y="88" font-size="29" font-weight="700" fill="#f2f7ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">One app, two execution threads</text>
+  <text x="46" y="116" font-size="15" fill="#a8b8cd" font-family="Inter, ui-sans-serif, system-ui, sans-serif">The shared C++ queue batches property mutations before handing them to the native UI thread.</text>
+  
+  <rect x="45" y="152" width="444" height="218" rx="16" fill="#16253a" stroke="#7bb8ff" stroke-opacity=".55" stroke-width="1.5"/><rect x="65" y="171" rx="9" width="120" height="26" fill="#6dbdff" fill-opacity=".12" stroke="#6dbdff" stroke-opacity=".3"/><text x="76" y="189" font-size="12" font-weight="650" fill="#6dbdff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">HERMES THREAD</text><text x="66" y="224" font-size="23" font-weight="700" fill="#f4f9ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">App logic + async</text>
+  <text x="66" y="258" font-size="16" font-weight="500" fill="#b5c9db" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Signals · effects · events</text><text x="66" y="291" font-size="16" font-weight="500" fill="#b5c9db" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Promise jobs · timers · fetch</text>
+  <text x="66" y="330" font-size="15" font-weight="650" fill="#87c3ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">One serialized VM owner</text>
+  <rect x="532" y="166" width="156" height="190" rx="16" fill="#16253a" stroke="#c7a8ff" stroke-opacity=".55" stroke-width="1.5"/><text x="550" y="204" font-size="19" font-weight="700" fill="#f4f9ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">C++ queue</text>
+  <text x="550" y="239" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Deduplicate</text><text x="550" y="264" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">properties</text>
+  <text x="550" y="299" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Keep create /</text><text x="550" y="323" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">remove order</text>
+  <rect x="734" y="152" width="420" height="218" rx="16" fill="#16253a" stroke="#7edec0" stroke-opacity=".55" stroke-width="1.5"/><rect x="754" y="171" rx="9" width="138" height="26" fill="#7edec0" fill-opacity=".12" stroke="#7edec0" stroke-opacity=".3"/><text x="765" y="189" font-size="12" font-weight="650" fill="#7edec0" font-family="Inter, ui-sans-serif, system-ui, sans-serif">NATIVE UI THREAD</text><text x="754" y="224" font-size="23" font-weight="700" fill="#f4f9ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Platform renderer</text>
+  <text x="754" y="258" font-size="16" font-weight="500" fill="#b5c9db" font-family="Inter, ui-sans-serif, system-ui, sans-serif">UIKit / Android Views</text><text x="754" y="291" font-size="16" font-weight="500" fill="#b5c9db" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Apply ordered mutation batch</text>
+  <text x="754" y="330" font-size="15" font-weight="650" fill="#a0efda" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Layout · animations · touch input</text>
+  <path d="M491 258 L524 258" stroke="#8ba4bd" stroke-width="2.2" fill="none" marker-end="url(#arrow)"/><path d="M694 258 L725 258" stroke="#8ba4bd" stroke-width="2.2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M944 379 L944 414 L272 414 L272 379" stroke="#6fbde8" stroke-width="1.7" stroke-dasharray="6 6" fill="none" marker-end="url(#arrow)"/>
+  <text x="460" y="405" font-size="13" font-weight="550" fill="#a7dcff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Native events queue back to Hermes</text>
+
+</svg>

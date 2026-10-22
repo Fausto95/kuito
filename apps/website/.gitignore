@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.output/
+.tanstack/
+.wrangler/
+.worker-configuration.d.ts
+src/routeTree.gen.ts
+*.tsbuildinfo
+
+# Generated from the framework public exports during predev/prebuild.
+src/content/reference.generated.json
+
+# Generated from docs/*.md and i18n/<locale>/docs during predev/prebuild.
+src/content/generated/
+public/docs-assets/

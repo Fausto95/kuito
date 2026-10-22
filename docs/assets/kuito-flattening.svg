@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="470" viewBox="0 0 1200 470" role="img" aria-label="View flattening: a layout-only container gets no native view">
+  <defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#101b2c"/><stop offset="1" stop-color="#09111e"/></linearGradient>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#8ba4bd" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  </defs>
+  <rect x="1" y="1" width="1198" height="468" rx="24" fill="url(#bg)" stroke="#2b3d51" stroke-width="2"/>
+  <text x="46" y="51" font-size="12" letter-spacing="2.5" fill="#70b9ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-weight="700">04  /  VIEW FLATTENING</text>
+  <text x="46" y="88" font-size="29" font-weight="700" fill="#f2f7ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">A container that only lays out gets no native view</text>
+  <text x="46" y="116" font-size="15" fill="#a8b8cd" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Its node stays in the shared layout tree; its children's views join the nearest ancestor that has one. Automatic, decided by the kernel.</text>
+
+  <rect x="45" y="150" width="340" height="280" rx="16" fill="#16253a" stroke="#7bb8ff" stroke-opacity=".55" stroke-width="1.5"/>
+  <rect x="65" y="169" rx="9" width="104" height="26" fill="#6dbdff" fill-opacity=".12" stroke="#6dbdff" stroke-opacity=".3"/><text x="76" y="187" font-size="12" font-weight="650" fill="#6dbdff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">KUITO TREE</text>
+  <text x="66" y="230" font-size="16" font-weight="650" fill="#f4f9ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">&lt;VStack gap={12}&gt;</text>
+  <text x="96" y="262" font-size="16" font-weight="500" fill="#b5c9db" font-family="Inter, ui-sans-serif, system-ui, sans-serif">&lt;Text&gt;Title&lt;/Text&gt;</text>
+  <text x="96" y="294" font-size="16" font-weight="500" fill="#b5c9db" font-family="Inter, ui-sans-serif, system-ui, sans-serif">&lt;HStack backgroundColor="…"&gt;</text>
+  <text x="126" y="326" font-size="16" font-weight="500" fill="#b5c9db" font-family="Inter, ui-sans-serif, system-ui, sans-serif">&lt;Text&gt;Body&lt;/Text&gt;</text>
+  <text x="96" y="358" font-size="16" font-weight="500" fill="#b5c9db" font-family="Inter, ui-sans-serif, system-ui, sans-serif">&lt;/HStack&gt;</text>
+  <text x="66" y="390" font-size="16" font-weight="650" fill="#f4f9ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">&lt;/VStack&gt;</text>
+  <text x="66" y="416" font-size="13" font-weight="550" fill="#87c3ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">VStack: layout props only → layout-only</text>
+
+  <path d="M391 290 L424 290" stroke="#8ba4bd" stroke-width="2.2" fill="none" marker-end="url(#arrow)"/>
+
+  <rect x="432" y="150" width="340" height="280" rx="16" fill="#16253a" stroke="#c7a8ff" stroke-opacity=".55" stroke-width="1.5"/>
+  <rect x="452" y="169" rx="9" width="120" height="26" fill="#baa5ff" fill-opacity=".12" stroke="#baa5ff" stroke-opacity=".3"/><text x="463" y="187" font-size="12" font-weight="650" fill="#baa5ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">LAYOUT TREE</text>
+  <text x="453" y="230" font-size="16" font-weight="650" fill="#f4f9ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">VStack node</text>
+  <text x="483" y="262" font-size="16" font-weight="500" fill="#b5c9db" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Text node</text>
+  <text x="483" y="294" font-size="16" font-weight="500" fill="#b5c9db" font-family="Inter, ui-sans-serif, system-ui, sans-serif">HStack node</text>
+  <text x="513" y="326" font-size="16" font-weight="500" fill="#b5c9db" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Text node</text>
+  <text x="453" y="374" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Every node keeps sizing and placing</text>
+  <text x="453" y="398" font-size="14" font-weight="500" fill="#c5d4e4" font-family="Inter, ui-sans-serif, system-ui, sans-serif">its children, view or not.</text>
+
+  <path d="M778 290 L811 290" stroke="#8ba4bd" stroke-width="2.2" fill="none" marker-end="url(#arrow)"/>
+
+  <rect x="819" y="150" width="336" height="280" rx="16" fill="#16253a" stroke="#7edec0" stroke-opacity=".55" stroke-width="1.5"/>
+  <rect x="839" y="169" rx="9" width="122" height="26" fill="#7edec0" fill-opacity=".12" stroke="#7edec0" stroke-opacity=".3"/><text x="850" y="187" font-size="12" font-weight="650" fill="#7edec0" font-family="Inter, ui-sans-serif, system-ui, sans-serif">NATIVE VIEWS</text>
+  <text x="840" y="230" font-size="16" font-weight="650" fill="#f4f9ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Parent view</text>
+  <text x="870" y="262" font-size="16" font-weight="500" fill="#b5c9db" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Text view · offset by the VStack</text>
+  <text x="870" y="294" font-size="16" font-weight="500" fill="#b5c9db" font-family="Inter, ui-sans-serif, system-ui, sans-serif">HStack view · has a background</text>
+  <text x="900" y="326" font-size="16" font-weight="500" fill="#b5c9db" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Text view</text>
+  <text x="840" y="374" font-size="14" font-weight="500" fill="#a0efda" font-family="Inter, ui-sans-serif, system-ui, sans-serif">No view for the VStack: one less</text>
+  <text x="840" y="398" font-size="14" font-weight="500" fill="#a0efda" font-family="Inter, ui-sans-serif, system-ui, sans-serif">native object to create and lay out.</text>
+
+  <text x="46" y="455" font-size="13" font-weight="550" fill="#a7dcff" font-family="Inter, ui-sans-serif, system-ui, sans-serif">Layout-only: VStack · HStack · Box · Spacer, layout props only, no handler, no ref, no animation. The prop's key decides, not its value.</text>
+</svg>

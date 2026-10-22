@@ -1,0 +1,61 @@
+/* The inbox's theme: tokens a dark scheme redefines, and rows laid out by
+   their logical sides, so right-to-left languages mirror them. */
+:root {
+  --surface: #ffffff;
+  --card: #f2f2f7;
+  --ink: #111114;
+  --muted: #6e6e73;
+  --accent: #0a84ff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface: #000000;
+    --card: #1c1c1e;
+    --ink: #f2f2f7;
+    --muted: #8e8e93;
+  }
+}
+
+.screen {
+  background: var(--surface);
+}
+
+.title {
+  color: var(--ink);
+  font-size: 28px;
+  font-weight: bold;
+  padding-inline: 20px;
+}
+
+.row {
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  padding-block: 12px;
+  padding-inline: 16px 12px;
+  margin-inline: 16px;
+  border-radius: 14px;
+  background: var(--card);
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background: var(--accent);
+}
+
+.name {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.preview {
+  color: var(--muted);
+}
+
+.lead {
+  color: var(--muted);
+  padding-inline: 20px;
+}

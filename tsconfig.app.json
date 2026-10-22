@@ -1,0 +1,22 @@
+{
+  // App code is bundled by Rolldown, which resolves extensionless imports.
+  // JSX compiles to Kuito's runtime, not React.
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2024"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "preserve",
+    "jsxFactory": "__kuitoJSX",
+    "jsxFragmentFactory": "__kuitoFragment",
+    "types": []
+  },
+  "include": [
+    "src/ui",
+    "src/native",
+    "native/modules/*/*.ts",
+    "templates/app/app",
+    "templates/module/index.ts",
+    "test/fixtures"
+  ]
+}

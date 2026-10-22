@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The framework's own AppTheme. An app's kuito.config.ts generates its
+         own (kuito.settingsRes, src/cli/app-settings.ts), which replaces it. -->
+    <style name="AppTheme" parent="@android:style/Theme.Material.Light.NoActionBar" />
+</resources>

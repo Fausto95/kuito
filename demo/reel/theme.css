@@ -1,0 +1,429 @@
+/* Reel's classes; its tokens live in tokens.css. */
+@import './tokens.css';
+
+/* Screens */
+
+.screen {
+  background: var(--bg);
+}
+.statusBar {
+  background: var(--bg);
+}
+.content {
+  padding: 8px 0 40px;
+  gap: 30px;
+}
+.listHeader {
+  padding: 8px 0 12px;
+  gap: 24px;
+}
+.header {
+  padding: 4px 20px 0;
+  gap: 6px;
+}
+.brandRow {
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+.brand {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.title {
+  color: var(--text);
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+}
+.subtitle {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.4;
+}
+.inset {
+  padding: 0 20px;
+  gap: 12px;
+}
+
+/* A wide window (an iPad in landscape) gives the screens more margin. */
+@media (width-class: expanded) {
+  .header {
+    padding: 4px 48px 0;
+  }
+  .inset {
+    padding: 0 48px;
+  }
+}
+
+/* Hero */
+
+.hero {
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  background: linear-gradient(160deg, var(--hero-from), var(--hero-to));
+  padding: 16px;
+  gap: 16px;
+  box-shadow: 0 18px 40px var(--shadow);
+  transition: transform 300ms spring(16, 220);
+}
+.heroTop {
+  gap: 16px;
+  align-items: start;
+}
+.heroPoster {
+  flex-shrink: 0;
+  width: 132px;
+  border-radius: 16px;
+}
+.heroBody {
+  gap: 8px;
+}
+.kickerRow {
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+.kicker {
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+}
+.heroTitle {
+  color: var(--text);
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+}
+.meta {
+  color: var(--muted);
+  font-size: 13px;
+}
+.summary {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+  -webkit-line-clamp: 4;
+}
+.actions {
+  gap: 10px;
+}
+
+/* Buttons */
+
+.primary {
+  background: linear-gradient(90deg, var(--accent), var(--accent-deep));
+  border-radius: 14px;
+  padding: 13px 18px;
+  align-items: center;
+}
+.primaryText {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+}
+.ghost {
+  background: var(--raised);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 13px 18px;
+  align-items: center;
+}
+.ghostText {
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* Rails */
+
+.section {
+  gap: 14px;
+}
+.sectionHeader {
+  padding: 0 20px;
+}
+.sectionTitle {
+  color: var(--text);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+.sectionNote {
+  color: var(--faint);
+  font-size: 13px;
+  font-weight: 600;
+}
+.rail {
+  padding: 0 20px;
+  gap: 12px;
+  align-items: start;
+}
+.poster {
+  width: 124px;
+  gap: 8px;
+  transition: transform 250ms spring(18, 260);
+}
+.posterImage {
+  border-radius: 14px;
+  border: 1px solid var(--line);
+}
+/* Over the poster's corner, placed by the flexbox engine. */
+.badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 3px 7px;
+  border-radius: 8px;
+  background: #08080bcc;
+}
+.posterTitle {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  -webkit-line-clamp: 1;
+}
+.posterMeta {
+  color: var(--faint);
+  font-size: 12px;
+  -webkit-line-clamp: 1;
+}
+.rating {
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Chips and segments */
+
+.chips {
+  gap: 8px;
+}
+.chip {
+  background: var(--raised);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 12px;
+}
+.chipText {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+.segments {
+  gap: 8px;
+}
+.segment {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 9px 16px;
+  transition: background-color 200ms ease-out;
+}
+.segmentText {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Lists */
+
+.listRow {
+  padding: 10px 20px;
+  gap: 14px;
+}
+.thumb {
+  flex-shrink: 0;
+  width: 56px;
+  border-radius: 10px;
+}
+.rowBody {
+  gap: 4px;
+}
+.rowTitle {
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 600;
+  -webkit-line-clamp: 1;
+}
+.rowMeta {
+  color: var(--faint);
+  font-size: 13px;
+  -webkit-line-clamp: 1;
+}
+.separator {
+  background: var(--line);
+  height: 1px;
+}
+.rowSeparator {
+  padding: 0 0 0 90px;
+}
+.field {
+  background: var(--raised);
+  border: 1px solid var(--field-line);
+  border-radius: 12px;
+  height: 44px;
+  padding: 0 14px;
+  color: var(--text);
+  font-size: 16px;
+}
+
+/* States */
+
+.state {
+  padding: 48px 32px;
+  gap: 10px;
+  align-items: center;
+}
+.stateTitle {
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+.stateBody {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+  text-align: center;
+}
+
+/* Tab bar */
+
+.tabBar {
+  background: #0b0b10;
+}
+.tabs {
+  padding: 8px 16px 4px;
+  justify-content: space-between;
+}
+.tab {
+  width: 84px;
+  padding: 6px 0;
+  gap: 5px;
+  align-items: center;
+}
+.tabLabel {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.tabDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--accent);
+  transition: opacity 200ms ease-out;
+}
+
+/* Details sheet */
+
+.sheet {
+  background: var(--surface);
+  padding: 28px 0 0;
+  gap: 22px;
+}
+.sheetHeader {
+  padding: 0 20px;
+  gap: 16px;
+  align-items: start;
+}
+.sheetPoster {
+  flex-shrink: 0;
+  width: 112px;
+  border-radius: 14px;
+}
+.sheetTitle {
+  color: var(--text);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.6px;
+}
+.sheetSummary {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.person {
+  width: 84px;
+  gap: 6px;
+  align-items: center;
+}
+.face {
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  align-items: center;
+}
+/* Wider than its circle, so the parallax never shows an edge. */
+.faceImage {
+  width: 96px;
+  height: 72px;
+  flex-shrink: 0;
+}
+.personName {
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  -webkit-line-clamp: 2;
+}
+.personRole {
+  color: var(--faint);
+  font-size: 11px;
+  text-align: center;
+  -webkit-line-clamp: 1;
+}
+
+/* Lab */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 18px;
+  gap: 14px;
+}
+.cardTitle {
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 700;
+}
+.cardBody {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+.counter {
+  color: var(--text);
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+.orb {
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--gold));
+}
+.swipeCard {
+  background: var(--raised);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px;
+  align-items: center;
+}
+.toggleRow {
+  gap: 12px;
+}
+.code {
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 600;
+}

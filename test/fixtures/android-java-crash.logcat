@@ -1,0 +1,14 @@
+--------- beginning of crash
+10-17 01:46:57.626   890   890 E AndroidRuntime: FATAL EXCEPTION: main
+10-17 01:46:57.626   890   890 E AndroidRuntime: Process: com.android.settings, PID: 890
+10-17 01:46:57.626   890   890 E AndroidRuntime: android.app.RemoteServiceException$CrashedByAdbException: shell-induced crash
+10-17 01:46:57.626   890   890 E AndroidRuntime: 	at android.app.ActivityThread.throwRemoteServiceException(ActivityThread.java:2090)
+10-17 01:46:57.626   890   890 E AndroidRuntime: 	at android.app.ActivityThread.-$$Nest$mthrowRemoteServiceException(Unknown Source:0)
+10-17 01:46:57.626   890   890 E AndroidRuntime: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2369)
+10-17 01:46:57.626   890   890 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+10-17 01:46:57.626   890   890 E AndroidRuntime: 	at android.os.Looper.loopOnce(Looper.java:205)
+10-17 01:46:57.626   890   890 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:294)
+10-17 01:46:57.626   890   890 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:8177)
+10-17 01:46:57.626   890   890 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+10-17 01:46:57.626   890   890 E AndroidRuntime: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:552)
+10-17 01:46:57.626   890   890 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:971)

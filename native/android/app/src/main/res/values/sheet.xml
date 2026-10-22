@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A Sheet's dialog (KuitoSheetDialog): edge to edge, as the app's window
+         is. Material only goes edge to edge through this theme attribute. The
+         sheet's layout keeps its content clear of the system bars, so
+         Material's own insets would count them twice. -->
+    <style name="KuitoSheetDialog" parent="Theme.Material3.DayNight.BottomSheetDialog">
+        <item name="enableEdgeToEdge">true</item>
+        <item name="bottomSheetStyle">@style/KuitoSheet</item>
+    </style>
+
+    <style name="KuitoSheet" parent="Widget.Material3.BottomSheet.Modal">
+        <item name="paddingBottomSystemWindowInsets">false</item>
+        <item name="paddingTopSystemWindowInsets">false</item>
+        <item name="marginLeftSystemWindowInsets">false</item>
+        <item name="marginRightSystemWindowInsets">false</item>
+    </style>
+</resources>

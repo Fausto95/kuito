@@ -1,0 +1,100 @@
+name: Native mobile shells
+concurrency:
+  group: native-mobile-${{ github.ref }}
+  cancel-in-progress: true
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'native/android/**'
+      - 'native/ios/**'
+      - 'native/shared/**'
+      - 'native/hermes.json'
+      - 'src/ui/**'
+      - 'src/dev/**'
+      - 'src/cli/**'
+      - 'scripts/build-device-assets.ts'
+      - 'demo/kuito.config.ts'
+      - 'package.json'
+      - 'src/runtime/**'
+      - 'test/shell-smoke.test.ts'
+      - 'test/fixtures/shell-smoke-app.tsx'
+      - 'test/fixtures/persisted-launches-app.tsx'
+      - '.github/workflows/mobile-shells.yml'
+  pull_request:
+    paths:
+      - 'native/android/**'
+      - 'native/ios/**'
+      - 'native/shared/**'
+      - 'native/hermes.json'
+      - 'src/ui/**'
+      - 'src/runtime/**'
+      - 'test/shell-smoke.test.ts'
+      - 'test/fixtures/shell-smoke-app.tsx'
+      - 'test/fixtures/persisted-launches-app.tsx'
+      - '.github/workflows/mobile-shells.yml'
+jobs:
+  android:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install and compile on-device JS assets
+        run: npm install --no-fund --no-audit && npm run build:device-assets
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Install Android platform
+        run: |
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'platforms;android-35' 'build-tools;35.0.0' 'ndk;27.2.12479018' 'cmake;3.22.1'
+      - name: Compile Android native shell
+        run: gradle -p native/android :app:assembleDebug --no-daemon
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kuito-android-shell
+          path: native/android/app/build/outputs/apk/debug/*.apk
+      - name: Enable KVM for the emulator
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      # test/shell-smoke.test.ts: a PNG fetched as an ArrayBuffer through the
+      # HTTP host, and Intl, in a shell of its own (docs/web-apis.md).
+      - name: Smoke-test the shell on an emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        env:
+          KUITO_SMOKE_ANDROID: emulator-5554
+        with:
+          api-level: 34
+          arch: x86_64
+          target: google_apis
+          script: npx vp test run test/shell-smoke.test.ts --silent=false
+  ios:
+    runs-on: macos-15
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install and compile on-device JS assets
+        run: npm install --no-fund --no-audit && npm run build:device-assets
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      # The CLI generates the shell, unpacks the pinned Hermes package and
+      # builds it as `kuito dev` does (docs/apps.md).
+      - name: Compile iOS simulator native shell with Hermes
+        working-directory: demo
+        run: node ../scripts/kuito.ts build ios
+      - name: Smoke-test the shell on a simulator
+        env:
+          KUITO_SMOKE_IOS: iPhone 16 Pro
+        run: npx vp test run test/shell-smoke.test.ts --silent=false

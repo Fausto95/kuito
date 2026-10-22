@@ -1,0 +1,65 @@
+# Unit tests for the UIKit renderer, run on a simulator (CLAUDE.md, Commands).
+# The bundle compiles the renderer and its layout engine itself, without the
+# shell app or Hermes: the renderer knows nothing about them. An empty host
+# app gives the tests a scene on screen, so UIKit transitions complete.
+name: KuitoRendererTests
+options:
+  bundleIdPrefix: dev.kuito
+settings:
+  base:
+    SWIFT_VERSION: 5.0
+    IPHONEOS_DEPLOYMENT_TARGET: '16.0'
+targets:
+  KuitoRendererTestHost:
+    type: application
+    platform: iOS
+    deploymentTarget: '16.0'
+    sources:
+      # BundledImages: Reel's images the cost replay's recordings show, under
+      # the names the compiler bundles them as (src/cli/bundled-images.ts).
+      - path: TestHost
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: 'YES'
+        INFOPLIST_KEY_UILaunchScreen_Generation: 'YES'
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: 'YES'
+  KuitoRendererTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: '16.0'
+    dependencies:
+      - target: KuitoRendererTestHost
+    sources:
+      - path: Tests
+      - path: Renderer
+      - path: Modules
+      # The shell's state the modules follow, and its launch screen.
+      - path: App/Shell
+      # Over-the-air updates: their checks need no shell around them.
+      - path: App/Updates
+      # Module views' own files: their specs' protocols are generated per app.
+      - path: ../modules/date-picker/ios/KuitoDatePickerView.swift
+      - path: ../modules/select/ios/KuitoSelectView.swift
+      - path: ../modules/segmented-control/ios/KuitoSegmentedControlView.swift
+      - path: ../modules/slider/ios/KuitoSliderView.swift
+      - path: ../modules/context-menu/ios/KuitoContextMenuView.swift
+      - path: ../modules/blur/ios/KuitoBlurView.swift
+      - path: ../modules/drawing/ios/KuitoDrawingView.swift
+      # Recordings decode and check their batches as a shell does (cost replay).
+      # The frame path's C++ at -O2 in both configurations, the level the shell
+      # ships it at (project.yml).
+      - path: ../shared/ViewTable.cpp
+        compilerFlags: -O2
+      - path: ../shared/layout
+        compilerFlags: -O2
+      - path: ../shared/gestures
+        compilerFlags: -O2
+    settings:
+      base:
+        SWIFT_OBJC_BRIDGING_HEADER: $(PROJECT_DIR)/Tests/KuitoRendererTests-Bridging-Header.h
+        HEADER_SEARCH_PATHS: '$(inherited) $(PROJECT_DIR)/../shared'
+        GENERATE_INFOPLIST_FILE: 'YES'
+        CLANG_CXX_LANGUAGE_STANDARD: c++17
+    scheme:
+      testTargets:
+        - KuitoRendererTests

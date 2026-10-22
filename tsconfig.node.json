@@ -1,0 +1,21 @@
+{
+  // Run directly by Node 24, which strips types but does not resolve
+  // imports: relative imports name the .ts file.
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2024"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "allowImportingTsExtensions": true,
+    "types": ["node"]
+  },
+  "include": [
+    "src",
+    "scripts",
+    "research/probe.ts",
+    "lint",
+    "vite.config.ts",
+    "templates/app/kuito.config.ts"
+  ],
+  "exclude": ["src/ui", "src/native", "src/runtime", "src/ui-thread", "src/dev/components-panel"]
+}

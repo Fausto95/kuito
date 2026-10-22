@@ -1,0 +1,11 @@
+{
+  // Browser code the dev server bundles with Rolldown: the Components panel's page.
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2024", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "types": []
+  },
+  "include": ["src/dev/components-panel"]
+}

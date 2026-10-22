@@ -1,0 +1,186 @@
+{"app_name":"KuitoIOS","bundleID":"dev.kuito.shell","bug_type":"309","name":"KuitoIOS","timestamp":"2026-10-17 01:39:20.00 +0200"}
+{
+  "pid": 17612,
+  "procName": "KuitoIOS",
+  "procLaunch": "2026-10-17 01:39:19.4980 +0200",
+  "exception": {
+    "codes": "0x0000000000000001, 0x00000001c48c336c",
+    "rawCodes": [
+      1,
+      7592489836
+    ],
+    "type": "EXC_BREAKPOINT",
+    "signal": "SIGTRAP"
+  },
+  "termination": {
+    "flags": 0,
+    "code": 5,
+    "namespace": "SIGNAL",
+    "indicator": "Trace/BPT trap: 5",
+    "byProc": "exc handler",
+    "byPid": 17612
+  },
+  "faultingThread": 0,
+  "threads": [
+    {
+      "triggered": true,
+      "queue": "com.apple.main-thread",
+      "frames": [
+        {
+          "imageOffset": 13386604,
+          "symbol": "___UIApplicationEvaluateRuntimeIssueForNoSceneLifecycleAdoption_block_invoke",
+          "symbolLocation": 712,
+          "imageIndex": 9
+        },
+        {
+          "imageOffset": 114616,
+          "symbol": "_dispatch_client_callout",
+          "symbolLocation": 12,
+          "imageIndex": 10
+        },
+        {
+          "imageOffset": 16288,
+          "symbol": "_dispatch_once_callout",
+          "symbolLocation": 28,
+          "imageIndex": 10
+        },
+        {
+          "imageOffset": 13525008,
+          "symbol": "-[UIApplication workspace:didCreateScene:withTransitionContext:completion:]",
+          "symbolLocation": 320,
+          "imageIndex": 9
+        },
+        {
+          "imageOffset": 7420960,
+          "symbol": "-[UIApplicationSceneClientAgent scene:didInitializeWithEvent:completion:]",
+          "symbolLocation": 260,
+          "imageIndex": 9
+        },
+        {
+          "imageOffset": 73992,
+          "symbol": "__95-[FBSScene _callOutQueue_didCreateWithTransitionContext:alternativeCreationCallout:completion:]_block_invoke",
+          "symbolLocation": 304,
+          "imageIndex": 11
+        },
+        {
+          "imageOffset": 7448,
+          "sourceFile": "/<compiler-generated>",
+          "symbol": "static UIApplicationDelegate.main()",
+          "symbolLocation": 128,
+          "imageIndex": 2
+        },
+        {
+          "imageOffset": 7308,
+          "sourceFile": "/<compiler-generated>",
+          "symbol": "static KuitoAppDelegate.$main()",
+          "symbolLocation": 32,
+          "imageIndex": 2
+        },
+        {
+          "imageOffset": 21044,
+          "sourceFile": "/<compiler-generated>",
+          "symbol": "__debug_main_executable_dylib_entry_point",
+          "symbolLocation": 28,
+          "imageIndex": 2
+        },
+        {
+          "imageOffset": 66384,
+          "symbol": "start_sim",
+          "symbolLocation": 20,
+          "imageIndex": 1
+        },
+        {
+          "imageOffset": 204416,
+          "symbol": "start",
+          "symbolLocation": 6688,
+          "imageIndex": 8
+        }
+      ]
+    }
+  ],
+  "usedImages": [
+    {
+      "name": "KuitoIOS",
+      "arch": "arm64",
+      "source": "P"
+    },
+    {
+      "name": "dyld_sim",
+      "arch": "arm64",
+      "source": "P"
+    },
+    {
+      "name": "KuitoIOS.debug.dylib",
+      "arch": "arm64",
+      "source": "P"
+    },
+    {
+      "name": "libswiftUIKit.dylib",
+      "arch": "arm64",
+      "source": "P"
+    },
+    {
+      "name": "libsystem_platform.dylib",
+      "arch": "arm64",
+      "source": "P"
+    },
+    {
+      "name": "libsystem_kernel.dylib",
+      "arch": "arm64",
+      "source": "P"
+    },
+    {
+      "name": "libsystem_pthread.dylib",
+      "arch": "arm64",
+      "source": "P"
+    },
+    {
+      "name": "libobjc-trampolines.dylib",
+      "arch": "arm64",
+      "source": "P"
+    },
+    {
+      "name": "dyld",
+      "arch": "arm64e",
+      "source": "P"
+    },
+    {
+      "name": "UIKitCore",
+      "arch": "arm64",
+      "source": "P"
+    },
+    {
+      "name": "libdispatch.dylib",
+      "arch": "arm64",
+      "source": "P"
+    },
+    {
+      "name": "FrontBoardServices",
+      "arch": "arm64",
+      "source": "P"
+    },
+    {
+      "name": "BoardServices",
+      "arch": "arm64",
+      "source": "P"
+    },
+    {
+      "name": "CoreFoundation",
+      "arch": "arm64",
+      "source": "P"
+    },
+    {
+      "name": "GraphicsServices",
+      "arch": "arm64",
+      "source": "P"
+    },
+    {
+      "source": "A"
+    },
+    {
+      "name": "BaseBoard",
+      "arch": "arm64",
+      "source": "P"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+[
+  {
+    "score": 0.8916608,
+    "show": {
+      "id": 139,
+      "name": "Girls",
+      "genres": ["Drama", "Romance"],
+      "rating": {
+        "average": 6.4
+      },
+      "image": {
+        "medium": "https://static.tvmaze.com/uploads/images/medium_portrait/31/78286.jpg",
+        "original": "https://static.tvmaze.com/uploads/images/original_untouched/31/78286.jpg"
+      },
+      "premiered": "2012-04-15",
+      "runtime": 30,
+      "network": {
+        "name": "HBO"
+      },
+      "summary": "<p>This Emmy winning series is a comic look at the assorted humiliations and rare triumphs of a group of girls in their 20s.</p>",
+      "status": "Running",
+      "language": "English"
+    }
+  },
+  {
+    "score": 0.877451,
+    "show": {
+      "id": 41734,
+      "name": "GIRLS",
+      "genres": ["Comedy"],
+      "rating": {
+        "average": null
+      },
+      "image": {
+        "medium": "https://static.tvmaze.com/uploads/images/medium_portrait/191/478539.jpg",
+        "original": "https://static.tvmaze.com/uploads/images/original_untouched/191/478539.jpg"
+      },
+      "premiered": "2018-06-15",
+      "runtime": 41,
+      "network": {
+        "name": "UBS"
+      },
+      "summary": null,
+      "status": "Ended",
+      "language": "Mongolian"
+    }
+  },
+  {
+    "score": 0.684268,
+    "show": {
+      "id": 525,
+      "name": "Gilmore Girls",
+      "genres": ["Drama", "Comedy", "Romance"],
+      "rating": {
+        "average": 8
+      },
+      "image": {
+        "medium": "https://static.tvmaze.com/uploads/images/medium_portrait/4/11308.jpg",
+        "original": "https://static.tvmaze.com/uploads/images/original_untouched/4/11308.jpg"
+      },
+      "premiered": "2000-10-05",
+      "runtime": 60,
+      "network": {
+        "name": "The CW"
+      },
+      "summary": "<p><b>Gilmore Girls</b> is a drama centering around the relationship between a thirtysomething single mother and her teen daughter living in Stars Hollow, Connecticut.</p>",
+      "status": "Ended",
+      "language": "English"
+    }
+  }
+]

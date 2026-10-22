@@ -1,0 +1,69 @@
+name: Stage 0 Hermes feasibility
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'research/**'
+      - 'scripts/**'
+      - 'demo/**'
+      - 'package.json'
+      - 'src/dev/**'
+      - 'native/hermes.json'
+      - '.github/workflows/hermes-feasibility.yml'
+  pull_request:
+    paths:
+      - 'research/**'
+      - 'scripts/**'
+      - 'demo/**'
+      - 'package.json'
+      - 'src/dev/**'
+      - 'native/hermes.json'
+      - '.github/workflows/hermes-feasibility.yml'
+jobs:
+  native-toolchain:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      # The desktop hermes and shermes build from the release the devices link.
+      - name: Read the pinned Hermes commit
+        run: echo "HERMES_SHA=$(jq -er .commit native/hermes.json)" >> "$GITHUB_ENV"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install toolchain prerequisites
+        run: sudo apt-get update && sudo apt-get install -y ninja-build cmake clang libicu-dev libreadline-dev
+      - name: Install npm dependencies
+        run: npm install --no-fund --no-audit
+      - name: Checkout pinned Static Hermes
+        uses: actions/checkout@v4
+        with:
+          repository: facebook/hermes
+          ref: ${{ env.HERMES_SHA }}
+          path: vendor/hermes
+          persist-credentials: false
+      - name: Build Hermes CLI and Static Hermes
+        run: |
+          cmake -S vendor/hermes -B vendor/hermes/build -G Ninja -DCMAKE_BUILD_TYPE=Release -DHERMES_ENABLE_TEST_SUITE=OFF
+          cmake --build vendor/hermes/build --target hermes shermes --parallel 2
+      - name: Required bytecode and npm interoperability checks
+        env:
+          HERMES_BIN: ${{ github.workspace }}/vendor/hermes/build/bin/hermes
+          SHERMES_BIN: ${{ github.workspace }}/vendor/hermes/build/bin/shermes
+        run: node research/probe.ts core
+      - name: Optional typed and untyped AOT experiments
+        continue-on-error: true # failures stay recorded in dist/stage0-results.json
+        env:
+          HERMES_BIN: ${{ github.workspace }}/vendor/hermes/build/bin/hermes
+          SHERMES_BIN: ${{ github.workspace }}/vendor/hermes/build/bin/shermes
+        run: node research/probe.ts all
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kuito-stage0-results
+          path: |
+            dist/stage0-results.json
+            dist/stage0-core.json
+          if-no-files-found: warn

@@ -1,0 +1,16 @@
+{
+  // Tests run on Node but import kernel modules, whose imports are
+  // extensionless: Bundler resolution gives tests the kernel's real types.
+  // The import/extensions lint rule (vite.config.ts) keeps test imports
+  // naming the .ts file, as Node needs.
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2024"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true,
+    "types": ["node"]
+  },
+  "include": ["test"],
+  "exclude": ["test/fixtures"]
+}

@@ -1,0 +1,206 @@
+// Ported from React Native Gesture Handler
+// (https://github.com/software-mansion/react-native-gesture-handler,
+// packages/react-native-gesture-handler/android/src/main/java/com/swmansion/gesturehandler/core/LongPressGestureHandler.kt
+// and .../react/events/eventbuilders/LongPressGestureHandlerEventDataBuilder.kt),
+// MIT License, Copyright (c) 2016 Software Mansion.
+package dev.kuito.runtime.renderer.gestures
+
+import android.content.Context
+import android.os.Handler
+import android.os.Looper
+import android.os.SystemClock
+import android.view.MotionEvent
+
+internal class LongPressGestureHandler(context: Context) : GestureHandler() {
+    var minDurationMs = DEFAULT_MIN_DURATION_MS
+    val duration: Int
+        get() = (previousTime - startTime).toInt()
+    private val defaultMaxDist: Float
+    private var maxDist: Float
+    private var numberOfPointersRequired: Int
+    private var startX = 0f
+    private var startY = 0f
+    private var startTime: Long = 0
+    private var previousTime: Long = 0
+    private val handler = Handler(Looper.getMainLooper())
+    private var currentPointers = 0
+
+    init {
+        shouldCancelWhenOutside = true
+
+        val systemDefaultMaxDist = DEFAULT_MAX_DIST_DP * context.resources.displayMetrics.density
+        defaultMaxDist = systemDefaultMaxDist
+        maxDist = defaultMaxDist
+        numberOfPointersRequired = DEFAULT_NUMBER_OF_POINTERS_REQUIRED
+    }
+
+    override fun resetConfig() {
+        super.resetConfig()
+        minDurationMs = DEFAULT_MIN_DURATION_MS
+        maxDist = defaultMaxDist
+        numberOfPointersRequired = DEFAULT_NUMBER_OF_POINTERS_REQUIRED
+        shouldCancelWhenOutside = DEFAULT_SHOULD_CANCEL_WHEN_OUTSIDE
+    }
+
+    private fun getAverageCoords(ev: MotionEvent, excludePointer: Boolean = false): Pair<Float, Float> {
+        if (!excludePointer) {
+            val x = (0 until ev.pointerCount).map { ev.getX(it) }.average().toFloat()
+            val y = (0 until ev.pointerCount).map { ev.getY(it) }.average().toFloat()
+
+            return Pair(x, y)
+        }
+
+        var sumX = 0f
+        var sumY = 0f
+
+        for (i in 0 until ev.pointerCount) {
+            if (i == ev.actionIndex) {
+                continue
+            }
+
+            sumX += ev.getX(i)
+            sumY += ev.getY(i)
+        }
+
+        val x = sumX / (ev.pointerCount - 1)
+        val y = sumY / (ev.pointerCount - 1)
+
+        return Pair(x, y)
+    }
+
+    override fun initialize(event: MotionEvent, sourceEvent: MotionEvent) {
+        previousTime = SystemClock.uptimeMillis()
+        startTime = previousTime
+    }
+
+    override fun onHandle(event: MotionEvent, sourceEvent: MotionEvent) {
+        if (state == STATE_UNDETERMINED) {
+            initialize(event, sourceEvent)
+            begin()
+
+            val (x, y) = getAverageCoords(sourceEvent)
+            startX = x
+            startY = y
+
+            currentPointers++
+        }
+
+        if (sourceEvent.actionMasked == MotionEvent.ACTION_POINTER_DOWN) {
+            currentPointers++
+
+            val (x, y) = getAverageCoords(sourceEvent)
+            startX = x
+            startY = y
+
+            if (currentPointers > numberOfPointersRequired) {
+                fail()
+                currentPointers = 0
+            }
+        }
+
+        if (state == STATE_BEGAN &&
+            currentPointers == numberOfPointersRequired &&
+            (
+                sourceEvent.actionMasked == MotionEvent.ACTION_DOWN ||
+                    sourceEvent.actionMasked == MotionEvent.ACTION_POINTER_DOWN
+                )
+        ) {
+            handler.removeCallbacksAndMessages(null)
+            if (minDurationMs > 0) {
+                handler.postDelayed({ activate() }, minDurationMs)
+            } else if (minDurationMs == 0L) {
+                activate()
+            }
+        }
+        if (sourceEvent.actionMasked == MotionEvent.ACTION_UP) {
+            currentPointers--
+
+            handler.removeCallbacksAndMessages(null)
+
+            if (state == STATE_ACTIVE) {
+                end()
+            } else {
+                fail()
+            }
+        } else if (sourceEvent.actionMasked == MotionEvent.ACTION_POINTER_UP) {
+            currentPointers--
+
+            if (currentPointers < numberOfPointersRequired && state != STATE_ACTIVE) {
+                fail()
+                currentPointers = 0
+            } else {
+                val (x, y) = getAverageCoords(sourceEvent, true)
+                startX = x
+                startY = y
+            }
+        } else {
+            // calculate distance from start
+            val (x, y) = getAverageCoords(sourceEvent)
+
+            val deltaX = x - startX
+            val deltaY = y - startY
+            val distSq = deltaX * deltaX + deltaY * deltaY
+
+            if (distSq > maxDist * maxDist) {
+                if (state == STATE_ACTIVE) {
+                    cancel()
+                } else {
+                    fail()
+                }
+            }
+        }
+    }
+
+    override fun onStateChange(newState: Int, previousState: Int) {
+        handler.removeCallbacksAndMessages(null)
+    }
+
+    override fun dispatchStateChange(newState: Int, prevState: Int) {
+        previousTime = SystemClock.uptimeMillis()
+        super.dispatchStateChange(newState, prevState)
+    }
+
+    override fun dispatchHandlerUpdate(event: MotionEvent) {
+        previousTime = SystemClock.uptimeMillis()
+        super.dispatchHandlerUpdate(event)
+    }
+
+    override fun onReset() {
+        super.onReset()
+        currentPointers = 0
+    }
+
+    override fun updateConfig(config: GestureConfig) {
+        super.updateConfig(config)
+        if (config.has(KEY_MIN_DURATION_MS)) {
+            minDurationMs = config.long(KEY_MIN_DURATION_MS)
+        }
+        if (config.has(KEY_MAX_DIST)) {
+            maxDist = config.px(KEY_MAX_DIST)
+        }
+        if (config.has(KEY_NUMBER_OF_POINTERS)) {
+            numberOfPointersRequired = config.int(KEY_NUMBER_OF_POINTERS)
+        }
+    }
+
+    override fun buildEventData(eventData: GestureEventData, density: Float) {
+        super.buildEventData(eventData, density)
+
+        eventData.x = (lastRelativePositionX / density).toDouble()
+        eventData.y = (lastRelativePositionY / density).toDouble()
+        eventData.absoluteX = (lastPositionInWindowX / density).toDouble()
+        eventData.absoluteY = (lastPositionInWindowY / density).toDouble()
+        eventData.duration = duration.toDouble()
+    }
+
+    companion object {
+        private const val DEFAULT_SHOULD_CANCEL_WHEN_OUTSIDE = true
+        private const val DEFAULT_MIN_DURATION_MS: Long = 500
+        private const val DEFAULT_MAX_DIST_DP = 10f
+        private const val DEFAULT_NUMBER_OF_POINTERS_REQUIRED = 1
+
+        private const val KEY_MIN_DURATION_MS = "minDurationMs"
+        private const val KEY_MAX_DIST = "maxDist"
+        private const val KEY_NUMBER_OF_POINTERS = "numberOfPointers"
+    }
+}

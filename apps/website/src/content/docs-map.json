@@ -1,0 +1,795 @@
+{
+  "$comment": "Where each repository document lives on the website. `diagrams` names SVGs under docs/assets inlined at the top of the page. `exclude` keeps a document repository-only (plans, proposals). `page` merges the document into the generated reference page of that export; the category then comes from the export. Every docs/*.md must be listed: the generator fails on an unmapped file. A page whose `file` is under apps/website/content is a concise page; the full repository document it distills is the `hidden` `<slug>-in-depth` page.",
+  "introduction": {
+    "section": "guides",
+    "category": "getting-started",
+    "file": "apps/website/content/introduction.md"
+  },
+  "apps": {
+    "section": "guides",
+    "category": "getting-started",
+    "file": "apps/website/content/guides/apps.md"
+  },
+  "apps-in-depth": {
+    "section": "guides",
+    "category": "getting-started",
+    "file": "docs/apps.md",
+    "hidden": true
+  },
+  "cli": {
+    "section": "cli",
+    "category": "overview"
+  },
+  "showcase": {
+    "section": "guides",
+    "exclude": true
+  },
+  "contributing": {
+    "section": "guides",
+    "category": "community",
+    "file": "CONTRIBUTING.md"
+  },
+  "primitives": {
+    "section": "guides",
+    "category": "fundamentals",
+    "file": "apps/website/content/guides/primitives.md"
+  },
+  "primitives-in-depth": {
+    "section": "guides",
+    "category": "fundamentals",
+    "file": "docs/primitives.md",
+    "hidden": true
+  },
+  "reactivity": {
+    "section": "guides",
+    "category": "fundamentals",
+    "file": "apps/website/content/guides/reactivity.md"
+  },
+  "reactivity-in-depth": {
+    "section": "guides",
+    "category": "fundamentals",
+    "file": "docs/reactivity.md",
+    "hidden": true
+  },
+  "assets": {
+    "section": "guides",
+    "category": "fundamentals",
+    "file": "apps/website/content/guides/assets.md"
+  },
+  "assets-in-depth": {
+    "section": "guides",
+    "category": "fundamentals",
+    "file": "docs/assets.md",
+    "hidden": true
+  },
+  "fonts": {
+    "section": "guides",
+    "category": "fundamentals",
+    "file": "apps/website/content/guides/fonts.md"
+  },
+  "fonts-in-depth": {
+    "section": "guides",
+    "category": "fundamentals",
+    "file": "docs/fonts.md",
+    "hidden": true
+  },
+  "lifecycle-events": {
+    "section": "guides",
+    "category": "fundamentals",
+    "file": "apps/website/content/guides/lifecycle-events.md"
+  },
+  "lifecycle-events-in-depth": {
+    "section": "guides",
+    "category": "fundamentals",
+    "file": "docs/lifecycle-events.md",
+    "hidden": true
+  },
+  "navigation": {
+    "section": "guides",
+    "category": "build-apps",
+    "file": "apps/website/content/guides/navigation.md"
+  },
+  "navigation-in-depth": {
+    "section": "guides",
+    "category": "build-apps",
+    "file": "docs/navigation.md",
+    "hidden": true
+  },
+  "lists": {
+    "section": "guides",
+    "category": "build-apps",
+    "file": "apps/website/content/guides/lists.md"
+  },
+  "lists-in-depth": {
+    "section": "guides",
+    "category": "build-apps",
+    "file": "docs/lists.md",
+    "hidden": true
+  },
+  "motion": {
+    "section": "guides",
+    "category": "build-apps",
+    "file": "apps/website/content/guides/motion.md"
+  },
+  "motion-in-depth": {
+    "section": "guides",
+    "category": "build-apps",
+    "file": "docs/motion.md",
+    "hidden": true
+  },
+  "keyboard": {
+    "section": "guides",
+    "category": "build-apps",
+    "file": "apps/website/content/guides/keyboard.md"
+  },
+  "keyboard-in-depth": {
+    "section": "guides",
+    "category": "build-apps",
+    "file": "docs/keyboard.md",
+    "hidden": true
+  },
+  "accessibility": {
+    "section": "guides",
+    "category": "build-apps",
+    "file": "apps/website/content/guides/accessibility.md"
+  },
+  "accessibility-in-depth": {
+    "section": "guides",
+    "category": "build-apps",
+    "file": "docs/accessibility.md",
+    "hidden": true
+  },
+  "localization-rtl": {
+    "section": "guides",
+    "category": "build-apps",
+    "file": "apps/website/content/guides/localization-rtl.md"
+  },
+  "splash": {
+    "section": "guides",
+    "category": "build-apps",
+    "file": "apps/website/content/guides/splash.md"
+  },
+  "splash-in-depth": {
+    "section": "guides",
+    "category": "build-apps",
+    "file": "docs/splash.md",
+    "hidden": true
+  },
+  "web-apis": {
+    "section": "guides",
+    "category": "build-apps",
+    "file": "apps/website/content/guides/web-apis.md"
+  },
+  "web-apis-in-depth": {
+    "section": "guides",
+    "category": "build-apps",
+    "file": "docs/web-apis.md",
+    "hidden": true
+  },
+  "native-modules": {
+    "section": "guides",
+    "category": "native-modules",
+    "file": "apps/website/content/guides/native-modules.md"
+  },
+  "native-modules-in-depth": {
+    "section": "guides",
+    "category": "native-modules",
+    "file": "docs/native-modules.md",
+    "hidden": true
+  },
+  "devtools": {
+    "section": "guides",
+    "category": "development",
+    "file": "apps/website/content/guides/devtools.md"
+  },
+  "devtools-in-depth": {
+    "section": "guides",
+    "category": "development",
+    "file": "docs/devtools.md",
+    "hidden": true
+  },
+  "logbox": {
+    "section": "guides",
+    "category": "development",
+    "file": "apps/website/content/guides/logbox.md"
+  },
+  "logbox-in-depth": {
+    "section": "guides",
+    "category": "development",
+    "file": "docs/logbox.md",
+    "hidden": true
+  },
+  "performance": {
+    "section": "guides",
+    "category": "development",
+    "file": "apps/website/content/guides/performance.md"
+  },
+  "performance-in-depth": {
+    "section": "guides",
+    "category": "development",
+    "file": "docs/performance.md",
+    "hidden": true
+  },
+  "camera": {
+    "section": "components",
+    "page": "Camera",
+    "file": "apps/website/content/components/camera.md"
+  },
+  "camera-in-depth": {
+    "section": "components",
+    "category": "text-media",
+    "file": "docs/camera.md",
+    "hidden": true
+  },
+  "video": {
+    "section": "components",
+    "page": "Video",
+    "file": "apps/website/content/components/video.md"
+  },
+  "video-in-depth": {
+    "section": "components",
+    "category": "text-media",
+    "file": "docs/video.md",
+    "hidden": true
+  },
+  "webview": {
+    "section": "components",
+    "page": "WebView",
+    "file": "apps/website/content/components/webview.md"
+  },
+  "webview-in-depth": {
+    "section": "components",
+    "category": "containers",
+    "file": "docs/webview.md",
+    "hidden": true
+  },
+  "system-ui": {
+    "section": "components",
+    "page": "SystemBars",
+    "file": "apps/website/content/components/system-ui.md"
+  },
+  "system-ui-in-depth": {
+    "section": "components",
+    "category": "app-shell",
+    "file": "docs/system-ui.md",
+    "hidden": true
+  },
+  "vstack": {
+    "section": "components",
+    "page": "VStack",
+    "file": "apps/website/content/components/vstack.md"
+  },
+  "hstack": {
+    "section": "components",
+    "page": "HStack",
+    "file": "apps/website/content/components/hstack.md"
+  },
+  "box": {
+    "section": "components",
+    "page": "Box",
+    "file": "apps/website/content/components/box.md"
+  },
+  "spacer": {
+    "section": "components",
+    "page": "Spacer",
+    "file": "apps/website/content/components/spacer.md"
+  },
+  "divider": {
+    "section": "components",
+    "page": "Divider",
+    "file": "apps/website/content/components/divider.md"
+  },
+  "safe-area": {
+    "section": "components",
+    "page": "SafeArea",
+    "file": "apps/website/content/components/safe-area.md"
+  },
+  "fragment": {
+    "section": "components",
+    "page": "Fragment",
+    "file": "apps/website/content/components/fragment.md"
+  },
+  "text": {
+    "section": "components",
+    "page": "Text",
+    "file": "apps/website/content/components/text.md"
+  },
+  "image": {
+    "section": "components",
+    "page": "Image",
+    "file": "apps/website/content/components/image.md"
+  },
+  "symbol": {
+    "section": "components",
+    "page": "Symbol",
+    "file": "apps/website/content/components/symbol.md"
+  },
+  "drawing": {
+    "section": "components",
+    "page": "Drawing",
+    "file": "apps/website/content/components/drawing.md"
+  },
+  "drawing-in-depth": {
+    "section": "components",
+    "category": "text-media",
+    "file": "docs/drawing.md",
+    "hidden": true
+  },
+  "blur": {
+    "section": "components",
+    "page": "Blur",
+    "file": "apps/website/content/components/blur.md"
+  },
+  "blur-in-depth": {
+    "section": "components",
+    "category": "text-media",
+    "file": "docs/blur.md",
+    "hidden": true
+  },
+  "button": {
+    "section": "components",
+    "page": "Button",
+    "file": "apps/website/content/components/button.md"
+  },
+  "pressable": {
+    "section": "components",
+    "page": "Pressable",
+    "file": "apps/website/content/components/pressable.md"
+  },
+  "text-field": {
+    "section": "components",
+    "page": "TextField",
+    "file": "apps/website/content/components/text-field.md"
+  },
+  "toggle": {
+    "section": "components",
+    "page": "Toggle",
+    "file": "apps/website/content/components/toggle.md"
+  },
+  "slider": {
+    "section": "components",
+    "page": "Slider",
+    "file": "apps/website/content/components/slider.md"
+  },
+  "slider-in-depth": {
+    "section": "components",
+    "category": "inputs",
+    "file": "docs/slider.md",
+    "hidden": true
+  },
+  "date-picker": {
+    "section": "components",
+    "page": "DatePicker",
+    "file": "apps/website/content/components/date-picker.md"
+  },
+  "date-picker-in-depth": {
+    "section": "components",
+    "category": "inputs",
+    "file": "docs/date-picker.md",
+    "hidden": true
+  },
+  "select": {
+    "section": "components",
+    "page": "Select",
+    "file": "apps/website/content/components/select.md"
+  },
+  "select-in-depth": {
+    "section": "components",
+    "category": "inputs",
+    "file": "docs/select.md",
+    "hidden": true
+  },
+  "segmented-control": {
+    "section": "components",
+    "page": "SegmentedControl",
+    "file": "apps/website/content/components/segmented-control.md"
+  },
+  "segmented-control-in-depth": {
+    "section": "components",
+    "category": "inputs",
+    "file": "docs/segmented-control.md",
+    "hidden": true
+  },
+  "scroll": {
+    "section": "components",
+    "page": "Scroll",
+    "file": "apps/website/content/components/scroll.md"
+  },
+  "list": {
+    "section": "components",
+    "page": "List",
+    "file": "apps/website/content/components/list.md"
+  },
+  "pager": {
+    "section": "components",
+    "page": "Pager",
+    "file": "apps/website/content/components/pager.md"
+  },
+  "pager-in-depth": {
+    "section": "components",
+    "category": "containers",
+    "file": "docs/pager.md",
+    "hidden": true
+  },
+  "sheet": {
+    "section": "components",
+    "page": "Sheet",
+    "file": "apps/website/content/components/sheet.md"
+  },
+  "context-menu": {
+    "section": "components",
+    "page": "ContextMenu",
+    "file": "apps/website/content/components/context-menu.md"
+  },
+  "context-menu-in-depth": {
+    "section": "components",
+    "category": "containers",
+    "file": "docs/context-menu.md",
+    "hidden": true
+  },
+  "spinner": {
+    "section": "components",
+    "page": "Spinner",
+    "file": "apps/website/content/components/spinner.md"
+  },
+  "router": {
+    "section": "components",
+    "page": "Router",
+    "file": "apps/website/content/components/router.md"
+  },
+  "tabs": {
+    "section": "components",
+    "page": "Tabs",
+    "file": "apps/website/content/components/tabs.md"
+  },
+  "link": {
+    "section": "components",
+    "page": "Link",
+    "file": "apps/website/content/components/link.md"
+  },
+  "show": {
+    "section": "components",
+    "page": "Show",
+    "file": "apps/website/content/components/show.md"
+  },
+  "switch": {
+    "section": "components",
+    "page": "Switch",
+    "file": "apps/website/content/components/switch.md"
+  },
+  "for": {
+    "section": "components",
+    "page": "For",
+    "file": "apps/website/content/components/for.md"
+  },
+  "catch": {
+    "section": "components",
+    "page": "Catch",
+    "file": "apps/website/content/components/catch.md"
+  },
+  "loading": {
+    "section": "components",
+    "page": "Loading",
+    "file": "apps/website/content/components/loading.md"
+  },
+  "splash-screen": {
+    "section": "components",
+    "page": "SplashScreen",
+    "file": "apps/website/content/components/splash-screen.md"
+  },
+  "action-sheet": {
+    "section": "apis",
+    "page": "actionSheet"
+  },
+  "alert": {
+    "section": "apis",
+    "page": "alert"
+  },
+  "app-state": {
+    "section": "apis",
+    "page": "app"
+  },
+  "appearance": {
+    "section": "apis",
+    "page": "appearance"
+  },
+  "audio": {
+    "section": "apis",
+    "page": "audio"
+  },
+  "background-tasks": {
+    "section": "apis",
+    "page": "backgroundTasks"
+  },
+  "brightness": {
+    "section": "apis",
+    "page": "brightness"
+  },
+  "device": {
+    "section": "apis",
+    "page": "device"
+  },
+  "file-system": {
+    "section": "apis",
+    "page": "fileSystem"
+  },
+  "image-picker": {
+    "section": "apis",
+    "page": "mediaPicker"
+  },
+  "keep-awake": {
+    "section": "apis",
+    "page": "keepAwake"
+  },
+  "linking": {
+    "section": "apis",
+    "page": "linking"
+  },
+  "localization": {
+    "section": "apis",
+    "page": "localization"
+  },
+  "location": {
+    "section": "apis",
+    "page": "location"
+  },
+  "network": {
+    "section": "apis",
+    "page": "network"
+  },
+  "permissions": {
+    "section": "apis",
+    "page": "permissions"
+  },
+  "secure-store": {
+    "section": "apis",
+    "page": "secureStore"
+  },
+  "share": {
+    "section": "apis",
+    "page": "share"
+  },
+  "storage": {
+    "section": "apis",
+    "page": "storage"
+  },
+  "window": {
+    "section": "apis",
+    "page": "window"
+  },
+  "async": {
+    "section": "apis",
+    "category": "runtime"
+  },
+  "events": {
+    "section": "apis",
+    "category": "runtime"
+  },
+  "overview": {
+    "section": "architecture",
+    "category": "overview",
+    "file": "apps/website/content/architecture.md"
+  },
+  "architecture": {
+    "section": "architecture",
+    "category": "overview"
+  },
+  "history": {
+    "section": "architecture",
+    "exclude": true
+  },
+  "capabilities": {
+    "section": "architecture",
+    "exclude": true
+  },
+  "native-scheduling": {
+    "section": "architecture",
+    "category": "internals",
+    "diagrams": ["kuito-threads.svg"]
+  },
+  "native-renderer": {
+    "section": "architecture",
+    "category": "internals",
+    "diagrams": ["kuito-renderer.svg"]
+  },
+  "flattening": {
+    "section": "architecture",
+    "category": "runtime",
+    "diagrams": ["kuito-flattening.svg"]
+  },
+  "on-device-hermes": {
+    "section": "architecture",
+    "category": "internals",
+    "diagrams": ["kuito-threads.svg"]
+  },
+  "incremental": {
+    "section": "architecture",
+    "category": "development-loop",
+    "diagrams": ["kuito-live-patch.svg"]
+  },
+  "control-flow": {
+    "section": "language",
+    "category": "tsx",
+    "file": "apps/website/content/language/control-flow.md"
+  },
+  "control-flow-in-depth": {
+    "section": "language",
+    "category": "tsx",
+    "file": "docs/control-flow.md",
+    "hidden": true
+  },
+  "naming": {
+    "section": "architecture",
+    "exclude": true
+  },
+  "styles": {
+    "section": "language",
+    "category": "css",
+    "file": "apps/website/content/language/styles.md"
+  },
+  "styles-in-depth": {
+    "section": "language",
+    "category": "css",
+    "file": "docs/styles.md",
+    "hidden": true
+  },
+  "css-units": {
+    "section": "language",
+    "category": "css",
+    "file": "apps/website/content/language/css-units.md"
+  },
+  "css-units-in-depth": {
+    "section": "language",
+    "category": "css",
+    "file": "docs/css-units.md",
+    "hidden": true
+  },
+  "notifications": {
+    "section": "apis",
+    "page": "notifications"
+  },
+  "release-builds": {
+    "section": "guides",
+    "category": "ship",
+    "file": "apps/website/content/guides/release-builds.md"
+  },
+  "crash-reports": {
+    "section": "guides",
+    "category": "ship",
+    "file": "apps/website/content/guides/crash-reports.md"
+  },
+  "crash-reports-in-depth": {
+    "section": "guides",
+    "category": "ship",
+    "file": "docs/crash-reports.md",
+    "hidden": true
+  },
+  "updates": {
+    "section": "guides",
+    "category": "ship",
+    "file": "apps/website/content/guides/updates.md"
+  },
+  "updates-in-depth": {
+    "section": "guides",
+    "category": "ship",
+    "file": "docs/updates.md",
+    "hidden": true
+  },
+  "testing": {
+    "section": "guides",
+    "category": "testing",
+    "file": "apps/website/content/guides/testing.md"
+  },
+  "testing-in-depth": {
+    "section": "guides",
+    "category": "testing",
+    "file": "docs/testing.md",
+    "hidden": true
+  },
+  "placement": {
+    "section": "guides",
+    "category": "development",
+    "file": "apps/website/content/guides/placement.md"
+  },
+  "placement-in-depth": {
+    "section": "guides",
+    "category": "development",
+    "file": "docs/placement.md",
+    "hidden": true
+  },
+  "phone-live-patch": {
+    "section": "guides",
+    "category": "development"
+  },
+  "module-packaging": {
+    "section": "guides",
+    "category": "native-modules",
+    "file": "apps/website/content/guides/module-packaging.md"
+  },
+  "module-packaging-in-depth": {
+    "section": "guides",
+    "category": "native-modules",
+    "file": "docs/module-packaging.md",
+    "hidden": true
+  },
+  "hermes-thread-layout": {
+    "section": "architecture",
+    "category": "internals"
+  },
+  "sync-input-commits": {
+    "section": "architecture",
+    "category": "internals"
+  },
+  "clipboard": {
+    "section": "apis",
+    "page": "clipboard"
+  },
+  "haptics": {
+    "section": "apis",
+    "page": "haptics"
+  },
+  "refs": {
+    "section": "guides",
+    "category": "fundamentals"
+  },
+  "sign-in": {
+    "section": "guides",
+    "category": "recipes",
+    "file": "apps/website/content/guides/recipes/sign-in.md"
+  },
+  "card-payment": {
+    "section": "guides",
+    "category": "recipes",
+    "file": "apps/website/content/guides/recipes/card-payment.md"
+  },
+  "settings": {
+    "section": "guides",
+    "category": "recipes",
+    "file": "apps/website/content/guides/recipes/settings.md"
+  },
+  "themed-layout": {
+    "section": "guides",
+    "category": "recipes",
+    "file": "apps/website/content/guides/recipes/themed-layout.md"
+  },
+  "infinite-feed": {
+    "section": "guides",
+    "category": "recipes",
+    "file": "apps/website/content/guides/recipes/infinite-feed.md"
+  },
+  "offline-notes": {
+    "section": "guides",
+    "category": "recipes",
+    "file": "apps/website/content/guides/recipes/offline-notes.md"
+  },
+  "photo-upload": {
+    "section": "guides",
+    "category": "recipes",
+    "file": "apps/website/content/guides/recipes/photo-upload.md"
+  },
+  "reminders": {
+    "section": "guides",
+    "category": "recipes",
+    "file": "apps/website/content/guides/recipes/reminders.md"
+  },
+  "onboarding-pager": {
+    "section": "guides",
+    "category": "recipes",
+    "file": "apps/website/content/guides/recipes/onboarding-pager.md"
+  },
+  "parallax-sheet": {
+    "section": "guides",
+    "category": "recipes",
+    "file": "apps/website/content/guides/recipes/parallax-sheet.md"
+  },
+  "podcast-tabs": {
+    "section": "guides",
+    "category": "recipes",
+    "file": "apps/website/content/guides/recipes/podcast-tabs.md"
+  },
+  "card-stack": {
+    "section": "guides",
+    "category": "recipes",
+    "file": "apps/website/content/guides/recipes/card-stack.md"
+  }
+}

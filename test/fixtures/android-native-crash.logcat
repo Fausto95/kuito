@@ -1,0 +1,46 @@
+--------- beginning of crash
+10-17 01:47:15.422  4029  4029 F libc    : Fatal signal 11 (SIGSEGV), code 0 (SI_USER from pid 4073, uid 0) in tid 4029 (ndroid.settings), pid 4029 (ndroid.settings)
+10-17 01:47:18.034  4077  4077 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+10-17 01:47:18.037  4077  4077 F DEBUG   : Build fingerprint: 'google/sdk_gphone64_arm64/emu64a:14/UE1A.230829.036.A1/11228894:userdebug/dev-keys'
+10-17 01:47:18.041  4077  4077 F DEBUG   : Revision: '0'
+10-17 01:47:18.041  4077  4077 F DEBUG   : ABI: 'arm64'
+10-17 01:47:18.041  4077  4077 F DEBUG   : Timestamp: 2026-10-17 01:47:15.876476740+0200
+10-17 01:47:18.041  4077  4077 F DEBUG   : Process uptime: 7s
+10-17 01:47:18.041  4077  4077 F DEBUG   : Cmdline: com.android.settings
+10-17 01:47:18.041  4077  4077 F DEBUG   : pid: 4029, tid: 4029, name: ndroid.settings  >>> com.android.settings <<<
+10-17 01:47:18.041  4077  4077 F DEBUG   : uid: 1000
+10-17 01:47:18.042  4077  4077 F DEBUG   : tagged_addr_ctrl: 0000000000000001 (PR_TAGGED_ADDR_ENABLE)
+10-17 01:47:18.042  4077  4077 F DEBUG   : pac_enabled_keys: 000000000000000f (PR_PAC_APIAKEY, PR_PAC_APIBKEY, PR_PAC_APDAKEY, PR_PAC_APDBKEY)
+10-17 01:47:18.042  4077  4077 F DEBUG   : signal 11 (SIGSEGV), code 0 (SI_USER from pid 4073, uid 0), fault addr --------
+10-17 01:47:18.042  4077  4077 F DEBUG   :     x0  fffffffffffffffc  x1  0000007fca180db0  x2  0000000000000010  x3  000000000000043c
+10-17 01:47:18.042  4077  4077 F DEBUG   :     x4  0000000000000000  x5  0000000000000008  x6  0000000000000000  x7  0000000000000000
+10-17 01:47:18.042  4077  4077 F DEBUG   :     x8  0000000000000016  x9  0000000000001602  x10 0000000000000120  x11 000000000000000d
+10-17 01:47:18.042  4077  4077 F DEBUG   :     x12 000000000000de00  x13 000000007fffffff  x14 0000000000009862  x15 000012539a61b2dd
+10-17 01:47:18.042  4077  4077 F DEBUG   :     x16 0000007b546e6cc0  x17 0000007b90881bf8  x18 0000007b9283a000  x19 000000000000043c
+10-17 01:47:18.042  4077  4077 F DEBUG   :     x20 b40000791020d0b0  x21 0000007b91c7d000  x22 b400007910214eb0  x23 0000007fca180db0
+10-17 01:47:18.042  4077  4077 F DEBUG   :     x24 b400007910214f80  x25 b400007910214ec8  x26 000000000000043c  x27 0000000000000000
+10-17 01:47:18.042  4077  4077 F DEBUG   :     x28 b400007a8022f320  x29 0000007fca180ed0
+10-17 01:47:18.042  4077  4077 F DEBUG   :     lr  0000007b546d61dc  sp  0000007fca180d50  pc  0000007b908c2658  pst 0000000060001000
+10-17 01:47:18.042  4077  4077 F DEBUG   : 21 total frames
+10-17 01:47:18.042  4077  4077 F DEBUG   : backtrace:
+10-17 01:47:18.042  4077  4077 F DEBUG   :       #00 pc 00000000000b8658  /apex/com.android.runtime/lib64/bionic/libc.so (__epoll_pwait+8) (BuildId: a87908b48b368e6282bcc9f34bcfc28c)
+10-17 01:47:18.042  4077  4077 F DEBUG   :       #01 pc 00000000000101d8  /system/lib64/libutils.so (android::Looper::pollOnce(int, int*, int*, void**)+204) (BuildId: 4ad4af87e8ab16b872cdbdaf84188131)
+10-17 01:47:18.042  4077  4077 F DEBUG   :       #02 pc 0000000000183604  /system/lib64/libandroid_runtime.so (android::android_os_MessageQueue_nativePollOnce(_JNIEnv*, _jobject*, long, int)+44) (BuildId: c741d6d101847b558f8cdb0633f23335)
+10-17 01:47:18.042  4077  4077 F DEBUG   :       #03 pc 00000000001eb094  /system/framework/arm64/boot-framework.oat (art_jni_trampoline+116) (BuildId: d78a45b435dbd99c4526a33e3674ae4ee6ada328)
+10-17 01:47:18.042  4077  4077 F DEBUG   :       #04 pc 0000000000567728  /system/framework/arm64/boot-framework.oat (android.os.MessageQueue.next+280) (BuildId: d78a45b435dbd99c4526a33e3674ae4ee6ada328)
+10-17 01:47:18.042  4077  4077 F DEBUG   :       #05 pc 0000000000564f90  /system/framework/arm64/boot-framework.oat (android.os.Looper.loopOnce+96) (BuildId: d78a45b435dbd99c4526a33e3674ae4ee6ada328)
+10-17 01:47:18.042  4077  4077 F DEBUG   :       #06 pc 0000000000564ea8  /system/framework/arm64/boot-framework.oat (android.os.Looper.loop+552) (BuildId: d78a45b435dbd99c4526a33e3674ae4ee6ada328)
+10-17 01:47:18.043  4077  4077 F DEBUG   :       #07 pc 000000000030dd90  /system/framework/arm64/boot-framework.oat (android.app.ActivityThread.main+1664) (BuildId: d78a45b435dbd99c4526a33e3674ae4ee6ada328)
+10-17 01:47:18.043  4077  4077 F DEBUG   :       #08 pc 0000000000360880  /apex/com.android.art/lib64/libart.so (art_quick_invoke_static_stub+640) (BuildId: b10f5696fea1b32039b162aef3850ed3)
+10-17 01:47:18.043  4077  4077 F DEBUG   :       #09 pc 000000000026a904  /apex/com.android.art/lib64/libart.so (_jobject* art::InvokeMethod<(art::PointerSize)8>(art::ScopedObjectAccessAlreadyRunnable const&, _jobject*, _jobject*, _jobject*, unsigned long)+780) (BuildId: b10f5696fea1b32039b162aef3850ed3)
+10-17 01:47:18.043  4077  4077 F DEBUG   :       #10 pc 000000000026a5e8  /apex/com.android.art/lib64/libart.so (art::Method_invoke(_JNIEnv*, _jobject*, _jobject*, _jobjectArray*) (.__uniq.165753521025965369065708152063621506277)+32) (BuildId: b10f5696fea1b32039b162aef3850ed3)
+10-17 01:47:18.043  4077  4077 F DEBUG   :       #11 pc 00000000000a2578  /system/framework/arm64/boot.oat (art_jni_trampoline+120) (BuildId: 5f2ff7f6c842c7ab341edeabcf35b2bcaddb338c)
+10-17 01:47:18.043  4077  4077 F DEBUG   :       #12 pc 000000000074f6d4  /system/framework/arm64/boot-framework.oat (com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run+132) (BuildId: d78a45b435dbd99c4526a33e3674ae4ee6ada328)
+10-17 01:47:18.043  4077  4077 F DEBUG   :       #13 pc 0000000000758f58  /system/framework/arm64/boot-framework.oat (com.android.internal.os.ZygoteInit.main+3160) (BuildId: d78a45b435dbd99c4526a33e3674ae4ee6ada328)
+10-17 01:47:18.043  4077  4077 F DEBUG   :       #14 pc 0000000000360880  /apex/com.android.art/lib64/libart.so (art_quick_invoke_static_stub+640) (BuildId: b10f5696fea1b32039b162aef3850ed3)
+10-17 01:47:18.043  4077  4077 F DEBUG   :       #15 pc 00000000004944c4  /apex/com.android.art/lib64/libart.so (art::JValue art::InvokeWithVarArgs<_jmethodID*>(art::ScopedObjectAccessAlreadyRunnable const&, _jobject*, _jmethodID*, std::__va_list)+516) (BuildId: b10f5696fea1b32039b162aef3850ed3)
+10-17 01:47:18.043  4077  4077 F DEBUG   :       #16 pc 0000000000553528  /apex/com.android.art/lib64/libart.so (art::JNI<true>::CallStaticVoidMethodV(_JNIEnv*, _jclass*, _jmethodID*, std::__va_list)+112) (BuildId: b10f5696fea1b32039b162aef3850ed3)
+10-17 01:47:18.043  4077  4077 F DEBUG   :       #17 pc 00000000000e1ab4  /system/lib64/libandroid_runtime.so (_JNIEnv::CallStaticVoidMethod(_jclass*, _jmethodID*, ...)+104) (BuildId: c741d6d101847b558f8cdb0633f23335)
+10-17 01:47:18.043  4077  4077 F DEBUG   :       #18 pc 00000000000ed7c4  /system/lib64/libandroid_runtime.so (android::AndroidRuntime::start(char const*, android::Kuito<android::String8> const&, bool)+840) (BuildId: c741d6d101847b558f8cdb0633f23335)
+10-17 01:47:18.043  4077  4077 F DEBUG   :       #19 pc 000000000001052c  /system/bin/app_process64 (main+1240) (BuildId: d5d56c38dabc17bd99cd0a7e469056fb)
+10-17 01:47:18.043  4077  4077 F DEBUG   :       #20 pc 000000000005f610  /apex/com.android.runtime/lib64/bionic/libc.so (__libc_init+104) (BuildId: a87908b48b368e6282bcc9f34bcfc28c)

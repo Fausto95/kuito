@@ -1,0 +1,12 @@
+{
+  // The kernel runs inside Hermes, bundled into one script: no DOM, no Node.
+  // It shares only the web APIs it implements with app code.
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2024"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "types": []
+  },
+  "include": ["src/runtime", "src/ui-thread", "src/ui/globals.d.ts", "benchmarks/kernel"]
+}

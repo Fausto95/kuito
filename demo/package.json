@@ -1,0 +1,14 @@
+{
+  "name": "reel",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "kuito dev",
+    "ios": "kuito dev ios",
+    "android": "kuito dev android",
+    "test": "kuito test"
+  },
+  "dependencies": {
+    "kuito": "file:.."
+  }
+}

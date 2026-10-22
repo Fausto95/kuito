@@ -1,0 +1,17 @@
+{
+  "$comment": "Exported types that need no example of their own: each line reviewed. Only types may be listed.",
+  "types": [
+    "AndroidNeeds",
+    "IosNeeds",
+    "NativeViewMethods",
+    "NativeViewSpec",
+    "Platform",
+    "Routes",
+    "SheetMotion",
+    "TextChangeEvent",
+    "ValueChangeEvent",
+    "ViewDeclaration",
+    "global.Crypto",
+    "window.WidthClass"
+  ]
+}

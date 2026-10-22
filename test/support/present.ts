@@ -1,0 +1,6 @@
+/** Unwraps a value the test relies on, failing fast like the untyped access did. */
+export function present<T>(value: T | null | undefined, what: string): T {
+  if (value === null || value === undefined) throw new Error(`${what} is missing`);
+
+  return value;
+}

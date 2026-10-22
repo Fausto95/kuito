@@ -1,0 +1,578 @@
+1 NavigationStack in 0 0.0,0.0 360.0x740.0
+2 NavigationScreen in 1 0.0,0.0 360.0x740.0
+3 SafeArea in 2 0.0,0.0 360.0x24.0
+4 Scroll in 2 0.0,24.0 360.0x640.7
+5 VStack in 4 0.0,0.0 360.0x2596.3 layout-only
+6 VStack in 5 0.0,8.0 360.0x101.7 layout-only
+7 HStack in 6 20.0,4.0 320.0x20.0 layout-only
+8 Image in 7 0.0,0.0 20.0x20.0
+9 Text in 7 26.0,2.0 39.7x16.3 "REEL"
+10 Text in 6 20.0,30.0 320.0x45.3 "Tonight"
+11 Text in 6 20.0,81.3 320.0x20.3 "The best of TVMaze, live from its API."
+15 List in 2 0.0,0.0 0.0x0.0
+16 List in 2 0.0,0.0 0.0x0.0
+17 Scroll in 2 0.0,0.0 0.0x0.0
+18 VStack in 17 0.0,0.0 0.0x0.0 layout-only
+19 VStack in 18 0.0,0.0 0.0x0.0 layout-only
+20 Text in 19 0.0,0.0 0.0x0.0 "REEL"
+21 Text in 19 0.0,0.0 0.0x0.0 "Lab"
+22 Text in 19 0.0,0.0 0.0x0.0 "The machinery under the catalog, one card each."
+23 VStack in 18 0.0,0.0 0.0x0.0 layout-only
+24 VStack in 23 0.0,0.0 0.0x0.0
+25 Text in 24 0.0,0.0 0.0x0.0 "Signals"
+26 Text in 24 0.0,0.0 0.0x0.0 "Only the number below updates when you tap — turn on Highlight updates in the devtools to watch."
+27 HStack in 24 0.0,0.0 0.0x0.0 layout-only
+28 Text in 27 0.0,0.0 0.0x0.0 "0"
+29 Pressable in 27 0.0,0.0 0.0x0.0
+30 Text in 29 0.0,0.0 0.0x0.0 "+1"
+31 Pressable in 27 0.0,0.0 0.0x0.0
+32 Text in 31 0.0,0.0 0.0x0.0 "Reset"
+33 VStack in 23 0.0,0.0 0.0x0.0
+34 Text in 33 0.0,0.0 0.0x0.0 "Motion"
+35 Text in 33 0.0,0.0 0.0x0.0 "Springs and timing curves run on the UI thread; JavaScript only sends the target."
+36 HStack in 33 0.0,0.0 0.0x0.0 layout-only
+37 Box in 36 0.0,0.0 0.0x0.0
+38 Pressable in 36 0.0,0.0 0.0x0.0
+39 Text in 38 0.0,0.0 0.0x0.0 "Spin"
+40 HStack in 33 0.0,0.0 0.0x0.0 layout-only
+41 Text in 40 0.0,0.0 0.0x0.0 "Calm motion"
+42 Spacer in 40 0.0,0.0 0.0x0.0 layout-only
+43 Toggle in 40 0.0,0.0 0.0x0.0 ""
+44 VStack in 23 0.0,0.0 0.0x0.0
+45 Text in 44 0.0,0.0 0.0x0.0 "Gestures"
+46 Text in 44 0.0,0.0 0.0x0.0 "Swipe the card away, pinch the poster. The UI thread follows the finger; JavaScript never hears of it."
+47 Box in 44 0.0,0.0 0.0x0.0
+48 Text in 47 0.0,0.0 0.0x0.0 "Swipe me away"
+49 HStack in 44 0.0,0.0 0.0x0.0 layout-only
+50 Box in 49 0.0,0.0 0.0x0.0
+51 Pressable in 49 0.0,0.0 0.0x0.0
+52 Text in 51 0.0,0.0 0.0x0.0 "Bring the card back"
+53 VStack in 23 0.0,0.0 0.0x0.0
+54 Text in 53 0.0,0.0 0.0x0.0 "Enter and exit"
+55 Text in 53 0.0,0.0 0.0x0.0 "Views animate in when they mount and out before they go."
+56 HStack in 53 0.0,0.0 0.0x0.0 layout-only
+57 Box in 56 0.0,0.0 0.0x0.0
+58 Text in 57 0.0,0.0 0.0x0.0 "#1"
+59 Box in 56 0.0,0.0 0.0x0.0
+60 Text in 59 0.0,0.0 0.0x0.0 "#2"
+61 Box in 56 0.0,0.0 0.0x0.0
+62 Text in 61 0.0,0.0 0.0x0.0 "#3"
+63 HStack in 53 0.0,0.0 0.0x0.0 layout-only
+64 Pressable in 63 0.0,0.0 0.0x0.0
+65 Text in 64 0.0,0.0 0.0x0.0 "Add"
+66 Pressable in 63 0.0,0.0 0.0x0.0
+67 Text in 66 0.0,0.0 0.0x0.0 "Remove"
+68 VStack in 23 0.0,0.0 0.0x0.0
+69 Text in 68 0.0,0.0 0.0x0.0 "Keyboard"
+70 Text in 68 0.0,0.0 0.0x0.0 "Next moves between fields natively; the screen scrolls each one clear of the keyboard, in step with it."
+71 TextField in 68 0.0,0.0 0.0x0.0 ""
+72 TextField in 68 0.0,0.0 0.0x0.0 ""
+73 TextField in 68 0.0,0.0 0.0x0.0 ""
+74 Text in 68 0.0,0.0 0.0x0.0 ""
+75 VStack in 23 0.0,0.0 0.0x0.0
+76 Text in 75 0.0,0.0 0.0x0.0 "Accessibility"
+77 Text in 75 0.0,0.0 0.0x0.0 "With a screen reader on, swipe up or down on the stars."
+78 HStack in 75 0.0,0.0 0.0x0.0
+79 Pressable in 78 0.0,0.0 0.0x0.0
+80 Text in 79 0.0,0.0 0.0x0.0 "★"
+81 Pressable in 78 0.0,0.0 0.0x0.0
+82 Text in 81 0.0,0.0 0.0x0.0 "★"
+83 Pressable in 78 0.0,0.0 0.0x0.0
+84 Text in 83 0.0,0.0 0.0x0.0 "★"
+85 Pressable in 78 0.0,0.0 0.0x0.0
+86 Text in 85 0.0,0.0 0.0x0.0 "★"
+87 Pressable in 78 0.0,0.0 0.0x0.0
+88 Text in 87 0.0,0.0 0.0x0.0 "★"
+89 VStack in 23 0.0,0.0 0.0x0.0
+90 Text in 89 0.0,0.0 0.0x0.0 "Native APIs"
+91 Text in 89 0.0,0.0 0.0x0.0 "Typed modules in Swift and Kotlin: the clipboard and haptics. Haptics ready."
+92 Text in 89 0.0,0.0 0.0x0.0 "Clipboard: —"
+93 Text in 89 0.0,0.0 0.0x0.0 "Clipboard holds text: yes"
+94 HStack in 89 0.0,0.0 0.0x0.0 layout-only
+95 Pressable in 94 0.0,0.0 0.0x0.0
+96 Text in 95 0.0,0.0 0.0x0.0 "Copy TVMaze link"
+97 Pressable in 94 0.0,0.0 0.0x0.0
+98 Text in 97 0.0,0.0 0.0x0.0 "Paste"
+99 Pressable in 94 0.0,0.0 0.0x0.0
+100 Text in 99 0.0,0.0 0.0x0.0 "Tick"
+101 VStack in 23 0.0,0.0 0.0x0.0
+102 Text in 101 0.0,0.0 0.0x0.0 "Audio"
+103 Text in 101 0.0,0.0 0.0x0.0 "A player owned by its view, its progress moved by the UI thread."
+104 Pressable in 101 0.0,0.0 0.0x0.0
+105 Text in 104 0.0,0.0 0.0x0.0 "Listen"
+106 VStack in 23 0.0,0.0 0.0x0.0
+107 Text in 106 0.0,0.0 0.0x0.0 "LogBox"
+108 Text in 106 0.0,0.0 0.0x0.0 "Logs land in the terminal at their source line; warnings and errors open here with the code that raised them."
+109 HStack in 106 0.0,0.0 0.0x0.0 layout-only
+110 Pressable in 109 0.0,0.0 0.0x0.0
+111 Text in 110 0.0,0.0 0.0x0.0 "Warn"
+112 Pressable in 109 0.0,0.0 0.0x0.0
+113 Text in 112 0.0,0.0 0.0x0.0 "Throw"
+114 Text in 106 0.0,0.0 0.0x0.0 "Devtools: m in the terminal · ⌘D iOS · ⌘M Android"
+115 SafeArea in 2 0.0,664.7 360.0x75.3
+116 Box in 115 0.0,0.0 360.0x1.0
+117 HStack in 115 0.0,1.0 360.0x50.3
+118 Pressable in 117 16.0,8.0 82.0x38.3
+119 Text in 118 16.3,6.0 49.3x16.3 "Discover"
+120 Box in 118 38.7,27.3 5.0x5.0
+121 Pressable in 117 98.0,8.0 82.0x38.3
+122 Text in 121 21.3,6.0 39.3x16.3 "Search"
+123 Box in 121 38.7,27.3 5.0x5.0
+124 Pressable in 117 180.0,8.0 82.0x38.3
+125 Text in 124 21.3,6.0 39.7x16.3 "Library"
+126 Box in 124 38.7,27.3 5.0x5.0
+127 Pressable in 117 262.0,8.0 82.0x38.3
+128 Text in 127 31.0,6.0 20.3x16.3 "Lab"
+129 Box in 127 38.7,27.3 5.0x5.0
+130 VStack in 5 0.0,139.7 360.0x2416.7 layout-only
+131 VStack in 130 0.0,0.0 360.0x293.3 layout-only
+132 Pressable in 131 20.0,0.0 320.0x293.3
+133 HStack in 132 17.0,17.0 286.0x195.0 layout-only
+134 Image in 133 0.0,0.0 132.0x194.0
+135 VStack in 133 148.0,0.0 138.0x195.0 layout-only
+136 HStack in 135 0.0,0.0 138.0x14.7 layout-only
+137 Text in 136 0.0,0.0 92.7x14.7 "#1 TONIGHT · "
+138 Symbol in 136 96.7,1.3 12.0x12.0
+139 Text in 136 112.7,0.0 21.0x14.7 "9.2"
+140 Text in 135 0.0,22.7 138.0x59.7 "Breaking Bad"
+141 Text in 135 0.0,90.3 138.0x17.7 "2008 · AMC · 60 min"
+142 Text in 135 0.0,116.0 138.0x79.0 "Breaking Bad follows protagonist Walter White, a chemistry teacher who lives in New Mexico with his wife and teenage son who has cerebral palsy. White is diagnosed with Stage III cancer and given a prognosis of two years left to live. With a new sense of fearlessness based on his medical prognosis, and a desire to secure his family's financial security, White chooses to enter a dangerous world of drugs and crime and ascends to power in this world. The series explores how a fatal diagnosis such as White's releases a typical man from the daily concerns and constraints of normal society and follows his transformation from mild family man to a kingpin of the drug trade."
+143 HStack in 132 17.0,228.0 286.0x48.3 layout-only
+144 Pressable in 143 0.0,1.0 82.3x46.3
+145 Text in 144 18.0,13.0 46.3x20.3 "Details"
+146 Pressable in 143 92.3,0.0 98.7x48.3
+147 Text in 146 19.0,14.0 60.7x20.3 "+ My List"
+148 VStack in 130 0.0,323.3 360.0x273.3 layout-only
+149 HStack in 148 0.0,0.0 360.0x27.0 layout-only
+150 Text in 149 20.0,0.0 82.0x27.0 "Top rated"
+151 Spacer in 149 102.0,13.7 182.3x0.0 layout-only
+152 Text in 149 284.3,4.7 55.7x17.7 "12 shows"
+153 HorizontalList in 148 0.0,41.0 360.0x232.3
+154 VStack in 130 0.0,626.7 360.0x273.3 layout-only
+155 HStack in 154 0.0,0.0 360.0x27.0 layout-only
+156 Text in 155 20.0,0.0 57.3x27.0 "Drama"
+157 Spacer in 155 77.3,13.3 207.0x0.0 layout-only
+158 Text in 155 284.3,4.7 55.7x17.7 "12 shows"
+159 HorizontalList in 154 0.0,41.0 360.0x232.3
+160 VStack in 130 0.0,930.0 360.0x273.3 layout-only
+161 HStack in 160 0.0,0.0 360.0x27.0 layout-only
+162 Text in 161 20.0,0.0 133.0x27.0 "Science Fiction"
+163 Spacer in 161 153.0,13.7 131.3x0.0 layout-only
+164 Text in 161 284.3,4.7 55.7x17.7 "12 shows"
+165 HorizontalList in 160 0.0,41.0 360.0x232.3
+166 VStack in 130 0.0,1233.3 360.0x273.3 layout-only
+167 HStack in 166 0.0,0.0 360.0x27.0 layout-only
+168 Text in 167 20.0,0.0 72.0x27.0 "Comedy"
+169 Spacer in 167 92.0,13.3 192.3x0.0 layout-only
+170 Text in 167 284.3,4.7 55.7x17.7 "12 shows"
+171 HorizontalList in 166 0.0,41.0 360.0x232.3
+172 VStack in 130 0.0,1536.7 360.0x273.3 layout-only
+173 HStack in 172 0.0,0.0 360.0x27.0 layout-only
+174 Text in 173 20.0,0.0 52.3x27.0 "Crime"
+175 Spacer in 173 72.3,13.3 212.0x0.0 layout-only
+176 Text in 173 284.3,4.7 55.7x17.7 "12 shows"
+177 HorizontalList in 172 0.0,41.0 360.0x232.3
+178 VStack in 130 0.0,1840.0 360.0x273.3 layout-only
+179 HStack in 178 0.0,0.0 360.0x27.0 layout-only
+180 Text in 179 20.0,0.0 56.7x27.0 "Action"
+181 Spacer in 179 76.7,13.3 207.7x0.0 layout-only
+182 Text in 179 284.3,4.7 55.7x17.7 "12 shows"
+183 HorizontalList in 178 0.0,41.0 360.0x232.3
+184 VStack in 130 0.0,2143.3 360.0x273.3 layout-only
+185 HStack in 184 0.0,0.0 360.0x27.0 layout-only
+186 Text in 185 20.0,0.0 62.7x27.0 "Thriller"
+187 Spacer in 185 82.7,13.3 201.7x0.0 layout-only
+188 Text in 185 284.3,4.7 55.7x17.7 "12 shows"
+189 HorizontalList in 184 0.0,41.0 360.0x232.3
+190 ListCell in 153 in a list row
+191 Pressable in 190 in a list row
+192 VStack in 191 in a list row layout-only
+193 Image in 192 in a list row
+194 Box in 192 in a list row
+195 Text in 194 in a list row "★ 9.2"
+196 Text in 191 in a list row "Breaking Bad"
+197 Text in 191 in a list row "2008 · Drama, Crime"
+198 ListCell in 153 in a list row
+199 Pressable in 198 in a list row
+200 VStack in 199 in a list row layout-only
+201 Image in 200 in a list row
+202 Box in 200 in a list row
+203 Text in 202 in a list row "★ 9.0"
+204 Text in 199 in a list row "Firefly"
+205 Text in 199 in a list row "2002 · Drama, Adventure"
+206 ListCell in 153 in a list row
+207 Pressable in 206 in a list row
+208 VStack in 207 in a list row layout-only
+209 Image in 208 in a list row
+210 Box in 208 in a list row
+211 Text in 210 in a list row "★ 8.9"
+212 Text in 207 in a list row "Game of Thrones"
+213 Text in 207 in a list row "2011 · Drama, Adventure"
+214 ListCell in 153 in a list row
+215 Pressable in 214 in a list row
+216 VStack in 215 in a list row layout-only
+217 Image in 216 in a list row
+218 Box in 216 in a list row
+219 Text in 218 in a list row "★ 8.9"
+220 Text in 215 in a list row "The Wire"
+221 Text in 215 in a list row "2002 · Drama, Crime"
+222 ListCell in 153 in a list row
+223 Pressable in 222 in a list row
+224 VStack in 223 in a list row layout-only
+225 Image in 224 in a list row
+226 Box in 224 in a list row
+227 Text in 226 in a list row "★ 8.8"
+228 Text in 223 in a list row "Person of Interest"
+229 Text in 223 in a list row "2011 · Action, Crime"
+230 ListCell in 153 in a list row
+231 Pressable in 230 in a list row
+232 VStack in 231 in a list row layout-only
+233 Image in 232 in a list row
+234 Box in 232 in a list row
+235 Text in 234 in a list row "★ 8.8"
+236 Text in 231 in a list row "Death Note"
+237 Text in 231 in a list row "2006 · Anime, Fantasy"
+238 ListCell in 153 in a list row
+239 Pressable in 238 in a list row
+240 VStack in 239 in a list row layout-only
+241 Image in 240 in a list row
+242 Box in 240 in a list row
+243 Text in 242 in a list row "★ 8.8"
+244 Text in 239 in a list row "Stargate SG·1"
+245 Text in 239 in a list row "1997 · Action, Adventure"
+246 ListCell in 159 in a list row
+247 Pressable in 246 in a list row
+248 VStack in 247 in a list row layout-only
+249 Image in 248 in a list row
+250 Box in 248 in a list row
+251 Text in 250 in a list row "★ 6.6"
+252 Text in 247 in a list row "Under the Dome"
+253 Text in 247 in a list row "2013 · Drama, Science-Fiction"
+254 ListCell in 159 in a list row
+255 Pressable in 254 in a list row
+256 VStack in 255 in a list row layout-only
+257 Image in 256 in a list row
+258 Box in 256 in a list row
+259 Text in 258 in a list row "★ 7.4"
+260 Text in 255 in a list row "Bitten"
+261 Text in 255 in a list row "2014 · Drama, Horror"
+262 ListCell in 159 in a list row
+263 Pressable in 262 in a list row
+264 VStack in 263 in a list row layout-only
+265 Image in 264 in a list row
+266 Box in 264 in a list row
+267 Text in 266 in a list row "★ 7.4"
+268 Text in 263 in a list row "Arrow"
+269 Text in 263 in a list row "2012 · Drama, Action"
+270 ListCell in 159 in a list row
+271 Pressable in 270 in a list row
+272 VStack in 271 in a list row layout-only
+273 Image in 272 in a list row
+274 Box in 272 in a list row
+275 Text in 274 in a list row "★ 8.1"
+276 Text in 271 in a list row "True Detective"
+277 Text in 271 in a list row "2014 · Drama, Crime"
+278 ListCell in 159 in a list row
+279 Pressable in 278 in a list row
+280 VStack in 279 in a list row layout-only
+281 Image in 280 in a list row
+282 Box in 280 in a list row
+283 Text in 282 in a list row "★ 8.2"
+284 Text in 279 in a list row "Homeland"
+285 Text in 279 in a list row "2011 · Drama, Thriller"
+286 ListCell in 159 in a list row
+287 Pressable in 286 in a list row
+288 VStack in 287 in a list row layout-only
+289 Image in 288 in a list row
+290 Box in 288 in a list row
+291 Text in 290 in a list row "★ 6.6"
+292 Text in 287 in a list row "Glee"
+293 Text in 287 in a list row "2009 · Drama, Music"
+294 ListCell in 159 in a list row
+295 Pressable in 294 in a list row
+296 VStack in 295 in a list row layout-only
+297 Image in 296 in a list row
+298 Box in 296 in a list row
+299 Text in 298 in a list row "★ 7.8"
+300 Text in 295 in a list row "Revenge"
+301 Text in 295 in a list row "2011 · Drama, Thriller"
+302 ListCell in 165 in a list row
+303 Pressable in 302 in a list row
+304 VStack in 303 in a list row layout-only
+305 Image in 304 in a list row
+306 Box in 304 in a list row
+307 Text in 306 in a list row "★ 6.6"
+308 Text in 303 in a list row "Under the Dome"
+309 Text in 303 in a list row "2013 · Drama, Science-Fiction"
+310 ListCell in 165 in a list row
+311 Pressable in 310 in a list row
+312 VStack in 311 in a list row layout-only
+313 Image in 312 in a list row
+314 Box in 312 in a list row
+315 Text in 314 in a list row "★ 8.8"
+316 Text in 311 in a list row "Person of Interest"
+317 Text in 311 in a list row "2011 · Action, Crime"
+318 ListCell in 165 in a list row
+319 Pressable in 318 in a list row
+320 VStack in 319 in a list row layout-only
+321 Image in 320 in a list row
+322 Box in 320 in a list row
+323 Text in 322 in a list row "★ 7.4"
+324 Text in 319 in a list row "Arrow"
+325 Text in 319 in a list row "2012 · Drama, Action"
+326 ListCell in 165 in a list row
+327 Pressable in 326 in a list row
+328 VStack in 327 in a list row layout-only
+329 Image in 328 in a list row
+330 Box in 328 in a list row
+331 Text in 330 in a list row "★ 7.7"
+332 Text in 327 in a list row "The 100"
+333 Text in 327 in a list row "2014 · Action, Adventure"
+334 ListCell in 165 in a list row
+335 Pressable in 334 in a list row
+336 VStack in 335 in a list row layout-only
+337 Image in 336 in a list row
+338 Box in 336 in a list row
+339 Text in 338 in a list row "★ 7.5"
+340 Text in 335 in a list row "The Flash"
+341 Text in 335 in a list row "2014 · Drama, Action"
+342 ListCell in 165 in a list row
+343 Pressable in 342 in a list row
+344 VStack in 343 in a list row layout-only
+345 Image in 344 in a list row
+346 Box in 344 in a list row
+347 Text in 346 in a list row "★ 8.0"
+348 Text in 343 in a list row "Continuum"
+349 Text in 343 in a list row "2012 · Drama, Crime"
+350 ListCell in 165 in a list row
+351 Pressable in 350 in a list row
+352 VStack in 351 in a list row layout-only
+353 Image in 352 in a list row
+354 Box in 352 in a list row
+355 Text in 354 in a list row "★ 8.0"
+356 Text in 351 in a list row "Marvel's Agents of S.H.I.E.L.D."
+357 Text in 351 in a list row "2013 · Action, Adventure"
+358 ListCell in 171 in a list row
+359 Pressable in 358 in a list row
+360 VStack in 359 in a list row layout-only
+361 Image in 360 in a list row
+362 Box in 360 in a list row
+363 Text in 362 in a list row "★ 7.9"
+364 Text in 359 in a list row "Californication"
+365 Text in 359 in a list row "2007 · Drama, Comedy"
+366 ListCell in 171 in a list row
+367 Pressable in 366 in a list row
+368 VStack in 367 in a list row layout-only
+369 Image in 368 in a list row
+370 Box in 368 in a list row
+371 Text in 370 in a list row "★ 8.6"
+372 Text in 367 in a list row "Fargo"
+373 Text in 367 in a list row "2014 · Drama, Comedy"
+374 ListCell in 171 in a list row
+375 Pressable in 374 in a list row
+376 VStack in 375 in a list row layout-only
+377 Image in 376 in a list row
+378 Box in 376 in a list row
+379 Text in 378 in a list row "★ 7.8"
+380 Text in 375 in a list row "Last Man Standing"
+381 Text in 375 in a list row "2011 · Comedy, Family"
+382 ListCell in 171 in a list row
+383 Pressable in 382 in a list row
+384 VStack in 383 in a list row layout-only
+385 Image in 384 in a list row
+386 Box in 384 in a list row
+387 Text in 386 in a list row "★ 8.1"
+388 Text in 383 in a list row "Brooklyn Nine-Nine"
+389 Text in 383 in a list row "2013 · Comedy, Action"
+390 ListCell in 171 in a list row
+391 Pressable in 390 in a list row
+392 VStack in 391 in a list row layout-only
+393 Image in 392 in a list row
+394 Box in 392 in a list row
+395 Text in 394 in a list row "★ 7.7"
+396 Text in 391 in a list row "Red Band Society"
+397 Text in 391 in a list row "2014 · Drama, Comedy"
+398 ListCell in 171 in a list row
+399 Pressable in 398 in a list row
+400 VStack in 399 in a list row layout-only
+401 Image in 400 in a list row
+402 Box in 400 in a list row
+403 Text in 402 in a list row "★ 6.2"
+404 Text in 399 in a list row "black-ish"
+405 Text in 399 in a list row "2014 · Comedy, Family"
+406 ListCell in 171 in a list row
+407 Pressable in 406 in a list row
+408 VStack in 407 in a list row layout-only
+409 Image in 408 in a list row
+410 Box in 408 in a list row
+411 Text in 410 in a list row "★ 7.3"
+412 Text in 407 in a list row "New Girl"
+413 Text in 407 in a list row "2011 · Comedy, Romance"
+414 ListCell in 177 in a list row
+415 Pressable in 414 in a list row
+416 VStack in 415 in a list row layout-only
+417 Image in 416 in a list row
+418 Box in 416 in a list row
+419 Text in 418 in a list row "★ 8.8"
+420 Text in 415 in a list row "Person of Interest"
+421 Text in 415 in a list row "2011 · Action, Crime"
+422 ListCell in 177 in a list row
+423 Pressable in 422 in a list row
+424 VStack in 423 in a list row layout-only
+425 Image in 424 in a list row
+426 Box in 424 in a list row
+427 Text in 426 in a list row "★ 8.1"
+428 Text in 423 in a list row "True Detective"
+429 Text in 423 in a list row "2014 · Drama, Crime"
+430 ListCell in 177 in a list row
+431 Pressable in 430 in a list row
+432 VStack in 431 in a list row layout-only
+433 Image in 432 in a list row
+434 Box in 432 in a list row
+435 Text in 434 in a list row "★ 8.4"
+436 Text in 431 in a list row "Grimm"
+437 Text in 431 in a list row "2011 · Drama, Crime"
+438 ListCell in 177 in a list row
+439 Pressable in 438 in a list row
+440 VStack in 439 in a list row layout-only
+441 Image in 440 in a list row
+442 Box in 440 in a list row
+443 Text in 442 in a list row "★ 7.7"
+444 Text in 439 in a list row "Gotham"
+445 Text in 439 in a list row "2014 · Drama, Action"
+446 ListCell in 177 in a list row
+447 Pressable in 446 in a list row
+448 VStack in 447 in a list row layout-only
+449 Image in 448 in a list row
+450 Box in 448 in a list row
+451 Text in 450 in a list row "★ 8.0"
+452 Text in 447 in a list row "Continuum"
+453 Text in 447 in a list row "2012 · Drama, Crime"
+454 ListCell in 177 in a list row
+455 Pressable in 454 in a list row
+456 VStack in 455 in a list row layout-only
+457 Image in 456 in a list row
+458 Box in 456 in a list row
+459 Text in 458 in a list row "★ 7.7"
+460 Text in 455 in a list row "Hawaii Five-0"
+461 Text in 455 in a list row "2010 · Drama, Action"
+462 ListCell in 177 in a list row
+463 Pressable in 462 in a list row
+464 VStack in 463 in a list row layout-only
+465 Image in 464 in a list row
+466 Box in 464 in a list row
+467 Text in 466 in a list row "★ 8.6"
+468 Text in 463 in a list row "Fargo"
+469 Text in 463 in a list row "2014 · Drama, Comedy"
+470 ListCell in 183 in a list row
+471 Pressable in 470 in a list row
+472 VStack in 471 in a list row layout-only
+473 Image in 472 in a list row
+474 Box in 472 in a list row
+475 Text in 474 in a list row "★ 8.8"
+476 Text in 471 in a list row "Person of Interest"
+477 Text in 471 in a list row "2011 · Action, Crime"
+478 ListCell in 183 in a list row
+479 Pressable in 478 in a list row
+480 VStack in 479 in a list row layout-only
+481 Image in 480 in a list row
+482 Box in 480 in a list row
+483 Text in 482 in a list row "★ 7.4"
+484 Text in 479 in a list row "Arrow"
+485 Text in 479 in a list row "2012 · Drama, Action"
+486 ListCell in 183 in a list row
+487 Pressable in 486 in a list row
+488 VStack in 487 in a list row layout-only
+489 Image in 488 in a list row
+490 Box in 488 in a list row
+491 Text in 490 in a list row "★ 7.7"
+492 Text in 487 in a list row "The 100"
+493 Text in 487 in a list row "2014 · Action, Adventure"
+494 ListCell in 183 in a list row
+495 Pressable in 494 in a list row
+496 VStack in 495 in a list row layout-only
+497 Image in 496 in a list row
+498 Box in 496 in a list row
+499 Text in 498 in a list row "★ 7.7"
+500 Text in 495 in a list row "Gotham"
+501 Text in 495 in a list row "2014 · Drama, Action"
+502 ListCell in 183 in a list row
+503 Pressable in 502 in a list row
+504 VStack in 503 in a list row layout-only
+505 Image in 504 in a list row
+506 Box in 504 in a list row
+507 Text in 506 in a list row "★ 7.5"
+508 Text in 503 in a list row "The Flash"
+509 Text in 503 in a list row "2014 · Drama, Action"
+510 ListCell in 183 in a list row
+511 Pressable in 510 in a list row
+512 VStack in 511 in a list row layout-only
+513 Image in 512 in a list row
+514 Box in 512 in a list row
+515 Text in 514 in a list row "★ 7.5"
+516 Text in 511 in a list row "Constantine"
+517 Text in 511 in a list row "2014 · Drama, Action"
+518 ListCell in 183 in a list row
+519 Pressable in 518 in a list row
+520 VStack in 519 in a list row layout-only
+521 Image in 520 in a list row
+522 Box in 520 in a list row
+523 Text in 522 in a list row "★ 6.8"
+524 Text in 519 in a list row "The Amazing Race"
+525 Text in 519 in a list row "2001 · Action, Adventure"
+526 ListCell in 189 in a list row
+527 Pressable in 526 in a list row
+528 VStack in 527 in a list row layout-only
+529 Image in 528 in a list row
+530 Box in 528 in a list row
+531 Text in 530 in a list row "★ 6.6"
+532 Text in 527 in a list row "Under the Dome"
+533 Text in 527 in a list row "2013 · Drama, Science-Fiction"
+534 ListCell in 189 in a list row
+535 Pressable in 534 in a list row
+536 VStack in 535 in a list row layout-only
+537 Image in 536 in a list row
+538 Box in 536 in a list row
+539 Text in 538 in a list row "★ 8.1"
+540 Text in 535 in a list row "True Detective"
+541 Text in 535 in a list row "2014 · Drama, Crime"
+542 ListCell in 189 in a list row
+543 Pressable in 542 in a list row
+544 VStack in 543 in a list row layout-only
+545 Image in 544 in a list row
+546 Box in 544 in a list row
+547 Text in 546 in a list row "★ 8.2"
+548 Text in 543 in a list row "Homeland"
+549 Text in 543 in a list row "2011 · Drama, Thriller"
+550 ListCell in 189 in a list row
+551 Pressable in 550 in a list row
+552 VStack in 551 in a list row layout-only
+553 Image in 552 in a list row
+554 Box in 552 in a list row
+555 Text in 554 in a list row "★ 7.8"
+556 Text in 551 in a list row "Revenge"
+557 Text in 551 in a list row "2011 · Drama, Thriller"
+558 ListCell in 189 in a list row
+559 Pressable in 558 in a list row
+560 VStack in 559 in a list row layout-only
+561 Image in 560 in a list row
+562 Box in 560 in a list row
+563 Text in 562 in a list row "★ 8.2"
+564 Text in 559 in a list row "Penny Dreadful"
+565 Text in 559 in a list row "2014 · Horror, Thriller"
+566 ListCell in 189 in a list row
+567 Pressable in 566 in a list row
+568 VStack in 567 in a list row layout-only
+569 Image in 568 in a list row
+570 Box in 568 in a list row
+571 Text in 570 in a list row "★ 7.5"
+572 Text in 567 in a list row "The Strain"
+573 Text in 567 in a list row "2014 · Drama, Horror"
+574 ListCell in 189 in a list row
+575 Pressable in 574 in a list row
+576 VStack in 575 in a list row layout-only
+577 Image in 576 in a list row
+578 Box in 576 in a list row
+579 Text in 578 in a list row "★ 7.5"
+580 Text in 575 in a list row "The Last Ship"
+581 Text in 575 in a list row "2014 · Drama, Action"

@@ -1,0 +1,18 @@
+# The C++ style of native/shared; test/native-format.test.ts holds the files to it.
+
+BasedOnStyle: LLVM
+ColumnLimit: 120
+AllowShortFunctionsOnASingleLine: All
+AllowShortLoopsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AllowShortBlocksOnASingleLine: Always
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortLambdasOnASingleLine: All
+AlwaysBreakTemplateDeclarations: Yes
+PointerAlignment: Left
+ReferenceAlignment: Left
+SpacesBeforeTrailingComments: 1
+FixNamespaceComments: true
+IncludeBlocks: Preserve
+SortIncludes: Never
+ReflowComments: false
