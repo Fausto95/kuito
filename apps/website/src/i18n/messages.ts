@@ -207,7 +207,7 @@ const en = {
   'cli.commands': 'Commands',
   'cli.options': 'Options',
   'cli.commandsLead':
-    "Every command, from the CLI's own command table. The published command is kuito.",
+    'Create an app with npx @kuito/kuito. Run the other commands with npx kuito from your app directory.',
   'cli.optionsLead': "Every flag the commands accept, from the CLI's option table.",
   'cli.usage': 'Usage',
   'cli.flag': 'Flag',
@@ -515,7 +515,7 @@ const fr: Messages = {
   'cli.commands': 'Commandes',
   'cli.options': 'Options',
   'cli.commandsLead':
-    'Chaque commande, depuis la table de commandes de la CLI. La commande publiée est kuito.',
+    'Créez une app avec npx @kuito/kuito. Exécutez les autres commandes avec npx kuito depuis le dossier de votre app.',
   'cli.optionsLead':
     "Chaque option acceptée par les commandes, depuis la table d'options de la CLI.",
   'cli.usage': 'Usage',
@@ -822,7 +822,7 @@ const pt: Messages = {
   'cli.commands': 'Comandos',
   'cli.options': 'Opções',
   'cli.commandsLead':
-    'Todos os comandos, da tabela de comandos da própria CLI. O comando publicado é kuito.',
+    'Crie uma app com npx @kuito/kuito. Execute os outros comandos com npx kuito na pasta da sua app.',
   'cli.optionsLead': 'Todas as opções que os comandos aceitam, da tabela de opções da CLI.',
   'cli.usage': 'Utilização',
   'cli.flag': 'Opção',
@@ -1127,7 +1127,7 @@ const de: Messages = {
   'cli.commands': 'Befehle',
   'cli.options': 'Optionen',
   'cli.commandsLead':
-    'Jeder Befehl aus der Befehlstabelle der CLI. Der veröffentlichte Befehl ist kuito.',
+    'Erstelle eine App mit npx @kuito/kuito. Führe die anderen Befehle mit npx kuito im App-Verzeichnis aus.',
   'cli.optionsLead': 'Jedes Flag, das die Befehle akzeptieren, aus der Optionstabelle der CLI.',
   'cli.usage': 'Aufruf',
   'cli.flag': 'Flag',

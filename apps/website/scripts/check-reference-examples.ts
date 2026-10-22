@@ -30,8 +30,10 @@ for (const command of reference.cliCommands) {
 
   const args = example.code.split(' ');
 
-  if (args.shift() !== 'kuito')
-    throw new Error(`CLI example must start with kuito: ${command.name}`);
+  const executable = command.name === 'create' ? '@kuito/kuito' : 'kuito';
+
+  if (args.shift() !== 'npx' || args.shift() !== executable)
+    throw new Error(`CLI example must start with npx ${executable}: ${command.name}`);
 
   parseArgs(args);
   checked++;
