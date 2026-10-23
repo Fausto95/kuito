@@ -12,8 +12,8 @@ const paragraphs = ['The tide came in.', 'It went out again.', 'Nobody noticed.'
 export default function Article() {
   return (
     <Scroll flex={1} padding={16} gap={12}>
-      {paragraphs.map((text) => (
-        <Text key={text}>{text}</Text>
+      {paragraphs.map((paragraph) => (
+        <Text key={paragraph}>{paragraph}</Text>
       ))}
     </Scroll>
   );
