@@ -384,9 +384,13 @@ test('the starter’s routes are typed: a wrong param is a type error', async ()
     );
     const errors = lint.stdout.split('\n').filter((line) => / error /.test(line));
 
-    assert.deepEqual(errors, [
-      "app/_wrong.ts:3:52: error typescript(TS2322): Type 'number' is not assignable to type 'string'.",
-    ]);
+    assert.deepEqual(
+      errors,
+      [
+        "app/_wrong.ts:3:52: error typescript(TS2322): Type 'number' is not assignable to type 'string'.",
+      ],
+      lint.stdout + lint.stderr,
+    );
   } finally {
     rmSync(parent, { recursive: true, force: true });
     rmSync(output, { recursive: true, force: true });

@@ -14,8 +14,11 @@ const TOOLS = join(
   '.bin',
 );
 
-/** The type errors oxlint reports for `source`, as an app file of a new app, by line. */
-async function typeErrors(source: string): Promise<number[]> {
+/**
+ * The lines oxlint reports type errors on for `source`, as an app file of a
+ * new app, and all it printed.
+ */
+async function typeErrors(source: string): Promise<{ lines: number[]; output: string }> {
   const parent = mkdtempSync(join(tmpdir(), 'kuito-types-'));
   const directory = join(parent, 'Types');
 
@@ -36,20 +39,23 @@ async function typeErrors(source: string): Promise<number[]> {
     },
   );
 
-  return [...lint.stdout.matchAll(/_types\.tsx:(\d+):\d+: error typescript/g)].map((match) =>
-    Number(match[1]),
-  );
+  return {
+    lines: [...lint.stdout.matchAll(/_types\.tsx:(\d+):\d+: error typescript/g)].map((match) =>
+      Number(match[1]),
+    ),
+    output: lint.stdout + lint.stderr,
+  };
 }
 
 // The manifest gives maxFontScale to Text alone; a Button's title follows the
 // user's text size without a cap (docs/appearance.md#text-size).
 test('a Button takes the native props the manifest gives it, not all of Text', async () => {
-  const errors = await typeErrors(`import { Button, Text } from 'kuito';
+  const { lines, output } = await typeErrors(`import { Button, Text } from 'kuito';
 
 export const title = <Text maxFontScale={1.5}>Night Drive</Text>;
 export const save = <Button maxFontScale={1.5}>Save</Button>;
 export const play = <Button fontWeight="bold" disabled>Play</Button>;
 `);
 
-  assert.deepEqual(errors, [4]);
+  assert.deepEqual(lines, [4], output);
 });
