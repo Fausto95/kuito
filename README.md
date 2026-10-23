@@ -2,6 +2,8 @@
 
 # Kuito
 
+Pronounced **KWEE-too**.
+
 Build native iOS and Android interfaces with TypeScript, TSX, signals and CSS. Kuito compiles reactive bindings to native view updates; app logic runs in Hermes, and motion and gestures can run on the UI thread.
 
 > [!WARNING]
@@ -63,6 +65,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for development checks and [apps/website/
 
 ## Credits
 
+- [Expo](https://github.com/expo/expo), by 650 Industries and contributors
+  (MIT): native-module APIs and implementation patterns adapted for Kuito,
+  including location, secure storage, device information, localization,
+  file access, media picking, audio and video, background tasks, brightness
+  and keeping the screen awake.
 - [Taffy](https://github.com/DioxusLabs/taffy), by Visly Inc. and the Taffy
   authors (MIT): the layout engine (`native/shared/layout`) is a C++ port of its
   flexbox algorithm, and its fixtures are the conformance suite
