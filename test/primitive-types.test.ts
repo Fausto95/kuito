@@ -29,9 +29,11 @@ async function typeErrors(source: string): Promise<{ lines: number[]; output: st
   symlinkSync(ROOT, join(directory, 'node_modules/kuito'), 'dir');
   writeFileSync(join(directory, 'app/_types.tsx'), source);
 
+  // An explicit format: oxlint picks its own on CI (GitHub annotations) and
+  // under coding agents.
   const lint = spawnSync(
     join(TOOLS, 'oxlint'),
-    ['--type-aware', '--type-check', '-A', 'all', 'app/_types.tsx'],
+    ['--format', 'unix', '--type-aware', '--type-check', '-A', 'all', 'app/_types.tsx'],
     {
       cwd: directory,
       encoding: 'utf8',
@@ -40,7 +42,7 @@ async function typeErrors(source: string): Promise<{ lines: number[]; output: st
   );
 
   return {
-    lines: [...lint.stdout.matchAll(/_types\.tsx:(\d+):\d+: error typescript/g)].map((match) =>
+    lines: [...lint.stdout.matchAll(/_types\.tsx:(\d+):\d+: .*\[Error\/typescript/g)].map((match) =>
       Number(match[1]),
     ),
     output: lint.stdout + lint.stderr,

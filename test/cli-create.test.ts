@@ -373,21 +373,23 @@ test('the starter’s routes are typed: a wrong param is a type error', async ()
         'export const wrong = () => navigate(routes.topic({ topic: 42 }));\n',
     );
 
+    // An explicit format: oxlint picks its own on CI (GitHub annotations)
+    // and under coding agents.
     const lint = spawnSync(
       join(TOOLS, 'oxlint'),
-      ['--type-aware', '--type-check', '-A', 'all', 'app'],
+      ['--format', 'unix', '--type-aware', '--type-check', '-A', 'all', 'app'],
       {
         cwd: directory,
         encoding: 'utf8',
         env: { ...process.env, PATH: TOOLS + ':' + (process.env.PATH ?? '') },
       },
     );
-    const errors = lint.stdout.split('\n').filter((line) => / error /.test(line));
+    const errors = lint.stdout.split('\n').filter((line) => /\[Error\//.test(line));
 
     assert.deepEqual(
       errors,
       [
-        "app/_wrong.ts:3:52: error typescript(TS2322): Type 'number' is not assignable to type 'string'.",
+        "app/_wrong.ts:3:52: Type 'number' is not assignable to type 'string'. [Error/typescript(TS2322)]",
       ],
       lint.stdout + lint.stderr,
     );
