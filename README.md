@@ -1,8 +1,8 @@
 <p align="center"><img src="apps/website/public/kuito-mark.svg" alt="Kuito caracal" width="100" /></p>
 
-# Kuito
+<h1 align="center">Kuito</h1>
 
-Pronounced **KWEE-too**.
+<p align="center">Pronounced <strong>KWEE-too</strong>.</p>
 
 Build native iOS and Android interfaces with TypeScript, TSX, signals and CSS. Kuito compiles reactive bindings to native view updates; app logic runs in Hermes, and motion and gestures can run on the UI thread.
 
