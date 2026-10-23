@@ -22,6 +22,16 @@ export default function Home() {
 
 SafeArea is a vertical stack with inset padding. `edges` selects the edges to protect. Avoid applying the same inset in both a parent and child. System bar appearance is controlled by `SystemBars`.
 
+## Props
+
+<!-- SafeArea props: generated from src/protocol/manifest.ts -->
+
+| Prop    | Meaning                                                                |
+| ------- | ---------------------------------------------------------------------- |
+| `edges` | Which of `top`, `right`, `bottom`, `left` to pad; all four by default. |
+
+<!-- end of generated props -->
+
 ## Continue
 
 Read [Window](window.md) for a complete workflow.
