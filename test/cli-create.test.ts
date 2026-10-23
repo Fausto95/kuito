@@ -27,6 +27,7 @@ import { installKernel } from './support/kuito-host.ts';
 import type { RunOptions } from './support/cli.ts';
 import { handleOf, hosting, nativeEvent } from './support/host-wire.ts';
 import { countingTests } from './support/test-counts.ts';
+import { headlessApp } from './support/headless.ts';
 
 const temp = () => mkdtempSync(join(tmpdir(), 'kuito-create-'));
 
@@ -619,6 +620,38 @@ test('the layout demo steps through justifyContent', async () => {
 
   await demo.send('Pressable', 'press');
   assert.ok(demo.texts().includes('justifyContent: center'));
+});
+
+test('the layout demo’s swatches fill its track, laid out for real', async () => {
+  const parent = temp();
+  const directory = join(parent, 'Swatches');
+
+  try {
+    await createApp({ name: 'Swatches', directory, framework: ROOT });
+    mkdirSync(join(directory, 'node_modules'), { recursive: true });
+    symlinkSync(ROOT, join(directory, 'node_modules/kuito'), 'dir');
+
+    const entry = join(directory, 'layout.tsx');
+
+    writeFileSync(
+      entry,
+      "import { LayoutDemo } from './app/_components/demos/layout';\nexport default LayoutDemo;\n",
+    );
+
+    const host = await headlessApp(entry);
+    const swatches = [...host.renderer.views.values()].filter((view) => view.kind === 'Box');
+
+    assert.equal(swatches.length, 3);
+
+    // An HStack centers its children across it: a swatch sized by width alone is 0 tall.
+    for (const swatch of swatches) {
+      const { width, height } = host.renderer.engine.box(swatch.node);
+
+      assert.deepEqual({ width, height }, { width: 56, height: 56 });
+    }
+  } finally {
+    rmSync(parent, { recursive: true, force: true });
+  }
 });
 
 test('the gestures demo swipes away and pinches to zoom with no JS handler or round trip', async () => {
