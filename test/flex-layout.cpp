@@ -1196,7 +1196,10 @@ static void propsApplyWithoutAllocating() {
   apply();
   const std::size_t before = allocations;
   for (int i = 0; i < 100; ++i) apply();
-  expect(allocations == before, "100 rounds of seven props allocate " + std::to_string(allocations - before) + " times");
+  // Counted before the message is built: the message allocates, and GCC
+  // evaluates expect's arguments right to left.
+  const std::size_t allocated = allocations - before;
+  expect(allocated == 0, "100 rounds of seven props allocate " + std::to_string(allocated) + " times");
   expect(style.alignItems == AlignItems{AlignItems::Center, Safety::Safe}, "an enum's index finds its value");
 }
 
