@@ -11,8 +11,8 @@ export default function About() {
         Built with Kuito
       </Text>
       <Text fontSize={16} lineHeight={22} color={colors.muted}>
-        Your TypeScript runs on Hermes and drives real UIKit and Android views. Save any file in
-        app/ while kuito dev runs and the app updates in place. Swipe down to close this sheet.
+        Your TypeScript runs on Hermes and drives real UIKit and Android views. Save any file while
+        kuito dev runs and the app updates in place. Swipe down to close this sheet.
       </Text>
     </VStack>
   );

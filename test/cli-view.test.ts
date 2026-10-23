@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { createElement as h } from 'react';
 import { render } from 'ink-testing-library';
 import { createSessionStore } from '../src/cli/session/store.ts';
-import { DevicePicker, SessionView } from '../src/cli/session/view.ts';
+import { DevicePicker, RoutesPicker, SessionView } from '../src/cli/session/view.ts';
 import { filterDevices } from '../src/cli/devices.ts';
 import type { SessionActions } from '../src/cli/session/view.ts';
 import { fixtureDevice } from './support/cli.ts';
@@ -282,4 +282,41 @@ test('each connected device shows its state under the feed; none are shown witho
 
   assert.match(status, /● iPhone 18 Pro\s+rev 3 applied · 150ms from save/);
   app.unmount();
+});
+
+test('create asks how the app routes: file routes first, arrows and enter pick', async () => {
+  const picked: string[] = [];
+  const app = render(
+    h(RoutesPicker, {
+      name: 'MyApp',
+      onSelect: (style) => picked.push(style),
+      onCancel: () => picked.push('cancel'),
+    }),
+  );
+
+  await tick();
+  assert.match(frameOf(app), /How should MyApp route\?/);
+  assert.match(frameOf(app), /› File routes\s+an app\/ directory: each file is a route/);
+  assert.match(frameOf(app), /Component routes\s+one <Router> in app\.tsx/);
+  app.stdin.write(`${ESC}[B`);
+  await tick();
+  app.stdin.write(ENTER);
+  await tick();
+  assert.deepEqual(picked, ['components']);
+  app.unmount();
+
+  const cancelled: string[] = [];
+  const second = render(
+    h(RoutesPicker, {
+      name: 'MyApp',
+      onSelect: (style) => cancelled.push(style),
+      onCancel: () => cancelled.push('cancel'),
+    }),
+  );
+
+  await tick();
+  second.stdin.write(ESC);
+  await tick();
+  assert.deepEqual(cancelled, ['cancel']);
+  second.unmount();
 });

@@ -18,6 +18,15 @@ export const PROFILES = ['debug', 'release'] as const;
 
 export type Profile = (typeof PROFILES)[number];
 
+/**
+ * How an app `kuito create` makes declares its routes: file routes, an app/
+ * directory whose files are the routes, or component routes, one <Router> in
+ * app.tsx (docs/navigation.md).
+ */
+export const ROUTE_STYLES = ['files', 'components'] as const;
+
+export type RouteStyle = (typeof ROUTE_STYLES)[number];
+
 /** Every command, as parsing reads it and `kuito help` lists it. */
 export const COMMAND_TABLE = [
   { name: 'dev', usage: 'dev [ios|android]', summary: 'Build, launch, and watch your app' },
@@ -99,6 +108,8 @@ export interface CliArgs {
   env: string;
   /** What `build` makes: `debug` unless `--profile release` (docs/cli.md#release-builds). */
   profile: Profile;
+  /** How `create`'s app routes; null when not given, which asks or takes file routes. */
+  routes: RouteStyle | null;
   noLaunch: boolean;
   noInstall: boolean;
   verbose: boolean;
@@ -115,6 +126,7 @@ interface OptionValues {
   entry: string | null;
   env: string | null;
   profile: string | null;
+  routes: string | null;
   out: string | null;
 }
 
@@ -152,6 +164,12 @@ export const OPTION_TABLE: readonly (OptionSpec &
     help: 'build: debug (default) or release: an .ipa or .aab for the stores, or with --device an app to install',
   },
   {
+    flags: ['--routes'],
+    value: 'routes',
+    placeholder: '<style>',
+    help: 'create: files (an app/ directory of route files) or components (a <Router> in app.tsx)',
+  },
+  {
     flags: ['--out'],
     value: 'out',
     placeholder: '<dir>',
@@ -184,6 +202,19 @@ function profileOf(value: string | null, command: Command): Profile {
 
   if (!isProfile(value))
     throw new Error(`Unknown profile '${value}': use ${PROFILES.join(' or ')}`);
+
+  return value;
+}
+
+const isRouteStyle = (value: string): value is RouteStyle =>
+  ROUTE_STYLES.some((style) => style === value);
+
+function routesOf(value: string | null, command: Command): RouteStyle | null {
+  if (value === null) return null;
+  if (command !== 'create') throw new Error('--routes only applies to kuito create');
+
+  if (!isRouteStyle(value))
+    throw new Error(`Unknown routes '${value}': use ${ROUTE_STYLES.join(' or ')}`);
 
   return value;
 }
@@ -227,6 +258,7 @@ export function parseArgs(
     entry: null,
     env: null,
     profile: null,
+    routes: null,
     out: null,
   };
   const argv = [...args];
@@ -312,6 +344,7 @@ export function parseArgs(
     out: values.out === null ? null : resolve(cwd, values.out),
     env: values.env ?? (command === 'build' || command === 'update' ? 'production' : 'development'),
     profile: profileOf(values.profile, command),
+    routes: routesOf(values.routes, command),
     noLaunch: flags.noLaunch,
     noInstall: flags.noInstall,
     verbose: flags.verbose,

@@ -11,6 +11,7 @@ import {
 } from './format.ts';
 import { filterDevices } from '../devices.ts';
 import type { Device } from '../devices.ts';
+import type { RouteStyle } from '../config.ts';
 import type { ShortcutAction, Tone } from './format.ts';
 import type { FeedItem, LinkedDevice, RunningStep as Step } from './state.ts';
 import type { SessionStore } from './store.ts';
@@ -248,5 +249,54 @@ export function DevicePicker({
       : h(Text, { dimColor: true }, `  No device matches “${query}”`),
     matches.length > shown.length &&
       h(Text, { dimColor: true }, `  ${selected + 1} of ${matches.length}`),
+  );
+}
+
+/** The routing styles `kuito create` offers, as its picker lists them. */
+const ROUTE_CHOICES: ReadonlyArray<{ style: RouteStyle; label: string; detail: string }> = [
+  { style: 'files', label: 'File routes', detail: 'an app/ directory: each file is a route' },
+  { style: 'components', label: 'Component routes', detail: 'one <Router> in app.tsx' },
+];
+
+export function RoutesPicker({
+  name,
+  onSelect,
+  onCancel,
+}: {
+  name: string;
+  onSelect: (style: RouteStyle) => void;
+  onCancel: () => void;
+}) {
+  const [index, setIndex] = useState(0);
+  const count = ROUTE_CHOICES.length;
+
+  useInput((input, key) => {
+    if (key.escape || (key.ctrl && input === 'c')) return onCancel();
+    if (key.return) return onSelect(ROUTE_CHOICES[index].style);
+    if (key.upArrow) return setIndex((index - 1 + count) % count);
+    if (key.downArrow) setIndex((index + 1) % count);
+  });
+
+  const width = Math.max(...ROUTE_CHOICES.map((choice) => choice.label.length));
+
+  return h(
+    Box,
+    { flexDirection: 'column', marginTop: 1 },
+    h(
+      Text,
+      null,
+      h(Text, TONES.accent, '◆ '),
+      h(Text, { bold: true }, `How should ${name} route?`),
+      h(Text, { dimColor: true }, '  ↑↓ · enter · esc'),
+    ),
+    ROUTE_CHOICES.map((choice, offset) =>
+      h(
+        Text,
+        { key: choice.style },
+        offset === index ? h(Text, TONES.accent, '› ') : '  ',
+        h(Text, { bold: offset === index }, choice.label.padEnd(width)),
+        h(Text, { dimColor: true }, '  ' + choice.detail),
+      ),
+    ),
   );
 }

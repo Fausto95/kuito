@@ -16,8 +16,8 @@ import { dirname, join, relative } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { runInNewContext } from 'node:vm';
-import { createApp, validateAppName } from '../src/cli/create.ts';
-import { parseArgs, ROOT } from '../src/cli/config.ts';
+import { createApp, relocateImports, validateAppName } from '../src/cli/create.ts';
+import { parseArgs, ROOT, ROUTE_STYLES, type RouteStyle } from '../src/cli/config.ts';
 import { main } from '../src/cli/index.ts';
 import { decodePng, hasTransparency } from '../src/cli/png.ts';
 import { loadProject } from '../src/cli/project.ts';
@@ -29,6 +29,10 @@ import { handleOf, hosting, nativeEvent } from './support/host-wire.ts';
 import { countingTests } from './support/test-counts.ts';
 
 const temp = () => mkdtempSync(join(tmpdir(), 'kuito-create-'));
+
+/** What `kuito dev` runs in an app of each routing style: its app directory or its app.tsx. */
+const entryOf = (routes: RouteStyle, directory: string) =>
+  join(directory, routes === 'files' ? 'app' : 'app.tsx');
 
 const readJson = (file: string): unknown => JSON.parse(readFileSync(file, 'utf8'));
 
@@ -84,49 +88,54 @@ function pathWithoutSdks(directory: string): string {
   return directory;
 }
 
-test('a created app’s npm test passes on a machine without Xcode or the Android SDK', async () => {
-  // npm resolves the file: dependency from the real path; macOS's temp directory is a link.
-  const parent = realpathSync(temp());
-  const directory = join(parent, 'Plain');
+for (const routes of ROUTE_STYLES)
+  test(`a created app’s npm test passes on a machine without Xcode or the Android SDK (${routes} routes)`, async () => {
+    // npm resolves the file: dependency from the real path; macOS's temp directory is a link.
+    const parent = realpathSync(temp());
+    const directory = join(parent, 'Plain');
 
-  try {
-    await createApp({ name: 'Plain', directory, framework: ROOT });
+    try {
+      await createApp({ name: 'Plain', directory, framework: ROOT, routes });
 
-    // A file: dependency installs as a link to this checkout: nothing is downloaded.
-    // Without the npm_config_* of an `npm test` running this suite, which
-    // point npm at this checkout instead.
-    const own = Object.fromEntries(
-      Object.entries(process.env).filter(([key]) => !key.toLowerCase().startsWith('npm_')),
-    );
-    const install = spawnSync('npm', ['install', '--offline', '--no-audit', '--no-fund'], {
-      cwd: directory,
-      env: own,
-      encoding: 'utf8',
-    });
-
-    assert.equal(install.status, 0, install.stderr);
-
-    const env = { HOME: process.env.HOME ?? parent, PATH: pathWithoutSdks(join(parent, 'bin')) };
-    const tools = spawnSync(
-      '/bin/sh',
-      ['-c', 'command -v xcrun adb clang swift; echo "[$ANDROID_HOME]"'],
-      {
-        env,
+      // A file: dependency installs as a link to this checkout: nothing is downloaded.
+      // Without the npm_config_* of an `npm test` running this suite, which
+      // point npm at this checkout instead.
+      const own = Object.fromEntries(
+        Object.entries(process.env).filter(([key]) => !key.toLowerCase().startsWith('npm_')),
+      );
+      const install = spawnSync('npm', ['install', '--offline', '--no-audit', '--no-fund'], {
+        cwd: directory,
+        env: own,
         encoding: 'utf8',
-      },
-    );
+      });
 
-    assert.equal(tools.stdout, '[]\n', 'no SDK tool is reachable');
+      assert.equal(install.status, 0, install.stderr);
 
-    const counting = countingTests(env);
-    const run = spawnSync('npm', ['test'], { cwd: directory, env: counting.env, encoding: 'utf8' });
+      const env = { HOME: process.env.HOME ?? parent, PATH: pathWithoutSdks(join(parent, 'bin')) };
+      const tools = spawnSync(
+        '/bin/sh',
+        ['-c', 'command -v xcrun adb clang swift; echo "[$ANDROID_HOME]"'],
+        {
+          env,
+          encoding: 'utf8',
+        },
+      );
 
-    assert.equal(run.status, 0, run.stdout + run.stderr);
-    assert.deepEqual(counting.read(), { passed: 5, failed: 0 });
-  } finally {
-    rmSync(parent, { recursive: true, force: true });
-  }
-});
+      assert.equal(tools.stdout, '[]\n', 'no SDK tool is reachable');
+
+      const counting = countingTests(env);
+      const run = spawnSync('npm', ['test'], {
+        cwd: directory,
+        env: counting.env,
+        encoding: 'utf8',
+      });
+
+      assert.equal(run.status, 0, run.stdout + run.stderr);
+      assert.deepEqual(counting.read(), { passed: 5, failed: 0 });
+    } finally {
+      rmSync(parent, { recursive: true, force: true });
+    }
+  });
 
 test('an app created by Kuito from npm depends on that release, imported as kuito', async () => {
   const parent = temp();
@@ -280,55 +289,56 @@ test('create refuses a directory that is not empty, and fills an empty one', asy
   }
 });
 
-test('the starter app compiles against kuito and opens on native tabs', async () => {
-  const parent = temp();
-  const directory = join(parent, 'Starter');
-  const output = temp();
+for (const routes of ROUTE_STYLES)
+  test(`the starter app compiles against kuito and opens on native tabs (${routes} routes)`, async () => {
+    const parent = temp();
+    const directory = join(parent, 'Starter');
+    const output = temp();
 
-  try {
-    await createApp({ name: 'Starter', directory, framework: ROOT });
-    // What `npm install` does with a file: dependency.
-    mkdirSync(join(directory, 'node_modules'), { recursive: true });
-    symlinkSync(ROOT, join(directory, 'node_modules/kuito'), 'dir');
+    try {
+      await createApp({ name: 'Starter', directory, framework: ROOT, routes });
+      // What `npm install` does with a file: dependency.
+      mkdirSync(join(directory, 'node_modules'), { recursive: true });
+      symlinkSync(ROOT, join(directory, 'node_modules/kuito'), 'dir');
 
-    const { code } = await createSourceCompiler({ platform: 'ios', outputDir: output })(
-      join(directory, 'app'),
-    );
-    const views = new Map<string, { kind: string; props: Record<string, unknown> }>();
-    const order: string[] = [];
-    const kernel = installKernel(
-      hosting({
-        createView(id: string, kind: string) {
-          views.set(id, { kind, props: {} });
-          order.push(id);
-        },
-        setProp(id: string, name: string, value: unknown) {
-          const view = views.get(id);
+      const { code } = await createSourceCompiler({ platform: 'ios', outputDir: output })(
+        entryOf(routes, directory),
+      );
+      const views = new Map<string, { kind: string; props: Record<string, unknown> }>();
+      const order: string[] = [];
+      const kernel = installKernel(
+        hosting({
+          createView(id: string, kind: string) {
+            views.set(id, { kind, props: {} });
+            order.push(id);
+          },
+          setProp(id: string, name: string, value: unknown) {
+            const view = views.get(id);
 
-          if (view) view.props[name] = value;
-        },
-        removeView(id: string) {
-          views.delete(id);
-        },
-        moveView() {},
-      }),
-    );
+            if (view) view.props[name] = value;
+          },
+          removeView(id: string) {
+            views.delete(id);
+          },
+          moveView() {},
+        }),
+      );
 
-    runInNewContext(code, kernel);
-    await new Promise((done) => setTimeout(done, 0));
+      runInNewContext(code, kernel);
+      await new Promise((done) => setTimeout(done, 0));
 
-    const tabs = order.flatMap((id) => {
-      const view = views.get(id);
+      const tabs = order.flatMap((id) => {
+        const view = views.get(id);
 
-      return view?.kind === 'NavigationTab' ? [view.props.title] : [];
-    });
+        return view?.kind === 'NavigationTab' ? [view.props.title] : [];
+      });
 
-    assert.deepEqual(tabs, ['Home', 'Explore']);
-  } finally {
-    rmSync(parent, { recursive: true, force: true });
-    rmSync(output, { recursive: true, force: true });
-  }
-});
+      assert.deepEqual(tabs, ['Home', 'Explore']);
+    } finally {
+      rmSync(parent, { recursive: true, force: true });
+      rmSync(output, { recursive: true, force: true });
+    }
+  });
 
 /** Where npm put the checkout's own tools, oxlint and the tsgolint it type-checks with. */
 const TOOLS = join(
@@ -380,6 +390,109 @@ test('the starter’s routes are typed: a wrong param is a type error', async ()
     rmSync(parent, { recursive: true, force: true });
     rmSync(output, { recursive: true, force: true });
   }
+});
+
+test('component routes are typed by the Routes app.tsx declares: a wrong param is a type error', async () => {
+  const parent = temp();
+  const directory = join(parent, 'Typed');
+
+  try {
+    await createApp({ name: 'Typed', directory, framework: ROOT, routes: 'components' });
+    mkdirSync(join(directory, 'node_modules'), { recursive: true });
+    symlinkSync(ROOT, join(directory, 'node_modules/kuito'), 'dir');
+
+    writeFileSync(
+      join(directory, 'screens/_wrong.ts'),
+      "import { navigate, routes } from 'kuito';\n\n" +
+        'export const wrong = () => navigate(routes.topic({ topic: 42 }));\n',
+    );
+
+    const lint = spawnSync(
+      join(TOOLS, 'oxlint'),
+      ['--type-aware', '--type-check', '-A', 'all', 'app.tsx', 'screens', 'components'],
+      {
+        cwd: directory,
+        encoding: 'utf8',
+        env: { ...process.env, PATH: TOOLS + ':' + (process.env.PATH ?? '') },
+      },
+    );
+    const errors = lint.stdout.split('\n').filter((line) => / error /.test(line));
+
+    assert.deepEqual(errors, [
+      "screens/_wrong.ts:3:52: error typescript(TS2322): Type 'number' is not assignable to type 'string'.",
+    ]);
+  } finally {
+    rmSync(parent, { recursive: true, force: true });
+  }
+});
+
+test('create --routes components writes the starter as one Router in app.tsx', async () => {
+  const parent = temp();
+  const directory = join(parent, 'Declared');
+
+  try {
+    const files = await createApp({
+      name: 'Declared',
+      directory,
+      framework: ROOT,
+      routes: 'components',
+    });
+
+    for (const file of [
+      'app.tsx',
+      'screens/home.tsx',
+      'screens/explore.tsx',
+      'screens/topic.tsx',
+      'screens/about.tsx',
+      'screens/sign-in.tsx',
+      'components/card.tsx',
+      'components/demos/motion.tsx',
+      'tests/home.test.tsx',
+      'kuito.config.ts',
+    ])
+      assert.ok(files.includes(file), `writes ${file}`);
+
+    assert.ok(!existsSync(join(directory, 'app')), 'no app directory: that would be file routes');
+    assert.ok(!files.some((file) => file.includes('_layout') || file.includes('routes.generated')));
+
+    const read = (file: string) => readFileSync(join(directory, file), 'utf8');
+
+    assert.match(read('app.tsx'), /<Router>/);
+    assert.match(read('screens/home.tsx'), /from '\.\.\/components\/card'/);
+    assert.match(read('screens/home.tsx'), /from '\.\.\/assets\/logo\.svg'/);
+    assert.match(read('tests/home.test.tsx'), /from '\.\.\/screens\/home'/);
+    assert.match(read('README.md'), /app\.tsx/);
+    assert.doesNotMatch(read('README.md'), /_layout|\{\{/);
+    assert.match(read('tsconfig.json'), /"screens"/);
+  } finally {
+    rmSync(parent, { recursive: true, force: true });
+  }
+});
+
+test('a moved file’s relative imports still name the files they named', () => {
+  // Where each template path lands: the importer itself, and the components.
+  const place = (path: string) =>
+    path === 'app/(home)/index.tsx'
+      ? 'screens/home.tsx'
+      : path.replace('app/_components/', 'components/');
+  const source = [
+    "import { Box } from 'kuito';",
+    "import logo from '../../assets/logo.svg';",
+    "import { Card } from '../_components/card';",
+    "export { colors } from '../_components/theme';",
+    '',
+  ].join('\n');
+
+  assert.equal(
+    relocateImports(source, 'app/(home)/index.tsx', place),
+    [
+      "import { Box } from 'kuito';",
+      "import logo from '../assets/logo.svg';",
+      "import { Card } from '../components/card';",
+      "export { colors } from '../components/theme';",
+      '',
+    ].join('\n'),
+  );
 });
 
 test('every Explore topic renders its demo', async () => {
@@ -435,6 +548,22 @@ export default function All() {
     rmSync(parent, { recursive: true, force: true });
     rmSync(output, { recursive: true, force: true });
   }
+});
+
+test('create takes how the app routes: file routes or component routes', () => {
+  assert.equal(parseArgs(['create', 'MyApp']).routes, null, 'asked, or file routes, when left out');
+  assert.equal(parseArgs(['create', 'MyApp', '--routes', 'components']).routes, 'components');
+  assert.equal(parseArgs(['create', 'MyApp', '--routes', 'files']).routes, 'files');
+
+  assert.throws(
+    () => parseArgs(['create', 'MyApp', '--routes', 'tree']),
+    /Unknown routes 'tree': use files or components/,
+  );
+
+  assert.throws(
+    () => parseArgs(['dev', '--routes', 'files']),
+    /--routes only applies to kuito create/,
+  );
 });
 
 test('create is a command that takes the app name', () => {
@@ -517,6 +646,23 @@ test('kuito create installs dependencies and prints the next steps', async () =>
 
     assert.match(printed, /cd MyApp/);
     assert.match(printed, /npm run ios/);
+  } finally {
+    rmSync(parent, { recursive: true, force: true });
+  }
+});
+
+test('kuito create --routes components writes component routes, and outside a terminal defaults to file routes', async () => {
+  const parent = temp();
+  const quiet = { cwd: parent, out: () => {} };
+
+  try {
+    await main(['create', 'Declared', '--routes', 'components', '--no-install'], quiet);
+    assert.ok(existsSync(join(parent, 'Declared/app.tsx')));
+    assert.ok(!existsSync(join(parent, 'Declared/app')));
+
+    // A test's stdin is no terminal: no picker, file routes.
+    await main(['create', 'Plain', '--no-install'], quiet);
+    assert.ok(existsSync(join(parent, 'Plain/app/_layout.tsx')));
   } finally {
     rmSync(parent, { recursive: true, force: true });
   }

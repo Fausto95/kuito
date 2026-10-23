@@ -1,6 +1,6 @@
 # Navigate between screens
 
-Use file-based routes for a normal app. Each route exports a screen, and native stacks and tabs own the navigation UI. Use explicit Router, Route, Tabs and Tab components when defining a route tree in TSX.
+An app declares its routes one of two ways, and `kuito create --routes files|components` starts it on either. With **file routes**, the default, each file in `app/` is a route that exports its screen. With **component routes**, `app.tsx` declares them as `<Router>`, `<Tabs>`, `<Tab>` and `<Route>` components ([Router](router.md)). Either way, native stacks and tabs own the navigation UI, and `routes` and `navigate` are typed.
 
 ## Create routes and tabs
 
