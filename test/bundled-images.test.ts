@@ -70,8 +70,9 @@ test('iOS bundles each image as an image set of its scales, vectors kept as vect
     { idiom: 'universal', filename: 'asset_images_cover@2x.png', scale: '2x' },
   ]);
 
+  // Xcode's key: an SVG or PDF drawn at each size it shows at, not scaled from 1x.
   assert.deepEqual(JSON.parse(text(files['asset_icon.imageset/Contents.json'])).properties, {
-    'preserves-kuito-representation': true,
+    'preserves-vector-representation': true,
   });
 });
 
