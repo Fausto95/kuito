@@ -7,7 +7,7 @@ Arrange children horizontally. Use it for toolbars, settings rows and compact su
 ```tsx
 import { HStack, Text } from 'kuito';
 
-export default function Row() {
+export default function Track() {
   return (
     <HStack gap={8} alignItems="center" padding={16}>
       <Text fontWeight="bold">Night Drive</Text>

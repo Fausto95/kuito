@@ -1,8 +1,9 @@
 // The protocol between the kernel and the renderers, written once: every view
 // kind, native prop, native event and payload. scripts/generate-protocol.ts
 // turns it into the kernel's tables (src/runtime/protocol.generated.ts), the
-// app's prop types (src/ui/props.generated.d.ts) and the prop tables in
-// docs/primitives.md; test/protocol-parity.test.ts holds the renderers to it.
+// app's prop types (src/ui/props.generated.d.ts) and the prop tables in each
+// kind's docs page (docs/pressable.md, ...); test/protocol-parity.test.ts
+// holds the renderers to it.
 // Plain data: Node runs it directly and nothing here executes. The native
 // module contract lives beside it in modules.ts.
 import { DEV_LINK, type DevLinkProtocol } from './dev-link.ts';
@@ -82,7 +83,7 @@ export type Kind =
   | 'NavigationTabs'
   | 'NavigationTab';
 
-/** A row of a kind's prop table in docs/primitives.md. */
+/** A row of the prop table in a kind's docs page, e.g. docs/pressable.md. */
 export interface DocRow {
   /** App-facing names: native props, aliases, event props or `horizontal`. */
   props: readonly string[];
@@ -384,7 +385,7 @@ const KIND_SPECS = {
       { props: ['borderRadius'], text: "The sheet's corner radius." },
       {
         props: ['motion'],
-        text: '`sheetMotion()`: its `height` and its `progress` between its snap points move with the sheet every frame, on the UI thread ([motion sources](motion.md#motion-sources)).',
+        text: '`sheetMotion()`: its `height` and its `progress` between its snap points move with the sheet every frame, on the UI thread ([follow a sheet](motion.md#follow-a-sheet-or-keyboard)).',
       },
     ],
   },
@@ -420,16 +421,16 @@ const KIND_SPECS = {
       { props: ['scrollbar'], text: 'Shows or hides the scrollbar.' },
       {
         props: ['motion'],
-        text: '`scrollMotion()`: its `offset`, `velocity` and `overscroll` move with the view every frame, on the UI thread ([motion sources](motion.md#motion-sources)).',
+        text: '`scrollMotion()`: its `offset`, `velocity` and `overscroll` move with the view every frame, on the UI thread ([follow scrolling](motion.md#follow-scrolling)).',
       },
       {
         props: ['paging', 'snapOffsets'],
         join: ', ',
-        text: 'Where a drag comes to rest: whole pages, or the offsets given ([paging and snapping](#paging-and-snapping)).',
+        text: 'Where a drag comes to rest: whole pages, or the offsets given.',
       },
       {
         props: ['keyboard'],
-        text: '`{ dismiss, persistTaps, inset, avoid }`: when dragging dismisses the keyboard, what a tap outside the field does, whether content stays clear of it (true by default) ([keyboard](keyboard.md#scroll-views)).',
+        text: '`{ dismiss, persistTaps, inset, avoid }`: when dragging dismisses the keyboard, what a tap outside the field does, whether content stays clear of it (true by default) ([keyboard](keyboard.md#keep-a-focused-field-visible)).',
       },
     ],
   },

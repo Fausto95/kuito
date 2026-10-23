@@ -23,10 +23,10 @@ export default function CardNumber() {
     const pasted = digitsOf((await clipboard.readText()) ?? '');
     const { start, end } = selection.value;
     const before = digitsOf(number.value.slice(0, start));
-    const text = cardNumber(before + pasted + digitsOf(number.value.slice(end)));
+    const formatted = cardNumber(before + pasted + digitsOf(number.value.slice(end)));
 
-    number.value = text;
-    const caret = Math.min(cardNumber(before + pasted).length, text.length);
+    number.value = formatted;
+    const caret = Math.min(cardNumber(before + pasted).length, formatted.length);
     selection.value = { start: caret, end: caret };
   }
 

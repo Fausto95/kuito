@@ -23,7 +23,7 @@ export function ReaderSettings() {
 
   return (
     <VStack padding={16} gap={12}>
-      <Toggle label="Larger text" checked={largeText} />
+      <Toggle label="Large font" checked={largeText} />
       <Text fontSize={largeText.value ? 24 : 16}>
         {appearance.colorScheme.value === 'dark' ? 'Dark appearance' : 'Light appearance'}
       </Text>

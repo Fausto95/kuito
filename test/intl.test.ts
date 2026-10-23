@@ -49,9 +49,11 @@ test('a new app types the Intl subset Hermes has on both platforms', async () =>
   symlinkSync(ROOT, join(directory, 'node_modules/kuito'), 'dir');
   writeFileSync(join(directory, 'app/_intl.ts'), SUBSET);
 
+  // An explicit format: oxlint picks its own on CI (GitHub annotations) and
+  // under coding agents.
   const lint = spawnSync(
     join(TOOLS, 'oxlint'),
-    ['--type-aware', '--type-check', '-A', 'all', 'app/_intl.ts'],
+    ['--format', 'unix', '--type-aware', '--type-check', '-A', 'all', 'app/_intl.ts'],
     {
       cwd: directory,
       encoding: 'utf8',
@@ -60,7 +62,7 @@ test('a new app types the Intl subset Hermes has on both platforms', async () =>
   );
 
   assert.deepEqual(
-    lint.stdout.split('\n').filter((line) => / error /.test(line)),
+    lint.stdout.split('\n').filter((line) => /\[Error\//.test(line)),
     [],
   );
 

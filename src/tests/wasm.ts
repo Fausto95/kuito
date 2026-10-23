@@ -106,8 +106,8 @@ export class Native {
     };
     const instance = new Instance(compiled, {
       kuito: { measure },
-      // libc's start-up reads the environment, which is empty here; nothing
-      // else reaches the system.
+      // libc's start-up reads the environment, which is empty here, and
+      // seeds its stack protector's canary; nothing else reaches the system.
       wasi_snapshot_preview1: {
         environ_sizes_get: (count: number, size: number) => {
           if (!memory) return 1;
@@ -123,6 +123,13 @@ export class Native {
         fd_seek: unsupported('fd_seek'),
         fd_write: unsupported('fd_write'),
         proc_exit: unsupported('proc_exit'),
+        random_get: (buffer: number, length: number) => {
+          if (!memory) return 1;
+
+          crypto.getRandomValues(new Uint8Array(memory.buffer, buffer, length));
+
+          return 0;
+        },
       },
     });
 

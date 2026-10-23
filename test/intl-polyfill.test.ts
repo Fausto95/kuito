@@ -17,8 +17,8 @@ import { installKernel, type HostView } from './support/kuito-host.ts';
 
 // Hermes has Intl's Collator, DateTimeFormat and NumberFormat only
 // (docs/web-apis.md#intl). PluralRules runs on CLDR's rules, checked here
-// against Node's ICU, which ships the same CLDR release; the other three ask
-// the platform, faked here.
+// against Node's ICU where it ships the same CLDR release; the other three
+// ask the platform, faked here.
 
 const NUMBERS = [
   ...Array.from({ length: 120 }, (_, n) => n),
@@ -90,7 +90,15 @@ function differences(type: 'cardinal' | 'ordinal', locales: readonly string[]): 
   return found;
 }
 
-test('PluralRules picks the category ICU picks, in every CLDR locale', () => {
+// The release src/native/intl/cldr-plurals.ts is built from. Node 22 ships an
+// older one, whose rules differ (scn's `many`) and whose categories come in
+// ICU's order rather than ECMA-402's.
+const CLDR = '48.0';
+
+test('PluralRules picks the category ICU picks, in every CLDR locale', (t) => {
+  if (process.versions.cldr !== CLDR)
+    return t.skip(`Node's ICU has CLDR ${process.versions.cldr}, the rules CLDR ${CLDR}`);
+
   const cardinal = Object.keys(CARDINAL_LOCALES);
   const ordinal = Object.keys(ORDINAL_LOCALES);
 
