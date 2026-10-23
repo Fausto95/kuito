@@ -87,11 +87,11 @@ export const TOPICS: Topic[] = [
   {
     id: 'navigation',
     title: 'Navigation',
-    summary: 'Native stacks and tabs from your files',
+    summary: 'Native stacks and tabs, typed routes',
     detail:
-      'Every .tsx file in app/ is a route. (group) directories are tabs, [name] is a parameter, ' +
-      'and _layout.tsx declares the tab bar. Link and navigate() move between routes, and ' +
-      'present() waits for the result a screen dismisses with.',
+      'Routes are files in app/ (file routes) or <Route> components in app.tsx (component ' +
+      'routes), and the tab bar is a layout or <Tabs>. Link and navigate() move between ' +
+      'routes, and present() waits for the result a screen dismisses with.',
     Demo: NavigationDemo,
   },
 ];

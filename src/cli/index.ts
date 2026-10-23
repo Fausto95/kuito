@@ -2,6 +2,7 @@ import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { relative, resolve } from 'node:path';
 import { createApp } from './create.ts';
+import { chooseRoutes } from './routes-prompt.ts';
 import { createModule, moduleDirectory } from './create-module.ts';
 import { configuredModules, shellModules } from './modules.ts';
 import { loadProject, type Project } from './project.ts';
@@ -220,8 +221,16 @@ async function create(runner: Runner, args: CliArgs, { cwd, out }: { cwd: string
   const { name } = args;
   const directory = resolve(cwd, name);
   const where = relative(cwd, directory);
+  const routes = args.routes ?? (await chooseRoutes(name));
 
-  await task('Create app', where, () => createApp({ name, directory, framework: ROOT }), out);
+  if (!routes) throw new Error('Cancelled: no app was created');
+
+  await task(
+    'Create app',
+    `${where} · ${routes === 'files' ? 'file routes' : 'component routes'}`,
+    () => createApp({ name, directory, framework: ROOT, routes }),
+    out,
+  );
 
   if (!args.noInstall)
     await task(

@@ -28,10 +28,13 @@ export default defineConfig({
   lint: {
     // research/experiments holds raw Hermes probe inputs (global scripts, `print`).
     // The site's API examples are snippets; check-snippets.ts compiles them with the site's settings.
+    // A routing style's files only resolve once kuito create has laid the starter out around them;
+    // test/cli-create.test.ts type-checks them there.
     ignorePatterns: [
       ...generated,
       'research/experiments/**',
       'apps/website/content/api/examples/**',
+      'templates/routes/**',
     ],
     options: { typeAware: true, typeCheck: true },
     jsPlugins: ['./lint/kuito-plugin.ts'],

@@ -13,7 +13,11 @@ npx kuito dev ios
 ```
 
 The CLI creates the starter and installs the published package as the `kuito`
-dependency. `npx @kuito/kuito create MyApp --no-install` skips installation;
+dependency. It asks how the app routes, or takes `--routes`: `files` (the
+default without a terminal) writes file routes, an `app/` directory whose files
+are the routes; `components` writes component routes, the same screens under
+`screens/` and one `<Router>` in `app.tsx`
+([navigation](navigation.md)). `npx @kuito/kuito create MyApp --no-install` skips installation;
 run `npm install` inside the app before using it. `init` is an alias for `create`.
 See [first app](apps.md) for requirements and the first screen.
 

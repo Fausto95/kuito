@@ -1,6 +1,6 @@
 # Route
 
-Register a screen in a Router. Use it when declaring navigation in TSX rather than route files.
+Register a screen in a Router. Use it in an app with component routes, rather than file routes.
 
 ## Register a parameterized detail screen
 

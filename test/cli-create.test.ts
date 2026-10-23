@@ -554,10 +554,12 @@ test('create takes how the app routes: file routes or component routes', () => {
   assert.equal(parseArgs(['create', 'MyApp']).routes, null, 'asked, or file routes, when left out');
   assert.equal(parseArgs(['create', 'MyApp', '--routes', 'components']).routes, 'components');
   assert.equal(parseArgs(['create', 'MyApp', '--routes', 'files']).routes, 'files');
+
   assert.throws(
     () => parseArgs(['create', 'MyApp', '--routes', 'tree']),
     /Unknown routes 'tree': use files or components/,
   );
+
   assert.throws(
     () => parseArgs(['dev', '--routes', 'files']),
     /--routes only applies to kuito create/,

@@ -57,7 +57,7 @@ export default function Home() {
             </Text>
           </HStack>
           <Text fontSize={16} color={colors.muted}>
-            Edit app/(home)/index.tsx and save: the change appears in place, with its state kept.
+            Edit this screen and save: the change appears in place, with its state kept.
           </Text>
         </VStack>
         <Card title="State and motion">

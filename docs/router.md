@@ -1,6 +1,6 @@
 # Router
 
-Own the app navigation tree. Use it for explicitly declared routes or let file-based routing generate it.
+Own the app navigation tree. With component routes you write it in `app.tsx`; with file routes the compiler generates it from `app/`.
 
 ## Declare a home and detail stack
 
@@ -52,7 +52,7 @@ export default function App() {
 
 ## Behavior
 
-Use one Router per app. Route parameters are typed; route names identify destinations. File-based apps normally need route files and a layout rather than a hand-written Router.
+Use one Router per app. Route parameters are typed; route names identify destinations. An app with file routes writes no Router: its route files and layout are the tree. `kuito create --routes components` starts an app whose `app.tsx` is one, with the routes typed by a `declare module 'kuito'` block.
 
 ## Continue
 
