@@ -13,7 +13,16 @@ export interface Element {
   children: Element[];
 }
 
-export const IGNORED = new Set(['title', 'desc', 'metadata', 'defs', 'sodipodi:namedview']);
+// Gradients are definitions: they draw only through the paint that names them.
+export const IGNORED = new Set([
+  'title',
+  'desc',
+  'metadata',
+  'defs',
+  'sodipodi:namedview',
+  'linearGradient',
+  'radialGradient',
+]);
 
 /** Elements and attributes; comments, declarations and text are dropped. */
 export function parse(text: string): Element {
@@ -243,4 +252,244 @@ function points(element: Element, closed: boolean) {
     );
 
   return pairs.length ? `M${pairs.join('L')}${closed ? 'z' : ''}` : '';
+}
+
+/** An affine transform as SVG's matrix(a b c d e f): x' = a x + c y + e, y' = b x + d y + f. */
+export type Matrix = [number, number, number, number, number, number];
+
+export const IDENTITY: Matrix = [1, 0, 0, 1, 0, 0];
+
+export function multiply(p: Matrix, q: Matrix): Matrix {
+  return [
+    p[0] * q[0] + p[2] * q[1],
+    p[1] * q[0] + p[3] * q[1],
+    p[0] * q[2] + p[2] * q[3],
+    p[1] * q[2] + p[3] * q[3],
+    p[0] * q[4] + p[2] * q[5] + p[4],
+    p[1] * q[4] + p[3] * q[5] + p[5],
+  ];
+}
+
+const radians = (degrees: number) => (degrees * Math.PI) / 180;
+
+/** Each SVG transform function as its matrix. */
+const TRANSFORMS: Readonly<Record<string, (args: number[]) => Matrix>> = {
+  matrix: ([a = 1, b = 0, c = 0, d = 1, e = 0, f = 0]) => [a, b, c, d, e, f],
+  translate: ([x = 0, y = 0]) => [1, 0, 0, 1, x, y],
+  scale: ([x = 1, y = x]) => [x, 0, 0, y, 0, 0],
+  rotate: ([degrees = 0, cx = 0, cy = 0]) => {
+    const cos = Math.cos(radians(degrees));
+    const sin = Math.sin(radians(degrees));
+
+    return multiply(multiply([1, 0, 0, 1, cx, cy], [cos, sin, -sin, cos, 0, 0]), [
+      1,
+      0,
+      0,
+      1,
+      -cx,
+      -cy,
+    ]);
+  },
+  skewX: ([degrees = 0]) => [1, 0, Math.tan(radians(degrees)), 1, 0, 0],
+  skewY: ([degrees = 0]) => [1, Math.tan(radians(degrees)), 0, 1, 0, 0],
+};
+
+/** A transform attribute's functions, applied left to right, as one matrix. */
+export function transformOf(transform: string | undefined): Matrix {
+  let matrix = IDENTITY;
+
+  for (const [, name, args] of (transform ?? '').matchAll(/([a-zA-Z]+)\s*\(([^)]*)\)/g)) {
+    const make = TRANSFORMS[name];
+
+    if (!make) throw new Error(`a ${name}() transform`);
+
+    matrix = multiply(
+      matrix,
+      make(
+        args
+          .trim()
+          .split(/[\s,]+/)
+          .filter(Boolean)
+          .map((value) => number(value, name)),
+      ),
+    );
+  }
+
+  return matrix;
+}
+
+export interface GradientStop {
+  /** Where the stop sits along the gradient, 0–1, never before the one before it. */
+  offset: number;
+  hex: string;
+  alpha: number;
+}
+
+interface GradientBase {
+  /** Whether its coordinates are fractions of the painted shape's box, or the shape's own. */
+  units: 'objectBoundingBox' | 'userSpaceOnUse';
+  transform: Matrix;
+  spread: 'pad' | 'reflect' | 'repeat';
+  stops: GradientStop[];
+}
+
+export type Gradient = GradientBase &
+  (
+    | { kind: 'linear'; x1: number; y1: number; x2: number; y2: number }
+    | { kind: 'radial'; cx: number; cy: number; r: number; fx: number; fy: number }
+  );
+
+/** What an element takes from the gradient its `href` names, unless it says otherwise. */
+const GRADIENT_ATTRIBUTES = [
+  'gradientUnits',
+  'gradientTransform',
+  'spreadMethod',
+  'x1',
+  'y1',
+  'x2',
+  'y2',
+  'cx',
+  'cy',
+  'r',
+  'fx',
+  'fy',
+] as const;
+
+const KINDS: Readonly<Record<string, Gradient['kind']>> = {
+  linearGradient: 'linear',
+  radialGradient: 'radial',
+};
+
+export function oneOf<T extends string>(key: string, value: string, values: readonly T[]): T {
+  const found = values.find((each) => each === value);
+
+  if (found === undefined) throw new Error(`${key}="${value}"`);
+
+  return found;
+}
+
+/**
+ * Every gradient in the file by id, wherever it is defined: its own
+ * attributes over those of the gradient its `href` names, and that one's
+ * stops when it has none. `viewport` is what a percentage in user space is
+ * of.
+ */
+export function gradients(
+  svg: Element,
+  viewport: readonly [width: number, height: number],
+): ReadonlyMap<string, Gradient> {
+  const defined = new Map<string, Element>();
+  const visit = (element: Element) => {
+    if (KINDS[element.name] && element.attributes.id) defined.set(element.attributes.id, element);
+
+    element.children.forEach(visit);
+  };
+
+  visit(svg);
+
+  const resolve = (
+    element: Element,
+    seen: ReadonlySet<Element>,
+  ): { attributes: Record<string, string>; stops: Element[] } => {
+    const own = element.children.filter((child) => child.name === 'stop');
+    const reference = (element.attributes.href ?? element.attributes['xlink:href'] ?? '').trim();
+    const target = reference.startsWith('#') ? defined.get(reference.slice(1)) : undefined;
+
+    if (!target || seen.has(target)) return { attributes: element.attributes, stops: own };
+
+    const inherited = resolve(target, new Set([...seen, element]));
+    const attributes = { ...element.attributes };
+
+    for (const key of GRADIENT_ATTRIBUTES)
+      if (attributes[key] === undefined && inherited.attributes[key] !== undefined)
+        attributes[key] = inherited.attributes[key];
+
+    return { attributes, stops: own.length ? own : inherited.stops };
+  };
+
+  const result = new Map<string, Gradient>();
+
+  for (const [id, element] of defined) {
+    const { attributes, stops } = resolve(element, new Set());
+    const units = oneOf('gradientUnits', attributes.gradientUnits ?? 'objectBoundingBox', [
+      'objectBoundingBox',
+      'userSpaceOnUse',
+    ] as const);
+    // A coordinate: in the box, a fraction (50% or .5); in user space, a length,
+    // or a percentage of the viewport's width, height or their diagonal.
+    const length = (key: string, fallback: string, of: 'x' | 'y' | 'diagonal') => {
+      const value = (attributes[key] ?? fallback).trim();
+
+      if (!value.endsWith('%')) return number(value, key);
+
+      const fraction = number(value.slice(0, -1), key) / 100;
+
+      if (units === 'objectBoundingBox') return fraction;
+
+      const [width, height] = viewport;
+
+      return (
+        fraction * { x: width, y: height, diagonal: Math.hypot(width, height) / Math.SQRT2 }[of]
+      );
+    };
+    const base: GradientBase = {
+      units,
+      transform: transformOf(attributes.gradientTransform),
+      spread: oneOf('spreadMethod', attributes.spreadMethod ?? 'pad', [
+        'pad',
+        'reflect',
+        'repeat',
+      ] as const),
+      stops: stopsOf(stops),
+    };
+
+    if (KINDS[element.name] === 'linear') {
+      result.set(id, {
+        ...base,
+        kind: 'linear',
+        x1: length('x1', '0%', 'x'),
+        y1: length('y1', '0%', 'y'),
+        x2: length('x2', '100%', 'x'),
+        y2: length('y2', '0%', 'y'),
+      });
+    } else {
+      const cx = length('cx', '50%', 'x');
+      const cy = length('cy', '50%', 'y');
+
+      result.set(id, {
+        ...base,
+        kind: 'radial',
+        cx,
+        cy,
+        r: length('r', '50%', 'diagonal'),
+        fx: attributes.fx === undefined ? cx : length('fx', '50%', 'x'),
+        fy: attributes.fy === undefined ? cy : length('fy', '50%', 'y'),
+      });
+    }
+  }
+
+  return result;
+}
+
+/** A gradient's stops: each offset clamped and kept in order, its opacity folded in. */
+function stopsOf(stops: readonly Element[]): GradientStop[] {
+  let previous = 0;
+
+  return stops.map((stop) => {
+    const own = declared(stop);
+    const text = (own.offset ?? '0').trim();
+    const given = text.endsWith('%')
+      ? number(text.slice(0, -1), 'offset') / 100
+      : number(text, 'offset');
+    const offset = Math.max(previous, Math.min(1, Math.max(0, given)));
+    const paint = color(own['stop-color'] ?? '#000000');
+
+    previous = offset;
+
+    return {
+      offset,
+      hex: paint?.hex ?? '#000000',
+      alpha: (paint?.alpha ?? 0) * number(own['stop-opacity'] ?? '1', 'stop-opacity'),
+    };
+  });
 }

@@ -4,6 +4,7 @@ import { pathBounds } from '../src/dev/path-bounds.ts';
 
 const near = (actual: number[] | null, expected: number[]) => {
   assert.ok(actual, 'the path has bounds');
+
   assert.deepEqual(
     actual.map((value) => Math.round(value * 1e6) / 1e6),
     expected,
