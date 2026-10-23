@@ -68,7 +68,10 @@ function fileCompiler(extra: { directories?: string[] } = {}) {
   };
 }
 
-async function fixture(action: (fixture: Fixture) => Promise<void>) {
+async function fixture(
+  action: (fixture: Fixture) => Promise<void>,
+  { watchFiles = true }: { watchFiles?: boolean } = {},
+) {
   const dir = await mkdtemp(join(tmpdir(), 'kuito-live-'));
   const file = join(dir, 'counter.js');
   const views = new Map<string, string>();
@@ -92,7 +95,13 @@ async function fixture(action: (fixture: Fixture) => Promise<void>) {
       return { delivered: 1 };
     },
   };
-  const session = new LiveSession({ entry: file, compile: fileCompiler(), host, debounceMs: 25 });
+  const session = new LiveSession({
+    entry: file,
+    compile: fileCompiler(),
+    host,
+    debounceMs: 25,
+    watchFiles,
+  });
 
   try {
     await action({ file, patches, views, context, session });
@@ -292,24 +301,31 @@ test('the host receives the revision the compiler gave the output', async () => 
   });
 });
 
+// The test reports the edit itself, with the watcher off: FSEvents can report
+// the first write late, as an edit made before `edited`, and that edit's build
+// can read the second version and take revision 2 under load.
 test('the time since the edit behind a revision is measured from the edit', async () => {
-  await fixture(async ({ file, session }) => {
-    await writeFile(file, patch(1, 'Count: '));
-    await session.start();
-    assert.equal(session.sinceEdit(1), undefined, 'the initial build had no edit');
+  await fixture(
+    async ({ file, session }) => {
+      await writeFile(file, patch(1, 'Count: '));
+      await session.start();
+      assert.equal(session.sinceEdit(1), undefined, 'the initial build had no edit');
 
-    const edited = performance.now();
+      await writeFile(file, patch(2, 'Total: '));
 
-    session.notify(file);
-    await writeFile(file, patch(2, 'Total: '));
-    await waitFor(() => session.revision === 2);
+      const edited = performance.now();
 
-    const since = present(session.sinceEdit(2), 'time since the edit');
+      session.notify(file);
+      await waitFor(() => session.revision === 2);
 
-    assert.ok(since >= 25, 'it includes the debounce');
-    assert.ok(since <= performance.now() - edited + 1);
-    assert.equal(session.sinceEdit(99), undefined);
-  });
+      const since = present(session.sinceEdit(2), 'time since the edit');
+
+      assert.ok(since >= 25, 'it includes the debounce');
+      assert.ok(since <= performance.now() - edited + 1);
+      assert.equal(session.sinceEdit(99), undefined);
+    },
+    { watchFiles: false },
+  );
 });
 
 test('the placement report goes out for the first build, then for each file whose report changed', async () => {
