@@ -40,13 +40,13 @@ function iosImages(images: ImageSettings[], read: Read): Generated {
   const files: Generated['files'] = { 'Contents.json': catalog({ info: INFO }) };
 
   for (const { name, type, variants } of images) {
-    const kuito = type === 'svg' || type === 'pdf';
+    const vector = type === 'svg' || type === 'pdf';
     const entries = variants.map(({ scale, source }) => {
-      const filename = `${name}${kuito ? '' : `@${scale}x`}.${EXTENSIONS[type]}`;
+      const filename = `${name}${vector ? '' : `@${scale}x`}.${EXTENSIONS[type]}`;
 
       files[`${name}.imageset/${filename}`] = read(source);
 
-      return kuito
+      return vector
         ? { idiom: 'universal', filename }
         : { idiom: 'universal', filename, scale: `${scale}x` };
     });
@@ -55,7 +55,7 @@ function iosImages(images: ImageSettings[], read: Read): Generated {
       images: entries,
       info: INFO,
       // Drawn from the vector at any size, not from a 1x rendering of it.
-      ...(kuito && { properties: { 'preserves-kuito-representation': true } }),
+      ...(vector && { properties: { 'preserves-vector-representation': true } }),
     });
   }
 
@@ -100,7 +100,7 @@ const GENERATORS: Record<Platform, (images: ImageSettings[], read: Read) => Gene
 };
 
 /** Bump when the generated files change for the same images. */
-const FORMAT = 1;
+const FORMAT = 2;
 
 const settings = (assets: readonly BundledAsset[], root: string): ImageSettings[] =>
   assets.map(({ name, type, variants }) => ({

@@ -8,10 +8,21 @@
  * the element. Pure: SVG text in, plain data out.
  */
 import { svgSize } from './image-size.ts';
-import { color, declared, IGNORED, inherit, INITIAL, number, parse, SHAPES } from './svg.ts';
-import type { Element, Paint } from './svg.ts';
-
-type Matrix = [number, number, number, number, number, number];
+import {
+  color,
+  declared,
+  IDENTITY,
+  IGNORED,
+  inherit,
+  INITIAL,
+  multiply,
+  number,
+  oneOf,
+  parse,
+  SHAPES,
+  transformOf,
+} from './svg.ts';
+import type { Element, Matrix, Paint } from './svg.ts';
 
 /** A shape as the Drawing's native view takes it: src/native/drawing-shapes.ts's DrawnShape. */
 export interface SvgShape {
@@ -34,67 +45,6 @@ export interface SvgDrawing {
   shapes: SvgShape[];
 }
 
-const IDENTITY: Matrix = [1, 0, 0, 1, 0, 0];
-
-function multiply(p: Matrix, q: Matrix): Matrix {
-  return [
-    p[0] * q[0] + p[2] * q[1],
-    p[1] * q[0] + p[3] * q[1],
-    p[0] * q[2] + p[2] * q[3],
-    p[1] * q[2] + p[3] * q[3],
-    p[0] * q[4] + p[2] * q[5] + p[4],
-    p[1] * q[4] + p[3] * q[5] + p[5],
-  ];
-}
-
-const radians = (degrees: number) => (degrees * Math.PI) / 180;
-
-/** Each SVG transform function as its matrix. */
-const TRANSFORMS: Readonly<Record<string, (args: number[]) => Matrix>> = {
-  matrix: ([a = 1, b = 0, c = 0, d = 1, e = 0, f = 0]) => [a, b, c, d, e, f],
-  translate: ([x = 0, y = 0]) => [1, 0, 0, 1, x, y],
-  scale: ([x = 1, y = x]) => [x, 0, 0, y, 0, 0],
-  rotate: ([degrees = 0, cx = 0, cy = 0]) => {
-    const cos = Math.cos(radians(degrees));
-    const sin = Math.sin(radians(degrees));
-
-    return multiply(multiply([1, 0, 0, 1, cx, cy], [cos, sin, -sin, cos, 0, 0]), [
-      1,
-      0,
-      0,
-      1,
-      -cx,
-      -cy,
-    ]);
-  },
-  skewX: ([degrees = 0]) => [1, 0, Math.tan(radians(degrees)), 1, 0, 0],
-  skewY: ([degrees = 0]) => [1, Math.tan(radians(degrees)), 0, 1, 0, 0],
-};
-
-/** A transform attribute's functions, applied left to right, as one matrix. */
-function transformOf(transform: string | undefined): Matrix {
-  let matrix = IDENTITY;
-
-  for (const [, name, args] of (transform ?? '').matchAll(/([a-zA-Z]+)\s*\(([^)]*)\)/g)) {
-    const make = TRANSFORMS[name];
-
-    if (!make) throw new Error(`a ${name}() transform`);
-
-    matrix = multiply(
-      matrix,
-      make(
-        args
-          .trim()
-          .split(/[\s,]+/)
-          .filter(Boolean)
-          .map((value) => number(value, name)),
-      ),
-    );
-  }
-
-  return matrix;
-}
-
 /** `#rrggbbaa` of a color with its opacity, or null for none. */
 function paintColor(value: string, opacity: number): string | null {
   const parsed = color(value);
@@ -104,12 +54,6 @@ function paintColor(value: string, opacity: number): string | null {
   const alpha = Math.round(Math.min(Math.max(parsed.alpha * opacity, 0), 1) * 255);
 
   return parsed.hex + alpha.toString(16).padStart(2, '0');
-}
-
-function oneOf<T extends string>(key: string, value: string, values: readonly T[]): T {
-  if (!values.includes(value as T)) throw new Error(`${key}="${value}"`);
-
-  return value as T;
 }
 
 /** As src/native/drawing-shapes.ts: an odd list repeats, and one summing to 0 is solid. */

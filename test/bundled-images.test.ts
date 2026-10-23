@@ -11,6 +11,7 @@ import {
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { bundledImages, writeImages } from '../src/cli/bundled-images.ts';
+import { ROOT } from '../src/cli/config.ts';
 import { vectorDrawable } from '../src/cli/vector-drawable.ts';
 import type { BundledAsset } from '../src/dev/assets.ts';
 
@@ -70,8 +71,9 @@ test('iOS bundles each image as an image set of its scales, vectors kept as vect
     { idiom: 'universal', filename: 'asset_images_cover@2x.png', scale: '2x' },
   ]);
 
+  // Xcode's key: an SVG or PDF drawn at each size it shows at, not scaled from 1x.
   assert.deepEqual(JSON.parse(text(files['asset_icon.imageset/Contents.json'])).properties, {
-    'preserves-kuito-representation': true,
+    'preserves-vector-representation': true,
   });
 });
 
@@ -153,6 +155,114 @@ test('an SVG converts to a VectorDrawable of the same size and viewport', () => 
   );
 
   assert.doesNotMatch(xml, /title|Star/);
+});
+
+/** A one-path SVG on a 0 0 10 20 viewBox, `defs` holding its gradient. */
+const painted = (defs: string, shape = '<rect width="10" height="20" fill="url(#g)"/>') =>
+  vectorDrawable(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 20"><defs>${defs}</defs>${shape}</svg>`,
+  );
+
+const STOPS = '<stop offset="0" stop-color="#ff0000"/><stop offset="100%" stop-color="#0000ff"/>';
+
+test('a linear gradient becomes the path’s own, in its coordinates', () => {
+  const xml = painted(`<linearGradient id="g" x2="1" y2="1">${STOPS}</linearGradient>`);
+
+  assert.match(xml, /xmlns:aapt="http:\/\/schemas\.android\.com\/aapt"/);
+
+  // objectBoundingBox: the diagonal of the 10 × 20 box, its isolines kept parallel
+  // to the box's other diagonal as SVG draws them.
+  assert.match(
+    xml,
+    /<path android:pathData="M0,0h10v20h-10z">\s*<aapt:attr name="android:fillColor">\s*<gradient android:type="linear" android:startX="0" android:startY="0" android:endX="16" android:endY="8" android:tileMode="clamp">\s*<item android:offset="0" android:color="#ffff0000" \/>\s*<item android:offset="1" android:color="#ff0000ff" \/>\s*<\/gradient>\s*<\/aapt:attr>\s*<\/path>/,
+  );
+
+  assert.doesNotMatch(vectorDrawable('<svg viewBox="0 0 1 1"><path d="M0 0h1"/></svg>'), /aapt/);
+});
+
+test('a gradient in user space follows its gradientTransform', () => {
+  const xml = painted(
+    `<linearGradient id="g" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="10" y2="0" gradientTransform="rotate(90)" spreadMethod="reflect">${STOPS}</linearGradient>`,
+  );
+
+  assert.match(
+    xml,
+    /android:startX="0" android:startY="0" android:endX="0" android:endY="10" android:tileMode="mirror"/,
+  );
+});
+
+test('stops fold their opacity, the fill’s and the element’s into each color', () => {
+  const xml = painted(
+    '<linearGradient id="g"><stop offset="50%" style="stop-color: #ff0000; stop-opacity: .5"/><stop offset="1" stop-color="#0000ff"/></linearGradient>',
+    '<rect width="10" height="20" fill="url(#g)" fill-opacity=".5" opacity=".5"/>',
+  );
+
+  assert.match(xml, /<item android:offset="0.5" android:color="#20ff0000" \/>/);
+
+  // One stop paints its color, as SVG does.
+  const solid = painted(
+    '<linearGradient id="g"><stop stop-color="#ff0000" stop-opacity=".5"/></linearGradient>',
+  );
+
+  assert.match(solid, /android:fillColor="#ff0000" android:fillAlpha="0.5"/);
+  assert.doesNotMatch(solid, /aapt/);
+});
+
+test('a gradient takes the stops and attributes of the one it references', () => {
+  const xml = painted(
+    `<linearGradient id="base" x2="0" y2="1">${STOPS}</linearGradient><linearGradient id="g" href="#base" spreadMethod="repeat"/>`,
+  );
+
+  assert.match(
+    xml,
+    /android:startX="0" android:startY="0" android:endX="0" android:endY="20" android:tileMode="repeat">\s*<item android:offset="0" android:color="#ffff0000" \/>/,
+  );
+});
+
+test('a circular radial gradient and a stroke gradient convert', () => {
+  const radial = painted(
+    `<radialGradient id="g">${STOPS}</radialGradient>`,
+    '<circle cx="5" cy="5" r="5" fill="url(#g)"/>',
+  );
+
+  assert.match(
+    radial,
+    /<gradient android:type="radial" android:centerX="5" android:centerY="5" android:gradientRadius="5" android:tileMode="clamp">/,
+  );
+
+  const stroked = painted(
+    `<linearGradient id="g" gradientUnits="userSpaceOnUse" x2="10">${STOPS}</linearGradient>`,
+    '<path d="M0 0L10 0" stroke="url(#g)" stroke-width="2" fill="none"/>',
+  );
+
+  assert.match(stroked, /android:strokeWidth="2">\s*<aapt:attr name="android:strokeColor">/);
+});
+
+test('the Kuito mark, gradients and all, converts', () => {
+  const xml = vectorDrawable(
+    readFileSync(join(ROOT, 'apps/website/public/kuito-mark.svg'), 'utf8'),
+  );
+
+  assert.equal(xml.match(/<gradient android:type="linear"/g)?.length, 3);
+  assert.match(xml, /android:color="#ffdcc9ff"/);
+  assert.match(xml, /android:fillType="evenOdd"/);
+});
+
+test('a gradient Android draws otherwise is an error saying why', () => {
+  for (const [defs, shape, why] of [
+    [
+      `<radialGradient id="g">${STOPS}</radialGradient>`,
+      undefined,
+      /an elliptical radial gradient/,
+    ],
+    [
+      `<radialGradient id="g" fx="0.2">${STOPS}</radialGradient>`,
+      '<circle cx="5" cy="5" r="5" fill="url(#g)"/>',
+      /a radial gradient with its own focal point/,
+    ],
+    ['', undefined, /a url\(#g\) paint that names no gradient/],
+  ] as const)
+    assert.throws(() => painted(defs, shape), why);
 });
 
 test('an SVG Android cannot draw is an error naming what', () => {

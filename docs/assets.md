@@ -20,6 +20,25 @@ export function Header() {
 }
 ```
 
+## Bundle an SVG
+
+An `.svg` import is an image like a PNG, kept sharp at every size it is shown
+at. iOS draws the file itself. Android draws vectors only as VectorDrawables,
+so the build converts each SVG and fails on what Android would draw
+differently, naming the element:
+
+- **Converted:** paths and the basic shapes, groups with their transforms,
+  fills and strokes, solid colors with their opacity, and linear and radial
+  gradients: in the shape's box or in user space, through `gradientTransform`
+  and `href`, each stop's opacity folded in, `spreadMethod` included.
+- **Not converted:** text, patterns, clip paths, masks, filters, embedded
+  images and `<use>`; a radial gradient that is not a circle (a box that is not
+  square, or a `gradientTransform` that stretches it) or has its own focal
+  point. Simplify the file, or bundle a PNG or PDF instead.
+
+An `.svg?drawing` import, the shapes of a [Drawing](drawing.md), draws solid
+colors only: a gradient there is an error.
+
 ## Use a platform icon
 
 Symbol uses platform artwork. Give meaningful icons a label; choose a bundled asset or Drawing when the shape must be identical across platforms.
