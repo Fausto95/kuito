@@ -1,8 +1,10 @@
 import { test } from 'vite-plus/test';
 import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { HEADLESS_WASM_PIN, headlessInputs } from '../src/cli/headless-wasm.ts';
 import { LayoutEngine } from '../src/tests/layout.ts';
+import { HEADLESS_WASM } from '../src/tests/wasm.ts';
 
 // The layout engine the headless host runs: native/shared/layout compiled to
 // WebAssembly, checked in so an app's tests need no C++ toolchain.
@@ -15,6 +17,23 @@ test('the checked-in module is built from the current layout engine', async () =
     { inputs: await headlessInputs() },
     'the C++ it runs changed: run node scripts/build-headless-wasm.ts',
   );
+});
+
+// package.json's engines start at Node 22.18, whose V8 runs Wasm's legacy
+// exception handling but not exnref, the encoding wasi-sdk emits by default.
+test('the module compiles without exnref, as Node 22 runs it', () => {
+  const compile = spawnSync(
+    process.execPath,
+    [
+      '--no-experimental-wasm-exnref',
+      '-e',
+      'new WebAssembly.Module(require("node:fs").readFileSync(process.argv[1]))',
+      HEADLESS_WASM,
+    ],
+    { encoding: 'utf8' },
+  );
+
+  assert.equal(compile.status, 0, compile.stderr);
 });
 
 test('views lay out with their kind defaults and props, in points rounded to pixels', () => {
