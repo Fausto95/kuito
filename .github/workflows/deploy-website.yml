@@ -1,0 +1,63 @@
+name: Deploy website
+
+# Publishes the site to Cloudflare Workers (apps/website/wrangler.jsonc) after
+# each change on main to what it is generated from, the paths kuito-website.yml
+# checks on pull requests. Run it by hand from the Actions tab to redeploy.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/website/**'
+      - 'docs/**'
+      - 'README.md'
+      - 'CONTRIBUTING.md'
+      - 'src/ui/**'
+      - 'src/native/**'
+      - 'src/tests/**'
+      - 'src/style/**'
+      - 'src/cli/config.ts'
+      - 'src/cli/kuito-config.ts'
+      - 'native/modules/**'
+      - 'demo/**'
+      - 'templates/**'
+      - '.github/workflows/deploy-website.yml'
+  workflow_dispatch:
+
+# One deploy at a time; a newer push replaces a deploy still waiting.
+concurrency:
+  group: deploy-website
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    environment: website
+    defaults:
+      run:
+        working-directory: apps/website
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      # The site's generators read the framework's sources and docs.
+      - name: Install framework dependencies
+        run: npm ci --no-audit --no-fund
+        working-directory: .
+      - name: Install website dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Generate the reference and the pages
+        run: npm run generate
+      - name: Links resolve
+        run: npm run links:check
+      - name: Build
+        run: npm run build
+      # Wrangler takes the account and its token from these variables.
+      - name: Deploy to Cloudflare Workers
+        run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

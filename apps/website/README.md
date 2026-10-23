@@ -66,7 +66,7 @@ npm run preview
 
 Inspect navigation, search, a component's guide/props, an API example, a CSS entry and the narrow-screen layout. The theme uses `data-theme` on the root element and tokens in `src/styles.css`.
 
-After configuring Cloudflare credentials and the target account, `npm run deploy` publishes the `kuito-website` Worker. Deployment is separate from a docs change or Git push.
+`.github/workflows/deploy-website.yml` publishes the `kuito-website` Worker after each push to `main` that changes what the site is generated from, once its links resolve and it builds; it also runs by hand from the Actions tab. It needs two repository secrets: `CLOUDFLARE_API_TOKEN`, a Cloudflare API token from the "Edit Cloudflare Workers" template, and `CLOUDFLARE_ACCOUNT_ID`. From a checkout, after `npx wrangler login`, `npm run deploy` publishes the same way.
 
 For prose conventions, read [Writing documentation](CONTRIBUTING-DOCS.md).
 
