@@ -482,21 +482,27 @@ test('a release shell carries what checks its updates; an update built from the 
   assert.ok(!existsSync(join(project.cache, 'android/assets', UPDATE_SETTINGS_FILE)));
 });
 
-test('the iOS release shell carries its update settings in its resources', async () => {
-  const { project, environment } = signedProject({ ios: { ...BASE.ios, teamId: 'A1B2C3D4E5' } });
-  const shell = await shellModules(project.root, { uses: [], links: [], linkHash: '' });
+test(
+  'the iOS release shell carries its update settings in its resources',
+  { tags: ['macos'] },
+  async () => {
+    const { project, environment } = signedProject({
+      ios: { ...BASE.ios, teamId: 'A1B2C3D4E5' },
+    });
+    const shell = await shellModules(project.root, { uses: [], links: [], linkHash: '' });
 
-  await buildIOS(recorder(), {
-    project,
-    ...shell,
-    device: null,
-    profile: 'release',
-    environment,
-    hermes: async () => '/hermes',
-  }).catch(() => {});
+    await buildIOS(recorder(), {
+      project,
+      ...shell,
+      device: null,
+      profile: 'release',
+      environment,
+      hermes: async () => '/hermes',
+    }).catch(() => {});
 
-  assert.ok(existsSync(join(project.cache, 'ios/Resources', UPDATE_SETTINGS_FILE)));
-});
+    assert.ok(existsSync(join(project.cache, 'ios/Resources', UPDATE_SETTINGS_FILE)));
+  },
+);
 
 const fixture = (platform: string): unknown =>
   JSON.parse(readFileSync(join(ROOT, `test/fixtures/updates/${platform}.json`), 'utf8'));
