@@ -50,3 +50,16 @@ test('the startup screen and the devtools show the brand mark, not a placeholder
     assert.doesNotMatch(source, /◆/, `${file} has no placeholder glyph`);
   }
 });
+
+test('the starter’s logo is the brand master at the size it shows', () => {
+  const { paths, stops } = brandMark();
+  const logo = read('templates/app/assets/logo.svg');
+
+  assert.match(logo, /<svg [^>]*width="40" height="40"/);
+  assert.match(logo, /viewBox="0 0 512 512"/);
+
+  for (const path of paths) assert.ok(logo.includes(`d="${path}"`), `the logo draws ${path}`);
+
+  for (const { color } of stops)
+    assert.ok(logo.includes(`#${color}`), `its gradient has #${color}`);
+});

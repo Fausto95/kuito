@@ -1,10 +1,11 @@
 /**
- * Export the Kuito caracal master to native launcher and splash PNGs.
+ * Export the Kuito caracal master to native launcher and splash PNGs, and the
+ * starter's in-app logo.
  *
  * This is an intentional, explicit build step. Apps can override all assets.
  * Run: npm run brand:export (from apps/website).
  */
-import { mkdir, readFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import sharp from 'sharp';
@@ -42,6 +43,17 @@ async function icon(path, background, width = 810) {
     .png()
     .toFile(path);
 }
+
+// The logo the starter's Home shows: the master itself, gradients and all,
+// at the 40 points it is shown at (an SVG image's size is its own).
+const logo = source
+  .toString('utf8')
+  .replace(/(<svg[^>]*?) width="\d+" height="\d+"/, '$1 width="40" height="40"');
+
+if (!logo.includes('width="40" height="40"'))
+  throw new Error('public/kuito-mark.svg: no width and height to size the starter logo by');
+
+await writeFile(resolve(assets, 'logo.svg'), logo);
 
 await icon(resolve(assets, 'icon.png'), '#111319');
 await icon(resolve(assets, 'icon-staging.png'), '#29214e');
