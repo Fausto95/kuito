@@ -55,7 +55,7 @@ export function PageHeader({ title, description, code, badges, translated = true
     <header className="page-header">
       <h1 className={code ? 'is-code' : undefined}>{title}</h1>
       {description && <p className="page-description">{description}</p>}
-      <div className="page-meta">{badges}</div>
+      {badges && <div className="page-meta">{badges}</div>}
       {!translated && locale !== 'en' && (
         <div className="callout callout-info" role="note">
           <Languages size={16} aria-hidden="true" />

@@ -123,7 +123,6 @@ type Page = {
   headings: Heading[];
   translated: boolean;
   sourcePath: string;
-  words: number;
 };
 
 function slugify(text: string): string {
@@ -298,9 +297,7 @@ async function renderDocument(
         : html + figure;
   }
 
-  const words = raw.split(/\s+/).filter(Boolean).length;
-
-  return { slug: pageSlugOf(slug), title, description, html, headings: current.headings, words };
+  return { slug: pageSlugOf(slug), title, description, html, headings: current.headings };
 }
 
 async function main() {

@@ -90,16 +90,7 @@ function Page() {
             doc || !entry?.description ? undefined : <Inline>{entry.description}</Inline>
           }
           translated={doc?.translated ?? true}
-          badges={
-            <>
-              {kindLabel && <span className="badge badge-kind">{kindLabel}</span>}
-              {doc && (
-                <span className="badge">
-                  {doc.words} {t('docs.words')}
-                </span>
-              )}
-            </>
-          }
+          badges={kindLabel ? <span className="badge badge-kind">{kindLabel}</span> : undefined}
         />
         {doc && <Article html={doc.html} />}
         {entry && (

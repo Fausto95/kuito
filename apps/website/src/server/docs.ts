@@ -46,7 +46,6 @@ type DocPage = {
   headings: { id: string; text: string; level: number }[];
   translated: boolean;
   sourcePath: string;
-  words: number;
 };
 
 type DocsFile = { locale: Locale; pages: Record<string, DocPage> };
