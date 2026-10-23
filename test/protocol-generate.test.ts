@@ -81,6 +81,14 @@ test('a docs row naming a prop its kind does not take is rejected', () => {
   assert.throws(() => generateProtocol(manifest, read), /Pressable docs list edges/);
 });
 
+test("a kind's prop table is generated into its own docs page", () => {
+  const files = generateProtocol(MANIFEST, read);
+
+  assert.match(files['docs/pressable.md'], /\| `pressedScale` _\(Kuito\)_ +\| Scale while pressed/);
+  assert.match(files['docs/safe-area.md'], /\| `edges` +\| Which of `top`/);
+  assert.equal(files['docs/primitives.md'], undefined, 'the Build a screen guide has no tables');
+});
+
 test('an alias on a kind that does not take the prop is rejected', () => {
   const manifest: Manifest = {
     ...MANIFEST,
