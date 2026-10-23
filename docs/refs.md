@@ -51,11 +51,11 @@ function Chat() {
 
 ## Choose the handle type
 
-ref defaults to ElementHandle. ScrollHandle adds scrollTo and scrollToEnd; ListHandle adds scrollToIndex and scrollToItem. Camera, Video and WebView provide typed ref helpers and readiness information. Use those helpers for native view methods.
+ref defaults to ElementHandle: focus and blur for a text field, setProperty, its parent and children, and addEventListener, removeEventListener and dispatchEvent ([listen from a ref](events.md#listen-from-a-ref)). ScrollHandle adds scrollTo and scrollToEnd; ListHandle adds scrollToIndex and scrollToItem. Camera, Video and WebView provide typed ref helpers and readiness information. Use those helpers for native view methods.
 
 ## Avoid stale handles
 
-A ref follows one view. Do not cache current outside the operation that uses it. setProperty writes a native prop until its reactive binding updates again; use a signal for persistent state. Event listeners on a handle should be cleaned up with the component that installed them.
+A ref follows one view. Do not cache current outside the operation that uses it. setProperty writes a native prop until its reactive binding updates again; use a signal for persistent state. A handle's event listeners go with its view: removing the view removes them.
 
 ## Continue
 
