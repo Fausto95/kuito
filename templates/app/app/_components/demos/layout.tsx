@@ -16,6 +16,8 @@ export function LayoutDemo() {
         gap={8}
         borderRadius={12}
         backgroundColor={colors.accentSoft}
+        // An HStack centers its children across it; the swatches fill its height.
+        alignItems="stretch"
         justifyContent={justify()}
       >
         <Box width={56} borderRadius={8} backgroundColor={colors.accent} />
