@@ -649,6 +649,23 @@ test('kuito create installs dependencies and prints the next steps', async () =>
   }
 });
 
+test('kuito create --routes components writes component routes, and outside a terminal defaults to file routes', async () => {
+  const parent = temp();
+  const quiet = { cwd: parent, out: () => {} };
+
+  try {
+    await main(['create', 'Declared', '--routes', 'components', '--no-install'], quiet);
+    assert.ok(existsSync(join(parent, 'Declared/app.tsx')));
+    assert.ok(!existsSync(join(parent, 'Declared/app')));
+
+    // A test's stdin is no terminal: no picker, file routes.
+    await main(['create', 'Plain', '--no-install'], quiet);
+    assert.ok(existsSync(join(parent, 'Plain/app/_layout.tsx')));
+  } finally {
+    rmSync(parent, { recursive: true, force: true });
+  }
+});
+
 /** Generates the starter, then compiles and runs `source` written beside its app/ directory. */
 async function runInStarter(source: string, { ui = false } = {}) {
   const parent = temp();
