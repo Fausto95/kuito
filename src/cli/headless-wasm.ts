@@ -64,6 +64,10 @@ const SHARED_HEADERS = [
 // Exceptions use Wasm's exception handling, which Node runs natively: the
 // engine and the decoder reject what is invalid by throwing, as on the
 // devices. A reactor has no main; the host calls `_initialize` once.
+// Node 22's V8 runs only the legacy encoding of exceptions, not exnref, which
+// wasi-sdk emits by default and its prebuilt libc++ already holds. LTO links
+// libc++ from the sysroot's bitcode instead, so the linker generates all the
+// code; it takes the exception options the compiler would otherwise have.
 const FLAGS = [
   '--target=wasm32-wasip1',
   '-std=c++17',
@@ -72,10 +76,17 @@ const FLAGS = [
   '-Wextra',
   '-Werror',
   '-fwasm-exceptions',
+  '-flto',
   '-mexec-model=reactor',
 ];
 
-const LINK_FLAGS = ['-lunwind', '-Wl,--strip-all'];
+const LINK_FLAGS = [
+  '-lunwind',
+  '-Wl,-mllvm,-wasm-enable-eh',
+  '-Wl,-mllvm,-exception-model=wasm',
+  '-Wl,-mllvm,-wasm-use-legacy-eh',
+  '-Wl,--strip-all',
+];
 
 /** A hash of every input and flag of the build: the pin a stale module fails against. */
 export async function headlessInputs(): Promise<string> {
